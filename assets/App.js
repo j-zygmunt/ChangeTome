@@ -21,13 +21,19 @@ function App() {
             <Header/>
             <Switch>
                 <Route exact path="/">
-                    <Redirect to="/home" component={Home} />
-                </Route>
+                    <Redirect to="/home" />
+                </Route>    
                 <Route path="/home" component={Home} />
                 <Route path="/post-ad" component={PostAd} />
                 <Route path="/profile" component={Profile} />
                 <Route path="/signin" component={SignIn} />
+                <Route path="/login">
+                    <Redirect to="/signin" />
+                </Route>
                 <Route path="/signup" component={SignUp} />
+                <Route path="/register">
+                    <Redirect to="/signup" />
+                </Route>
                 <Route path="/404" component={Error} />
                 <Redirect to="/404" />
             </Switch>
