@@ -12,13 +12,15 @@ import Profile from './views/Profile/Profile';
 import SignIn from './views/SignIn/SignIn';
 import SignUp from './views/SignUp/SignUp';
 import Header from './components/Header/Header';
+import LoginHeader from './components/LoginHeader/LoginHeader'
 
 import './styles/app.css'
 
 function App() {
+
     return (
         <BrowserRouter>
-            <Header/>
+            <Header />
             <Switch>
                 <Route exact path="/">
                     <Redirect to="/home" />
