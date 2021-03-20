@@ -9,6 +9,8 @@ import {
 import {makeStyles} from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import {NavLink, withRouter} from 'react-router-dom';
+import LoginHeader from '../LoginHeader/LoginHeader'
+
 
 const useStyles = makeStyles((theme) => ({
     menuButton: {
@@ -19,9 +21,6 @@ const useStyles = makeStyles((theme) => ({
     },
     default: {
         minHeight: 64,
-    },
-    login: {
-        minHeight: 90,
     }
 }));
 
@@ -30,13 +29,7 @@ function Header(props) {
 
     if (props.location.pathname.toUpperCase() == "/SIGNUP" || props.location.pathname.toUpperCase() == "/SIGNIN")
         return(
-            <AppBar>
-            <Toolbar className={classes.login}>
-                <NavLink to="/home">
-                    <Button color="inherit">ChangeTome</Button>
-                </NavLink>
-            </Toolbar>
-        </AppBar>
+            <LoginHeader />
         );
 
     return (
@@ -49,7 +42,9 @@ function Header(props) {
                 <Typography variant="h6" className={classes.title}>
                     ChangeTome
                 </Typography>
-                <Button color="inherit">Login</Button>
+                <NavLink to="/signin">
+                    <Button color="inherit">Login</Button>
+                </NavLink>
             </Toolbar>
         </AppBar>
     );

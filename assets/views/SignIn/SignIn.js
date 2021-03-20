@@ -4,20 +4,25 @@ import {
     makeStyles,
     Paper,
     TextField,
-    Typography
+    Typography,
+    Button,
+    useMediaQuery
 } from '@material-ui/core';
-import NavLink from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import PasswordInput from '../../components/PasswordInput/PasswordInput'
-import LoginHeader from '../../components/LoginHeader/LoginHeader'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     root: {
         height: 'calc(100vh - 90px)',
-        marginTop: 90
+        marginTop: 90,
+        backgroundColor: theme.palette.background.default,
     },
     loginForm: {
         height: 'auto',
         padding: '2em 3em 3em 3em',
+        '@media (max-width:600px)': {
+            padding: '1em 2em 2em 2em'
+        },
         margin: '0 auto'
     },
     image: {
@@ -27,21 +32,28 @@ const useStyles = makeStyles({
         backgroundSize: 'cover',
         backgroundPosition: 'center',
     },
-
-});
+    submit: {
+        textTransform: 'none',
+        fontWeight: '700',
+    },
+    link: {
+        textDecoration: 'none',
+        color: theme.palette.primary.light,
+        fontSize: '1.2em'
+    }
+}));
 
 function SignIn() {
     const classes = useStyles();
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const mobile = useMediaQuery('(max-width:600px)');
 
     const handleSubmit = event => {
         
     }
     
     return(
-        <div>
         <Grid
             container
             component="div"
@@ -60,7 +72,7 @@ function SignIn() {
                 className={classes.loginForm}
                 alignItems="center"
                 justify="center"
-                xl={4} lg={5} md={5} sm={7} xs={10}
+                xl={4} lg={5} md={5} sm={7} xs={11}
             > 
                 <Typography 
                     component="h1"
@@ -74,7 +86,7 @@ function SignIn() {
                     component="form"
                     alignItems="center"
                     justify="center"
-                    spacing={4}
+                    spacing={mobile ? 2 : 4}
                     onSubmit={handleSubmit}
                 >
                     <Grid
@@ -90,6 +102,7 @@ function SignIn() {
                             value={email}
                             onChange={event => setEmail(event.target.value)}
                             variant="outlined"
+                            size={mobile ? 'small' : 'medium'}
                         /> 
                     </Grid>
                     <Grid
@@ -102,12 +115,49 @@ function SignIn() {
                             value={password}
                             onChange={event => setPassword(event.target.value)}
                             label="Password"
+                            size={mobile ? 'small' : 'medium'}
                         />
+                    </Grid>
+                    <Grid
+                        item
+                        xs={12}
+                    >
+                        <Button
+                            fullWidth
+                            type='submit'
+                            variant='contained'
+                            color='primary'
+                            size='large'
+                            className={classes.submit} 
+                        >
+                            Sign in
+                        </Button>
+                    </Grid>
+                    <Grid 
+                        container item
+                        xs={12}
+                        justify='space-between'
+                    >
+                        <Grid 
+                            item
+                            xs={12} sm={0}
+                            >
+                            <NavLink to="/404" className={classes.link}>
+                                Forgot password?
+                            </NavLink>
+                        </Grid>
+                        <Grid 
+                            item
+                            xs={12} sm={0}
+                            >
+                            <NavLink to="/signup" className={classes.link}>
+                                Don't have an account? Sign Up
+                            </NavLink>
+                        </Grid>
                     </Grid>
                 </Grid>
             </Grid>
         </Grid>
-        </div>
     );
 }
 

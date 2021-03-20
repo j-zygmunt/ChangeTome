@@ -39,6 +39,7 @@ function PasswordInput(props) {
                 )
             }}
             label={props.label}
+            size={props.size}
         />
     );
 }
