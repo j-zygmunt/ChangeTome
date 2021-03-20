@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { 
     Grid, 
     makeStyles,
@@ -8,7 +8,7 @@ import {
     Button,
     useMediaQuery
 } from '@material-ui/core';
-import {NavLink} from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import PasswordInput from '../../components/PasswordInput/PasswordInput'
 
 const useStyles = makeStyles((theme) => ({
@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     },
     link: {
         textDecoration: 'none',
-        color: theme.palette.primary.light,
+        color: theme.palette.secondary.light,
         fontSize: '1.2em'
     }
 }));
@@ -126,7 +126,7 @@ function SignIn() {
                             fullWidth
                             type='submit'
                             variant='contained'
-                            color='primary'
+                            color='secondary'
                             size='large'
                             className={classes.submit} 
                         >
@@ -140,7 +140,7 @@ function SignIn() {
                     >
                         <Grid 
                             item
-                            xs={12} sm={0}
+                            xs={12}
                             >
                             <NavLink to="/404" className={classes.link}>
                                 Forgot password?
@@ -148,7 +148,7 @@ function SignIn() {
                         </Grid>
                         <Grid 
                             item
-                            xs={12} sm={0}
+                            xs={12}
                             >
                             <NavLink to="/signup" className={classes.link}>
                                 Don't have an account? Sign Up

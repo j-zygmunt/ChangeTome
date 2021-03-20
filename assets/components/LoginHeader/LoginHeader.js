@@ -10,11 +10,13 @@ import {NavLink} from 'react-router-dom';
 const useStyles = makeStyles((theme) => ({
     login: {
         minHeight: 90,
+        backgroundColor: theme.palette.background.default
     },
     link: {
         textDecoration: 'none',
         margin: 'auto',
-        color: "#FFFFFF"
+        color: theme.palette.secondary.light,
+        fontWeight: 'bolder'
     }
 }));
 
@@ -25,9 +27,10 @@ function LoginHeader() {
     <AppBar>
         <Toolbar className={classes.login}>
             <NavLink to="/home" className={classes.link}>
-                <Typography 
-                    variant='h4' 
-                    align='center'    
+                <Typography
+                    variant='h4'
+                    align='center'
+                    style={{ fontWeight: 600 }}
                 >
                     ChangeTome
                 </Typography>

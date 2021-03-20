@@ -1,4 +1,4 @@
-import React, {useState, use} from 'react';
+import React, { useState } from 'react';
 import { 
     Grid, 
     makeStyles,
@@ -9,7 +9,7 @@ import {
     Checkbox,
     useMediaQuery
 } from '@material-ui/core';
-import {NavLink} from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import PasswordInput from '../../components/PasswordInput/PasswordInput'
 
 const useStyles = makeStyles((theme) => ({
@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
     },
     link: {
         textDecoration: 'none',
-        color: theme.palette.primary.light,
+        color: theme.palette.secondary.light,
         fontSize: '1.2em',
     },
     wrap: {
@@ -57,13 +57,10 @@ function SignUp() {
     const [password2, setPassword2] = useState('');
     const [accepted, setAccepted] = useState(false);
     const mobile = useMediaQuery('(max-width:600px)');
-    
+
     const handleSubmit = event => {
         
     }
-    
-    console.log(accepted)
-    console.log(mobile)
 
     return(
         <Grid
@@ -183,7 +180,7 @@ function SignUp() {
                     </Grid>
                     <div className={classes.wrap}>
                         <Checkbox 
-                            color="primary" 
+                            color="secondary" 
                             onClick={() => setAccepted(!accepted)}
                         />
                         <NavLink 
@@ -201,7 +198,7 @@ function SignUp() {
                             fullWidth
                             type='submit'
                             variant='contained'
-                            color='primary'
+                            color='secondary'
                             size='large'
                             className={classes.submit} 
                         >

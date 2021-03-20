@@ -1,14 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     AppBar,
     Toolbar,
     Typography,
     Button,
-    IconButton
+    IconButton,
+    useMediaQuery
 } from '@material-ui/core'
-import {makeStyles} from '@material-ui/core/styles';
+
+import {
+    NavLink,
+    withRouter
+} from 'react-router-dom';
+import { makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
-import {NavLink, withRouter} from 'react-router-dom';
 import LoginHeader from '../LoginHeader/LoginHeader'
 
 
@@ -18,14 +23,18 @@ const useStyles = makeStyles((theme) => ({
     },
     title: {
         flexGrow: 1,
+        color: theme.palette.secondary.light
     },
     default: {
         minHeight: 64,
+        backgroundColor: theme.palette.background.default
     }
 }));
 
 function Header(props) {
+    const [isUser, setIsUser] = useState(true);
     const classes = useStyles();
+    const mobile = useMediaQuery('(max-width:600px)');
 
     if (props.location.pathname.toUpperCase() == "/SIGNUP" || props.location.pathname.toUpperCase() == "/SIGNIN")
         return(
@@ -35,16 +44,28 @@ function Header(props) {
     return (
         <AppBar>
             <Toolbar className={classes.default}>
-                <IconButton 
-                    edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                    <MenuIcon />
-                </IconButton>
+                {mobile &&
+                    <IconButton 
+                        edge="start"
+                        className={classes.menuButton}
+                        color="secondary"
+                        aria-label="menu">
+                        <MenuIcon />
+                    </IconButton>
+                }
                 <Typography variant="h6" className={classes.title}>
                     ChangeTome
                 </Typography>
-                <NavLink to="/signin">
-                    <Button color="inherit">Login</Button>
-                </NavLink>
+                {!mobile &&
+                    <div>
+                        <NavLink to="/signin">
+                            <Button color="secondary">Sign in</Button>
+                        </NavLink>                    
+                        <NavLink to="/signup">
+                            <Button color="secondary">Sign up</Button>
+                        </NavLink>                 
+                    </div>
+                }
             </Toolbar>
         </AppBar>
     );

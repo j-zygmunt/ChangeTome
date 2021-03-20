@@ -4,11 +4,12 @@ const myTheme = createMuiTheme({
     palette:{
         type:'light',
         primary: {
-            main: '#FF8754',
+            main: '#eeeeee',
             contrastText: "#ffffff",
         },
         secondary: {
-            main: '#FF8754'
+            main: '#FF8754',
+            contrastText: "#ffffff",
         }
     },
 })
