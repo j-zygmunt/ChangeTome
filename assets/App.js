@@ -26,7 +26,10 @@ function App() {
                 </Route>    
                 <Route path="/home" component={Home} />
                 <Route path="/post-ad" component={PostAd} />
-                <Route path="/profile" component={Profile} />
+                <Route path="/manage-account" component={Profile} />
+                <Route path="/your-ads" component={Profile} />
+                <Route path="/messages" component={Error} />
+                <Route path="/favourites" component={Error} />
                 <Route path="/signin" component={SignIn} />
                 <Route path="/login">
                     <Redirect to="/signin" />

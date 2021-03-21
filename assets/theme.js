@@ -1,4 +1,4 @@
-import {createMuiTheme} from '@material-ui/core/styles';
+import { unstable_createMuiStrictModeTheme as createMuiTheme } from '@material-ui/core/styles';
 
 const myTheme = createMuiTheme({
     palette:{
@@ -11,6 +11,14 @@ const myTheme = createMuiTheme({
             main: '#FF8754',
             contrastText: "#ffffff",
         }
+    },
+    overrides: {
+        MuiButton: {
+            root: {
+                textTransform: 'none',
+                fontWeight: '700',
+            },
+        },
     },
 })
 

@@ -4,8 +4,8 @@ import {
     Toolbar,
     Typography
 } from '@material-ui/core'
-import {makeStyles} from '@material-ui/core/styles';
-import {NavLink} from 'react-router-dom';
+import { makeStyles } from '@material-ui/core/styles';
+import { NavLink } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     login: {
@@ -15,8 +15,7 @@ const useStyles = makeStyles((theme) => ({
     link: {
         textDecoration: 'none',
         margin: 'auto',
-        color: theme.palette.secondary.light,
-        fontWeight: 'bolder'
+        color: theme.palette.secondary.main,
     }
 }));
 

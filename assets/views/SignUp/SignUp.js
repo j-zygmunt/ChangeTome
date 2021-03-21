@@ -33,13 +33,9 @@ const useStyles = makeStyles((theme) => ({
         backgroundSize: 'cover',
         backgroundPosition: 'center',
     },
-    submit: {
-        textTransform: 'none',
-        fontWeight: '700',
-    },
     link: {
         textDecoration: 'none',
-        color: theme.palette.secondary.light,
+        color: theme.palette.secondary.main,
         fontSize: '1.2em',
     },
     wrap: {
@@ -181,6 +177,7 @@ function SignUp() {
                     <div className={classes.wrap}>
                         <Checkbox 
                             color="secondary" 
+                            value={accepted}
                             onClick={() => setAccepted(!accepted)}
                         />
                         <NavLink 
