@@ -20,7 +20,6 @@ import {
     PermIdentity,
     ExitToApp,
 } from '@material-ui/icons';
-import MenuIcon from '@material-ui/icons/Menu';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -54,6 +53,10 @@ function Header(props) {
 
     const menuForUser = [
         {
+            itemName: "Exchange",
+            link: "post-ad",
+        },
+        {
             itemName: "Manage my Ads",
             link: "/your-ads",
             icon: <FolderOpen/>
@@ -77,10 +80,6 @@ function Header(props) {
             itemName: "Logout",
             link: "/logout",
             icon: <ExitToApp/>
-        },
-        {
-            itemName: "Exchange",
-            link: "post-ad",
         },
     ]
 
@@ -108,7 +107,10 @@ function Header(props) {
         <AppBar>
             <Toolbar className={classes.default}>
                 {mobile &&
-                    <MobileHeaderItems/>
+                    <MobileHeaderItems
+                        headerItems={isUser ? menuForUser : menuForGuest}
+                        isUser={isUser}
+                    />
                 }
                 <Typography 
                     variant="h6" 

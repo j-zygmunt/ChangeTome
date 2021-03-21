@@ -103,7 +103,7 @@ function DesktopHeaderItems(props) {
                             <ClickAwayListener onClickAway={handleClose}>
                                 <MenuList autoFocusItem={open}>
                                 {
-                                    props.headerItems.slice(0, 5).map((item) => {
+                                    props.headerItems.slice(1, 6).map((item) => {
                                         return (
                                             <NavLink
                                                 to={item.link}
@@ -128,15 +128,15 @@ function DesktopHeaderItems(props) {
                 )}
             </Popper>
             <NavLink 
-                to={props.headerItems[props.headerItems.length -1].link}
-                key={props.headerItems[props.headerItems.length -1].itemName}
+                to={props.headerItems[0].link}
+                key={props.headerItems[0].itemName}
             >
                 <Button 
                     color="secondary" 
                     size="large"
                     variant='contained'
                 >
-                    {props.headerItems[props.headerItems.length -1].itemName}
+                    {props.headerItems[0].itemName}
                 </Button>
             </NavLink>  
         </div>
