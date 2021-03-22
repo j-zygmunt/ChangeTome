@@ -49,7 +49,7 @@ function Error() {
     return(
         <Grid
             container
-            component="div"
+            component="main"
             className={classes.root}
             alignItems="center"
             justify="center"
@@ -101,7 +101,6 @@ function Error() {
                             variant='contained'
                             color='secondary'
                             size='large'
-                            className={classes.submit} 
                         >
                             GO TO HOMEPAGE
                         </Button>

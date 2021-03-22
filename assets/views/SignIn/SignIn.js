@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
         margin: '0 auto'
     },
     image: {
-        backgroundImage: 'url("./img/bookshelf.jpg")',
+        backgroundImage: 'url("../../img/bookshelf.jpg")',
         height: '100%',
         backgroundRepeat: "no-repeat",
         backgroundSize: 'cover',
@@ -52,7 +52,7 @@ function SignIn() {
     return(
         <Grid
             container
-            component="div"
+            component="main"
             className={classes.root}
             alignItems="center"
         >
@@ -124,7 +124,6 @@ function SignIn() {
                             variant='contained'
                             color='secondary'
                             size='large'
-                            className={classes.submit} 
                         >
                             Sign in
                         </Button>

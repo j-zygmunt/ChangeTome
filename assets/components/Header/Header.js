@@ -43,6 +43,7 @@ const useStyles = makeStyles((theme) => ({
         textDecoration: 'none',
         color: theme.palette.secondary.main,
         fontSize: '1.2em',
+        fontWeight: 'bold'
     },
 }));
 

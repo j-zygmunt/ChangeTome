@@ -47,7 +47,6 @@ function MobileHeaderItems(props) {
             >
                 <IconButton
                     color="secondary"
-                    aria-label="menu"
                     onClick={toggleDrawer(false)}
                 >
                     <CloseIcon style={{fontSize: "1.5em"}}/>
