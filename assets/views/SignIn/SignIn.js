@@ -9,7 +9,7 @@ import {
     useMediaQuery
 } from '@material-ui/core';
 import { NavLink } from 'react-router-dom';
-import PasswordInput from '../../components/PasswordInput/PasswordInput'
+import PasswordInput from '../../components/PasswordInput/PasswordInput';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -49,7 +49,7 @@ function SignIn() {
         
     }
     
-    return(
+    return (
         <Grid
             container
             component="main"

@@ -5,8 +5,8 @@ import {
     Typography,
     Button,
     makeStyles,
-} from '@material-ui/core'
-import { NavLink } from "react-router-dom"
+} from '@material-ui/core';
+import { NavLink } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -62,7 +62,6 @@ function Error() {
                 justify="center"
                 xl={5} lg={6} md={7} sm={8} xs={10}
             >
-
                 <Grid
                     item
                     xs={12}

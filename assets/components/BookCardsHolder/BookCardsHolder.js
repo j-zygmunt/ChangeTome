@@ -16,7 +16,6 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: theme.spacing(2),
         marginLeft: theme.spacing(4),
         marginRight: theme.spacing(4),
-
     },
     divider: {
         height: 1,
@@ -28,15 +27,14 @@ const useStyles = makeStyles((theme) => ({
 function BookCardsHolder(props) {
     const classes = useStyles();
 
-    return(
+    return (
         <Grid
             container
             alignItems="center"
             justify="space-between"
             className={classes.holder}
-            xs={12}
-            spacing={3}
-        >
+            spacing={2}
+        >        
             <Grid
                 item container
                 justify='space-between'
@@ -94,8 +92,7 @@ function BookCardsHolder(props) {
             >
                 <BookCard />
             </Grid>
-
-            <Divider orientation='horizontal' className={classes.divider} />
+            <Divider orientation='horizontal' className={classes.divider} />  
         </Grid>
     )
 }

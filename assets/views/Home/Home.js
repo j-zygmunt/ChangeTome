@@ -102,8 +102,8 @@ function Home() {
                     </Grid>
                 </Grid> 
             </Grid>
-            <BookCardsHolder name="Lastest"/>           
-            <BookCardsHolder name="Popular"/>           
+                <BookCardsHolder name="Lastest"/>           
+                <BookCardsHolder name="Popular"/>           
         </Grid>
     );
 }

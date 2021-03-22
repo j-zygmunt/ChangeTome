@@ -7,7 +7,6 @@ import {
     CardActionArea,
     CardMedia,
     CardContent,
-    Grid,
     Box,
     CardActions,
     makeStyles
@@ -21,11 +20,16 @@ const useStyles = makeStyles((theme) => ({
     divider: {
         height: 1,
         width: '100%',
-        backgroundColor: theme.palette.secondary.main
+        backgroundColor: theme.palette.secondary.main,
     },
     media: {
         height: 200,
-    }
+    },
+    infoWrapper: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
 }));
 
 function BookCard(props) {
@@ -45,10 +49,8 @@ function BookCard(props) {
                     <Typography variant="body2" color="textSecondary" component="p" align="right">
                         City - date hh:mm
                     </Typography>
-                    <Grid
-                        container
-                        alignItems="center"
-                        justify="space-between"
+                    <Box
+                        className={classes.infoWrapper}
                     >
                         <Box>
                             <Typography component="legend">Condition</Typography>
@@ -57,7 +59,7 @@ function BookCard(props) {
                         <Typography>
                             5$
                         </Typography>
-                    </Grid>
+                    </Box>
                     <Divider orientation='horizontal' className={classes.divider} />
                 </CardContent>
             </CardActionArea>
