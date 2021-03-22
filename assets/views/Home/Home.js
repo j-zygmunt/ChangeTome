@@ -4,18 +4,18 @@ import {
     Grid,
     Paper,
     Button,
-    Typography
+    Typography,
 } from '@material-ui/core'
 import { NavLink } from 'react-router-dom';
 import SearchBar from '../../components/SearchBar/SearchBar'
+import BookCardsHolder from '../../components/BookCardsHolder/BookCardsHolder'
 
 
 const useStyles = makeStyles((theme) => ({
     root: {
         marginTop: 64,
         backgroundColor: theme.palette.background.default,
-    },
-   
+    }, 
     image: {
         backgroundImage: 'url("../../img/bookshelf.jpg")',
         height: '280px',
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     },
     banner: {
         backgroundColor: theme.palette.background.default
-    }
+    },
 }));
 
 function Home() {
@@ -102,7 +102,8 @@ function Home() {
                     </Grid>
                 </Grid> 
             </Grid>
-
+            <BookCardsHolder name="Lastest"/>           
+            <BookCardsHolder name="Popular"/>           
         </Grid>
     );
 }
