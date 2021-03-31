@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
     Paper,
     Grid,
@@ -28,6 +28,13 @@ const useStyles = makeStyles((theme) => ({
 function PostAd() {
     const classes = useStyles();
 
+
+    React.useEffect(() => {
+        fetch("/api/users")
+        .then(user => console.log(user))
+
+    });
+
     return (
         <Grid
             container
@@ -35,7 +42,7 @@ function PostAd() {
             className={classes.root}
             alignItems="flex-start"
             justify="center"
-            direction=""
+    
         >
             <Grid
                 item

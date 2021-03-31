@@ -98,6 +98,7 @@ function SignIn() {
                             value={email}
                             onChange={event => setEmail(event.target.value)}
                             variant="outlined"
+                            color="secondary"
                             size={mobile ? 'small' : 'medium'}
                         /> 
                     </Grid>
@@ -111,6 +112,7 @@ function SignIn() {
                             value={password}
                             onChange={event => setPassword(event.target.value)}
                             label="Password"
+                            color="secondary"
                             size={mobile ? 'small' : 'medium'}
                         />
                     </Grid>

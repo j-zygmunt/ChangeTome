@@ -30,6 +30,10 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'space-between',
         alignItems: 'center',
     },
+    link: {
+        textDecoration: 'none',
+        color: 'inherit'
+    }
 }));
 
 function BookCard(props) {
@@ -37,7 +41,7 @@ function BookCard(props) {
 
     return (
         <Card style={{width: '100%', padding: '1em'}}>
-            <CardActionArea>
+            <NavLink to="/ad" className={classes.link}>
                 <CardMedia
                     className={classes.media}
                     image={require('../../img/book.jpg')}
@@ -49,9 +53,7 @@ function BookCard(props) {
                     <Typography variant="body2" color="textSecondary" component="p" align="right">
                         City - date hh:mm
                     </Typography>
-                    <Box
-                        className={classes.infoWrapper}
-                    >
+                    <Box className={classes.infoWrapper}>
                         <Box>
                             <Typography component="legend">Condition</Typography>
                             <Rating name="read-only" value={3} readOnly size="small"/>
@@ -62,7 +64,7 @@ function BookCard(props) {
                     </Box>
                     <Divider orientation='horizontal' className={classes.divider} />
                 </CardContent>
-            </CardActionArea>
+            </NavLink>
             <CardActions style={{padding: '0.5em 0 0 0'}}>
                 <IconButton color="secondary">
                     <FavoriteBorderIcon/>

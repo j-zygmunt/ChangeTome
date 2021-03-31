@@ -12,6 +12,7 @@ import Profile from './views/Profile/Profile';
 import SignIn from './views/SignIn/SignIn';
 import SignUp from './views/SignUp/SignUp';
 import Header from './components/Header/Header';
+import Ad from './views/Ad/Ad';
 
 
 function App() {
@@ -20,7 +21,7 @@ function App() {
         <BrowserRouter>
             <Header />
             <Switch>
-                <Route exact path="/">
+                <Route exact path="/" >
                     <Redirect to="/home" />
                 </Route>    
                 <Route path="/home" component={Home} />
@@ -30,6 +31,7 @@ function App() {
                 <Route path="/messages" component={Error} />
                 <Route path="/favourites" component={Error} />
                 <Route path="/signin" component={SignIn} />
+                <Route path="/ad" component={Ad} />
                 <Route path="/login">
                     <Redirect to="/signin" />
                 </Route>

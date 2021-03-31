@@ -25,6 +25,7 @@ function PasswordInput(props) {
             onChange={props.onChange}
             value={props.value}
             variant="outlined"
+            color={props.color}
             InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">

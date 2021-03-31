@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
     wrap: {
         width: '100%',
         margin: '0 16px'
-    }
+    },
 }));
 
 function SignUp() {
@@ -107,6 +107,7 @@ function SignUp() {
                             value={name}
                             onChange={event => setName(event.target.value)}
                             variant="outlined"
+                            color="secondary"
                             size={mobile ? 'small' : 'medium'}
                         /> 
                     </Grid>
@@ -123,6 +124,7 @@ function SignUp() {
                             value={surname}
                             onChange={event => setSurname(event.target.value)}
                             variant="outlined"
+                            color="secondary"
                             size={mobile ? 'small' : 'medium'}
                         /> 
                     </Grid>
@@ -139,6 +141,7 @@ function SignUp() {
                             value={email}
                             onChange={event => setEmail(event.target.value)}
                             variant="outlined"
+                            color="secondary"
                             size={mobile ? 'small' : 'medium'}
                         /> 
                     </Grid>
@@ -152,6 +155,7 @@ function SignUp() {
                             value={password}
                             onChange={event => setPassword(event.target.value)}
                             label="Password"
+                            color="secondary"
                             size={mobile ? 'small' : 'medium'}
                         />
                     </Grid>
@@ -171,6 +175,7 @@ function SignUp() {
                             value={password2}
                             onChange={event => setPassword2(event.target.value)}
                             label="Confirm password"
+                            color="secondary"
                             size={mobile ? 'small' : 'medium'}
                         />
                     </Grid>
@@ -197,7 +202,6 @@ function SignUp() {
                             variant='contained'
                             color='secondary'
                             size='large'
-                            className={classes.submit} 
                         >
                             Sign up
                         </Button>
