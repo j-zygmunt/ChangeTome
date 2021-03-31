@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
 function Header(props) {
     const [isUser, setIsUser] = useState(true);
     const classes = useStyles();
-    const mobile = useMediaQuery('(max-width:800px)');
+    const mobile = useMediaQuery('(max-width:960px)');
 
     const menuForUser = [
         {

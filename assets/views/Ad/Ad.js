@@ -8,35 +8,21 @@ import {
     IconButton,
     Box,
     Avatar,
-    CardActionArea,
+    useMediaQuery,
     TextField,
     Button
 } from '@material-ui/core';
-import Carousel from 'react-material-ui-carousel';
 import { NavLink } from 'react-router-dom';
 import Rating from '@material-ui/lab/Rating'
-import NavigateNextIcon from '@material-ui/icons/NavigateNext';
-import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
-import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+
+import PhotoCarousel from '../../components/PhotoCarousel/PhotoCarousel'
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        height: 'calc(100vh - 64px)',
         marginTop: 64,
         backgroundColor: theme.palette.background.default,
         paddingTop: '3rem'
-    },
-    image: {
-        height: '100%',
-        width: '100%',
-        objectFit: 'contain'
-    },
-    wrapper: {
-        height: '500px',
-    },
-    carousel: {
-        width: '100%'
     },
     boxWrapper: {
         display: 'flex',
@@ -48,38 +34,20 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
         backgroundColor: theme.palette.secondary.main
     },
-    field: {
-        '& label.Mui-focused': {
-          color: 'green',
-        },
-        '& .MuiInput-underline:after': {
-          borderBottomColor: 'green',
-        },
-        '& .MuiOutlinedInput-root': {
-          '& fieldset': {
-            borderColor: theme.palette.secondary.main,
-          },
-          '&:hover fieldset': {
-            borderColor: 'yellow',
-          },
-          '&.Mui-focused fieldset': {
-            borderColor: 'green',
-          },
-        },
-    },
-    button: {
-        marginTop: '1.5rem'
-    },
     link: {
         textDecoration: 'none',
         color: 'inherit'
+    },
+    paper: {
+        padding: '1.5rem',
+        width: '100%'
     }
 }));
 
 function Ad() {
     const classes = useStyles();
-
     const [buttonContent, setButtonContent] = React.useState("My number")
+    const mobile = useMediaQuery('(max-width:960px)');
 
     const handleSubmit = event => {
         
@@ -94,116 +62,27 @@ function Ad() {
             container
             component="main"
             className={classes.root}
-            direction='column'
+            direction='row'
             alignContent="center"
+            justify={'center'}
         >
             <Grid
-                xs={5}
+                xl={5} lg={5} md={5} sm={10} xs={11}
                 container item
                 spacing={3}
                 alignItems='center'
                 justify='center'
-                style={{marginRight: '1rem'}}
+                style={ mobile ? {marginBottom: '1rem'} : {marginRight: '1rem'}}
             >
-                <Grid
-                    item xs={12}    
-                >
-                    <Paper
-                        style={{padding: '1.5rem', width: '100%'}}
-                    >
-                        <Carousel
-                            className={classes.carousel}
-                            autoPlay={false}
-                            fullHeightHover={false} 
-                            indicatorIconButtonProps={{
-                                style: {
-                                    padding: '0',
-                                    marginTop: '-60px',
-                                    color: '#dddddd'
-                                }
-                            }}
-                            indicatorContainerProps={{
-                                style: {
-                                    marginTop: '-20px'
-                                }
-                            }}
-                            NextIcon={<NavigateNextIcon fontSize="large"/>}
-                            PrevIcon={<NavigateBeforeIcon fontSize="large"/>}
-                            IndicatorIcon={<FiberManualRecordIcon/>}
-                            activeIndicatorIconButtonProps={{
-                                style: {
-                                    color: '#555555aa'
-                                }
-                            }}
-                            navButtonsProps={{          
-                                style: {
-                                    color: '#222222',
-                                    backgroundColor: '#999999aa',
-                                    borderRadius: 5,
-                                    padding: 0
-                                }
-                            }}
-                            navButtonsAlwaysVisible={true} 
-                        >
-                            <Grid item xs={12} className={classes.wrapper}>
-                                <img src="../../img/bookshelf.jpg" className={classes.image} />
-                            </Grid>
-                            <Grid item xs={12} className={classes.wrapper}>
-                                <img src={require("../../img/book.jpg")} className={classes.image} />
-                            </Grid>
-                            <Grid item xs={12} className={classes.wrapper}>
-                                <img src={require("../../img/2.jpg")} className={classes.image} />
-                            </Grid>
-                            <Grid item xs={12} className={classes.wrapper}>
-                                <img src="../../img/bookshelf.jpg" className={classes.image} />
-                            </Grid>
-                        </Carousel>
+                <Grid item xs={12}>
+                    <Paper className={classes.paper}>
+                        <PhotoCarousel>
+
+                        </PhotoCarousel>
                     </Paper>
                 </Grid>
-                <Grid
-                    xs={12}
-                    container item
-                    alignItems='center'
-                    justify='center'
-                >
-                    <Paper style={{padding: '1.5rem', width: '100%'}}>
-                        <Typography variant="h6" paragraph>
-                            Leave me a message
-                        </Typography>
-                        <TextField
-                            id="outlined-multiline-static"
-                            multiline
-                            rows={4}
-                            fullWidth
-                            variant="outlined"
-                            required
-                            color="secondary"
-                        />
-                        <Button
-                            fullWidth
-                            type='submit'
-                            variant='contained'
-                            color='secondary'
-                            size='large'
-                            className={classes.button} 
-                        >
-                            Send
-                        </Button>
-                    </Paper>
-                </Grid>
-            </Grid>
-            <Grid
-                xs={4}
-                container item
-                alignItems='center'
-                justify='center'
-                spacing={3}
-                component='form'
-            >
-                <Grid
-                    item xs={12}
-                >
-                    <Paper style={{padding: '1.5rem', width: '100%'}}>
+                <Grid item xs={12}>
+                    <Paper className={classes.paper}>
                         <Typography variant="body2" color="textSecondary" align="right">
                             date hh:mm
                         </Typography>
@@ -241,30 +120,68 @@ function Ad() {
                     container item
                     alignItems='center'
                     justify='center'
+                    component='form'
                 >
-                    <Paper
-                        style={{padding: '1.5rem', width: '100%'}}
-                    >
-                            <Box style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                marginBottom: '1rem'
-                            }}
-                            >
+                    <Paper className={classes.paper}>
+                        <Typography variant="h6" paragraph>
+                            Leave me a message
+                        </Typography>
+                        <TextField
+                            id="outlined-multiline-static"
+                            multiline
+                            rows={4}
+                            fullWidth
+                            variant="outlined"
+                            required
+                            color="secondary"
+                        />
+                        <Button
+                            fullWidth
+                            type='submit'
+                            variant='contained'
+                            color='secondary'
+                            size='large'
+                            style={{ marginTop: '1.5rem' }}
+                        >
+                            Send
+                        </Button>
+                    </Paper>
+                </Grid>
+            </Grid>
+            <Grid
+                xl={4} lg={4} md={4} sm={10} xs={11}
+                container item
+                alignItems='flex-start'
+                justify="center"
+                spacing={3}
+            >
+                <Grid
+                    xs={12}
+                    container item
+                    alignItems='center'
+                    justify='center'
+                >
+                    <Paper className={classes.paper}>
+                        <Box style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            marginBottom: '1rem'
+                        }}
+                        >
+                            <NavLink to="/404" className={classes.link}>
+                                <Avatar>NS</Avatar>
+                            </NavLink>
+                            <Box style={{ marginLeft: '1rem' }}>
                                 <NavLink to="/404" className={classes.link}>
-                                    <Avatar>NS</Avatar>
-                                </NavLink>
-                                <Box style={{ marginLeft: '1rem' }}>
-                                    <NavLink to="/404" className={classes.link}>
-                                        <Typography variant="h6">
-                                            Name | Surname
-                                        </Typography>
-                                    </NavLink>
-                                    <Typography variant="body2" color="textSecondary">
-                                        Last seen: dd:mm:rrrr
+                                    <Typography variant="h6">
+                                        Name | Surname
                                     </Typography>
-                                </Box>
+                                </NavLink>
+                                <Typography variant="body2" color="textSecondary">
+                                    Last seen: dd:mm:rrrr
+                                </Typography>
                             </Box>
+                        </Box>
                         <Box className={classes.boxWrapper}>
                             <Box>
                                 <Rating name="read-only" value={3} readOnly size="small"/>
