@@ -10,7 +10,8 @@ import {
     useMediaQuery
 } from '@material-ui/core';
 import { NavLink } from 'react-router-dom';
-import PasswordInput from '../../components/PasswordInput/PasswordInput'
+import PasswordInput from '../../components/PasswordInput/PasswordInput';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -24,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
         '@media (max-width:600px)': {
             padding: '1em 2em 2em 2em'
         },
-        margin: '0 auto'
+        margin: '0 auto',
     },
     image: {
         backgroundImage: 'url("./img/bookshelf.jpg")',
@@ -39,8 +40,8 @@ const useStyles = makeStyles((theme) => ({
         fontSize: '1.2em',
     },
     wrap: {
-        width: '100%',
-        margin: '0 16px'
+        margin: '0 16px',
+        padding: '0 !important'
     },
 }));
 
@@ -79,11 +80,7 @@ function SignUp() {
                 justify="center"
                 xl={4} lg={5} md={5} sm={7} xs={11}
             > 
-                <Typography 
-                    component="h1"
-                    variant="h5"
-                    paragraph
-                >
+                <Typography component="h1" variant="h5" paragraph>
                     Sign up
                 </Typography>
                 <Grid
@@ -94,10 +91,7 @@ function SignUp() {
                     spacing={mobile ? 2 : 4}
                     onSubmit={handleSubmit}
                 >
-                    <Grid
-                        item
-                        xs={12}
-                    >
+                    <Grid item xs={12}>
                         <TextField
                             required
                             fullWidth
@@ -111,10 +105,7 @@ function SignUp() {
                             size={mobile ? 'small' : 'medium'}
                         /> 
                     </Grid>
-                    <Grid
-                        item
-                        xs={12}
-                    >
+                    <Grid item xs={12}>
                         <TextField
                             required
                             fullWidth
@@ -128,10 +119,7 @@ function SignUp() {
                             size={mobile ? 'small' : 'medium'}
                         /> 
                     </Grid>
-                    <Grid
-                        item
-                        xs={12}
-                    >
+                    <Grid item xs={12}>
                         <TextField
                             required
                             fullWidth
@@ -145,10 +133,7 @@ function SignUp() {
                             size={mobile ? 'small' : 'medium'}
                         /> 
                     </Grid>
-                    <Grid
-                        item
-                        xs={12}
-                    >
+                    <Grid item xs={12}>
                         <PasswordInput 
                             id="password"
                             name="password"
@@ -159,16 +144,10 @@ function SignUp() {
                             size={mobile ? 'small' : 'medium'}
                         />
                     </Grid>
-                        <Typography
-                            className={classes.wrap}
-                            variant={mobile ? 'caption' : 'subtitle2'}
-                        >
+                        <Typography className={classes.wrap} variant={mobile ? 'caption' : 'subtitle2'}>
                             {'At least 8 characters, 1 uppercase, 1 number'}
                         </Typography>
-                    <Grid
-                        item
-                        xs={12}
-                    >
+                    <Grid item xs={12}>
                         <PasswordInput 
                             id="password2"
                             name="password2"
@@ -179,23 +158,17 @@ function SignUp() {
                             size={mobile ? 'small' : 'medium'}
                         />
                     </Grid>
-                    <div className={classes.wrap}>
+                    <Grid item xs={12} className={classes.wrap}>
                         <Checkbox 
                             color="secondary" 
                             value={accepted}
                             onClick={() => setAccepted(!accepted)}
                         />
-                        <NavLink 
-                            to="/terms-and-conditions" 
-                            className={classes.link}
-                            >
+                        <NavLink to="/terms-and-conditions" className={classes.link}>
                                 I accept terms and conditions
                         </NavLink>
-                    </div>
-                    <Grid
-                        item
-                        xs={12}
-                    >
+                    </Grid>
+                    <Grid item xs={12}>
                         <Button
                             fullWidth
                             type='submit'

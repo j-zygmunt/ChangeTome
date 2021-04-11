@@ -13,10 +13,10 @@ import {
     Button
 } from '@material-ui/core';
 import { NavLink } from 'react-router-dom';
-import Rating from '@material-ui/lab/Rating'
+import Rating from '@material-ui/lab/Rating';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import PhotoCarousel from '../../components/PhotoCarousel/PhotoCarousel';
 
-import PhotoCarousel from '../../components/PhotoCarousel/PhotoCarousel'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Ad() {
     const classes = useStyles();
-    const [buttonContent, setButtonContent] = React.useState("My number")
+    const [buttonContent, setButtonContent] = React.useState("My number");
     const mobile = useMediaQuery('(max-width:960px)');
 
     const handleSubmit = event => {
@@ -54,7 +54,7 @@ function Ad() {
     }
 
     const handleClick = (text) => {
-        buttonContent === 'My number' ? setButtonContent(text) : setButtonContent('My number')
+        buttonContent === 'My number' ? setButtonContent(text) : setButtonContent('My number');
     }
 
     return (
@@ -149,7 +149,7 @@ function Ad() {
                 </Grid>
             </Grid>
             <Grid
-                xl={4} lg={4} md={4} sm={10} xs={11}
+                xl={3} lg={3} md={4} sm={10} xs={11}
                 container item
                 alignItems='flex-start'
                 justify="center"

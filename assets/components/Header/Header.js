@@ -1,18 +1,7 @@
 import React, { useState } from 'react';
-import {
-    AppBar,
-    Toolbar,
-    Typography,
-    useMediaQuery
-} from '@material-ui/core'
-import {
-    NavLink,
-    withRouter
-} from 'react-router-dom';
+import { AppBar, Toolbar, Typography, useMediaQuery } from '@material-ui/core'
+import { NavLink, withRouter } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import LoginHeader from '../LoginHeader/LoginHeader'
-import DesktopHeaderItems from '../DesktopHeaderItems/DesktopHeaderItems'
-import MobileHeaderItems from '../MobileHeaderItems/MobileHeaderItems'
 import {
     FolderOpen,
     MailOutline,
@@ -20,6 +9,9 @@ import {
     PermIdentity,
     ExitToApp,
 } from '@material-ui/icons';
+import LoginHeader from '../LoginHeader/LoginHeader';
+import DesktopHeaderItems from '../DesktopHeaderItems/DesktopHeaderItems';
+import MobileHeaderItems from '../MobileHeaderItems/MobileHeaderItems';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -28,22 +20,22 @@ const useStyles = makeStyles((theme) => ({
     },
     title: {
         flexGrow: 1,
-        color: theme.palette.secondary.main
+        color: theme.palette.secondary.main,
     },
     default: {
         minHeight: 64,
-        backgroundColor: theme.palette.background.default
+        backgroundColor: theme.palette.background.default,
     },
     desktopButtons: {
         '& > *': {
             marginLeft: theme.spacing(1)
-        }
+        },
     },
     link: {
         textDecoration: 'none',
         color: theme.palette.secondary.main,
         fontSize: '1.2em',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
     },
 }));
 
@@ -113,14 +105,8 @@ function Header(props) {
                         isUser={isUser}
                     />
                 }
-                <Typography 
-                    variant="h6" 
-                    className={classes.title}
-                >
-                    <NavLink 
-                        to="/home"
-                        className={classes.link}
-                    >
+                <Typography variant="h6" className={classes.title}>
+                    <NavLink to="/home" className={classes.link}>
                         ChangeTome
                     </NavLink>
                 </Typography>

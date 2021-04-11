@@ -1,4 +1,4 @@
-import { 
+import {
     makeStyles,
     Button,
     Popper,
@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     desktopButtons: {
         '& > *': {
             marginLeft: theme.spacing(1),
-            
+
         },
     },
     paper: {
@@ -25,33 +25,29 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-
 function DesktopHeaderItems(props) {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const anchorRef = React.useRef(null);
-  
+    const prevOpen = React.useRef(open);
+
     const handleToggle = () => {
-      setOpen((prevOpen) => !prevOpen);
-    };
-  
-    const handleClose = (event) => {
-      if (anchorRef.current && anchorRef.current.contains(event.target)) {
-        return;
-      }
-  
-      setOpen(false);
+        setOpen((prevOpen) => !prevOpen);
     };
 
-    const prevOpen = React.useRef(open);
+    const handleClose = (event) => {
+        if (anchorRef.current && anchorRef.current.contains(event.target))
+            return;
+        setOpen(false);
+    };
+
     React.useEffect(() => {
-      if (prevOpen.current === true && open === false) {
-        anchorRef.current.focus();
-      }
-  
-      prevOpen.current = open;
+        if (prevOpen.current === true && open === false)
+            anchorRef.current.focus();
+
+        prevOpen.current = open;
     }, [open]);
-  
+
 
     if (!props.isUser)
         return (
@@ -59,10 +55,7 @@ function DesktopHeaderItems(props) {
                 {
                     props.headerItems.map((item) => {
                         return (
-                            <NavLink 
-                                to={item.link}
-                                key={item.itemName}
-                            >
+                            <NavLink to={item.link} key={item.itemName}>
                                 <Button
                                     color="secondary"
                                     size="large"
@@ -70,75 +63,66 @@ function DesktopHeaderItems(props) {
                                 >
                                     {item.itemName}
                                 </Button>
-                            </NavLink>  
+                            </NavLink>
                         );
                     })
                 }
             </div>
         );
-    
+
     return (
         <div>
             <Button
-              ref={anchorRef}
-              aria-controls={open ? 'menu-list-grow' : undefined}
-              aria-haspopup="true"
-              onClick={handleToggle}
-              endIcon={<ExpandMoreIcon style={{fontSize: '2em'}}/>}
-              size='large'
-              color="secondary"
-              style={{marginRight: '2em'}}
+                ref={anchorRef}
+                aria-controls={open ? 'menu-list-grow' : undefined}
+                aria-haspopup="true"
+                onClick={handleToggle}
+                endIcon={<ExpandMoreIcon style={{ fontSize: '2em' }} />}
+                size='large'
+                color="secondary"
+                style={{ marginRight: '2em' }}
             >
-              My Profile
+                My Profile
             </Button>
             <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
                 {({ TransitionProps, placement }) => (
                     <Grow
-                    {...TransitionProps}
-                    style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+                        {...TransitionProps}
+                        style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
                     >
-                        <Paper
-                            className={classes.paper}
-                        >
+                        <Paper className={classes.paper}>
                             <ClickAwayListener onClickAway={handleClose}>
                                 <MenuList autoFocusItem={open}>
-                                {
-                                    props.headerItems.slice(1, 6).map((item) => {
-                                        return (
-                                            <NavLink
-                                                to={item.link}
-                                                key={item.itemName}
-                                                style={{display: 'block'}}
-                                            >
-                                                <Button
-                                                    onClick={handleClose}
-                                                    startIcon={item.icon}
-                                                    color='primary'
+                                    {
+                                        props.headerItems.slice(1, 6).map((item) => {
+                                            return (
+                                                <NavLink
+                                                    to={item.link}
+                                                    key={item.itemName}
+                                                    style={{ display: 'block' }}
                                                 >
-                                                    {item.itemName}
-                                                </Button>
-                                            </NavLink>
-                                        )
-                                    })
-                                }
+                                                    <Button
+                                                        onClick={handleClose}
+                                                        startIcon={item.icon}
+                                                        color='primary'
+                                                    >
+                                                        {item.itemName}
+                                                    </Button>
+                                                </NavLink>
+                                            )
+                                        })
+                                    }
                                 </MenuList>
                             </ClickAwayListener>
                         </Paper>
                     </Grow>
                 )}
             </Popper>
-            <NavLink 
-                to={props.headerItems[0].link}
-                key={props.headerItems[0].itemName}
-            >
-                <Button 
-                    color="secondary" 
-                    size="large"
-                    variant='contained'
-                >
+            <NavLink to={props.headerItems[0].link} key={props.headerItems[0].itemName}>
+                <Button color="secondary" size="large" variant='contained'>
                     {props.headerItems[0].itemName}
                 </Button>
-            </NavLink>  
+            </NavLink>
         </div>
     );
 }

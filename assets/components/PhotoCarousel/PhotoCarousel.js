@@ -1,13 +1,9 @@
 import React from 'react'
 import Carousel from 'react-material-ui-carousel';
-import {
-    makeStyles,
-    Container
-} from '@material-ui/core';
+import { makeStyles, Container } from '@material-ui/core';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
-
 
 
 const useStyles = makeStyles((theme) => ({

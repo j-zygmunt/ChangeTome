@@ -11,6 +11,7 @@ import {
 import { NavLink } from 'react-router-dom';
 import PasswordInput from '../../components/PasswordInput/PasswordInput';
 
+
 const useStyles = makeStyles((theme) => ({
     root: {
         height: 'calc(100vh - 90px)',
@@ -70,11 +71,7 @@ function SignIn() {
                 justify="center"
                 xl={4} lg={5} md={5} sm={7} xs={11}
             > 
-                <Typography 
-                    component="h1"
-                    variant="h5"
-                    paragraph
-                >
+                <Typography component="h1" variant="h5" paragraph>
                     Sign in
                 </Typography>
                 <Grid
@@ -85,10 +82,7 @@ function SignIn() {
                     spacing={mobile ? 2 : 4}
                     onSubmit={handleSubmit}
                 >
-                    <Grid
-                        item
-                        xs={12}
-                    >
+                    <Grid item xs={12}>
                         <TextField
                             required
                             fullWidth
@@ -102,10 +96,7 @@ function SignIn() {
                             size={mobile ? 'small' : 'medium'}
                         /> 
                     </Grid>
-                    <Grid
-                        item
-                        xs={12}
-                    >
+                    <Grid item xs={12}>
                         <PasswordInput 
                             id="password"
                             name="password"
@@ -116,10 +107,7 @@ function SignIn() {
                             size={mobile ? 'small' : 'medium'}
                         />
                     </Grid>
-                    <Grid
-                        item
-                        xs={12}
-                    >
+                    <Grid item xs={12}>
                         <Button
                             fullWidth
                             type='submit'
@@ -130,23 +118,13 @@ function SignIn() {
                             Sign in
                         </Button>
                     </Grid>
-                    <Grid 
-                        container item
-                        xs={12}
-                        justify='space-between'
-                    >
-                        <Grid 
-                            item
-                            xs={12}
-                            >
+                    <Grid container item xs={12} justify='space-between'>
+                        <Grid item xs={12}>
                             <NavLink to="/404" className={classes.link}>
                                 Forgot password?
                             </NavLink>
                         </Grid>
-                        <Grid 
-                            item
-                            xs={12}
-                            >
+                        <Grid item xs={12}>
                             <NavLink to="/signup" className={classes.link}>
                                 Don't have an account? Sign Up
                             </NavLink>

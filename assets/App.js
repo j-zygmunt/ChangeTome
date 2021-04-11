@@ -1,10 +1,5 @@
 import React from 'react';
-import { 
-    BrowserRouter,
-    Switch,
-    Route,
-    Redirect
-} from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import Error from './views/Error/Error';
 import Home from './views/Home/Home';
 import PostAd from './views/PostAd/PostAd';

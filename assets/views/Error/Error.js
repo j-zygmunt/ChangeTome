@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.down('xs')]:{
             fontSize: '0.8rem'
         },
-    }
+    },
 }));
 
 function Error() {
@@ -62,38 +62,20 @@ function Error() {
                 justify="center"
                 xl={5} lg={6} md={7} sm={8} xs={10}
             >
-                <Grid
-                    item
-                    xs={12}
-                >
-                    <Typography
-                        align='center'
-                        className={classes.error}  
-                    >
+                <Grid item xs={12} >
+                    <Typography align='center' className={classes.error}>
                         4
-                        <Typography
-                            component={'span'}
-                            color="secondary"
-                            className={classes.error}  
-                        >
+                        <Typography component={'span'} color="secondary" className={classes.error}>
                             0
                         </Typography>
                         4
                     </Typography>
-                    <Typography
-                        align='center'
-                        className={classes.message}
-                    >
+                    <Typography align='center' className={classes.message}>
                         THE PAGE YOU REQUESTED COULD NOT BE FOUND
                     </Typography>
                 </Grid>
-                <Grid
-                    item
-                    xs={12}
-                >
-                    <NavLink
-                        to="/home"
-                    >
+                <Grid item xs={12}>
+                    <NavLink to="/home">
                         <Button
                             fullWidth
                             type='submit'

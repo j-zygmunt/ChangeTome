@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { CssBaseline, ThemeProvider } from '@material-ui/core';
 import App from './App';
-import {CssBaseline, ThemeProvider} from '@material-ui/core';
 import myTheme from './theme';
+
 
 ReactDOM.render(
     <React.StrictMode>

@@ -4,7 +4,6 @@ import {
     Divider,
     Typography,
     Card,
-    CardActionArea,
     CardMedia,
     CardContent,
     Box,
@@ -32,8 +31,8 @@ const useStyles = makeStyles((theme) => ({
     },
     link: {
         textDecoration: 'none',
-        color: 'inherit'
-    }
+        color: 'inherit',
+    },
 }));
 
 function BookCard(props) {
@@ -42,10 +41,7 @@ function BookCard(props) {
     return (
         <Card style={{width: '100%', padding: '1em'}}>
             <NavLink to="/ad" className={classes.link}>
-                <CardMedia
-                    className={classes.media}
-                    image={require('../../img/book.jpg')}
-                />
+                <CardMedia className={classes.media} image={require('../../img/book.jpg')}/>
                 <CardContent style={{padding: '1em 0 0 0'}}>
                     <Typography gutterBottom variant="h5" component="h2">
                         Title | Author
@@ -71,7 +67,7 @@ function BookCard(props) {
                 </IconButton>
             </CardActions>
         </Card>
-    )
+    );
 }
 
 export default BookCard;

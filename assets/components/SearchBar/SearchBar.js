@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
         height: 28,
         margin: 4,
         width: 2,
-        backgroundColor: theme.palette.secondary.main
+        backgroundColor: theme.palette.secondary.main,
     },
 }));
 
@@ -51,22 +51,10 @@ function SearchBar(props) {
             <IconButton color="secondary">
                 <SearchIcon />
             </IconButton>
-            <Divider
-                orientation='vertical' 
-                className={classes.divider}  
-            />
-            <InputBase
-                placeholder="Search"
-                className={classes.input}
-            />
-            <Divider
-                orientation='vertical' 
-                className={classes.divider}  
-            />
-            <IconButton 
-                color='secondary'
-                onClick={toggleDrawer(true)}
-            >
+            <Divider orientation='vertical' className={classes.divider}/>
+            <InputBase placeholder="Search" className={classes.input}/>
+            <Divider orientation='vertical' className={classes.divider}/>
+            <IconButton color='secondary' onClick={toggleDrawer(true)}>
                 <TuneIcon/>
             </IconButton>
             <Drawer
@@ -83,10 +71,7 @@ function SearchBar(props) {
                     <CloseIcon style={{fontSize: "1.5em"}}/>
                 </IconButton>
                 <MenuList >
-                    <NavLink
-                        to='/404'
-                        style={{display: 'block'}}
-                    >
+                    <NavLink to='/404' style={{display: 'block'}}>
                         <Button
                             onClick={toggleDrawer(false)}
                             color='secondary'

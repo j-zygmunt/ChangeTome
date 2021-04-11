@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
         '& > *': {
             margin: "0 3em",
         },
-        width: '280px'
+        width: '280px',
     },
 }));
 

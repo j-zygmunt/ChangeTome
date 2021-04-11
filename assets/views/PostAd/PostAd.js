@@ -16,7 +16,6 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: theme.palette.background.default,
     },
     paper: {
-        
         width: '100%',
         padding: '4em',
         [theme.breakpoints.down('sm')]:{
@@ -31,8 +30,7 @@ function PostAd() {
 
     React.useEffect(() => {
         fetch("/api/users")
-        .then(user => console.log(user))
-
+        .then(user => console.log(user));
     });
 
     return (
@@ -42,12 +40,8 @@ function PostAd() {
             className={classes.root}
             alignItems="flex-start"
             justify="center"
-    
         >
-            <Grid
-                item
-                xl={8} lg={8} md={8} sm={8} xs={10}
-            >
+            <Grid item xl={8} lg={8} md={8} sm={8} xs={10}>
                 <Typography align="left" variant="h4" style={{fontWeight: 'bold', marginTop: '2em'}}>
                     Post your offer!
                 </Typography>
@@ -60,18 +54,10 @@ function PostAd() {
                 justify="center"
                 xl={8} lg={8} md={8} sm={8} xs={10}
             >
-                <Grid
-                    item
-                    xs={12}
-                >
+                <Grid item xs={12}>
                 </Grid>
-                <Grid
-                    item
-                    xs={12}
-                >
-                    <NavLink
-                        to="/home"
-                    >
+                <Grid item xs={12}>
+                    <NavLink to="/home">
                         <Button
                             fullWidth
                             type='submit'

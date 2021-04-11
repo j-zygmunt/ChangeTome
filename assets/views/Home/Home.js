@@ -7,8 +7,8 @@ import {
     Typography,
 } from '@material-ui/core'
 import { NavLink } from 'react-router-dom';
-import SearchBar from '../../components/SearchBar/SearchBar'
-import BookCardsHolder from '../../components/BookCardsHolder/BookCardsHolder'
+import SearchBar from '../../components/SearchBar/SearchBar';
+import BookCardsHolder from '../../components/BookCardsHolder/BookCardsHolder';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -22,10 +22,10 @@ const useStyles = makeStyles((theme) => ({
         backgroundRepeat: "no-repeat",
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        marginTop: theme.spacing(4)
+        marginTop: theme.spacing(4),
     },
     banner: {
-        backgroundColor: theme.palette.background.default
+        backgroundColor: theme.palette.background.default,
     },
 }));
 
@@ -40,10 +40,7 @@ function Home() {
             alignItems="flex-start"
             justify="center"
         >
-            <Grid
-                item
-                xl={4} lg={5} md={5} sm={7} xs={10}
-            >
+            <Grid item xl={4} lg={5} md={5} sm={7} xs={10}>
                 <SearchBar />
             </Grid>
             <Grid
@@ -63,10 +60,7 @@ function Home() {
                     className={classes.banner}
                     xl={5} lg={5} md={6} sm={7} xs={10}
                 >
-                    <Grid
-                        item
-                        xs={12}
-                    >
+                    <Grid item xs={12} >
                         <Typography
                             variant='h4'
                             style={{
@@ -79,14 +73,8 @@ function Home() {
                             Get rid of unwanted books now
                         </Typography>
                     </Grid>
-                    <Grid
-                        item container
-                        xs={12}
-                        justify='center'
-                    >
-                        <NavLink to="post-ad" style={{
-                                    margin: 'auto'
-                                }}>
+                    <Grid item container xs={12} justify='center'>
+                        <NavLink to="post-ad" style={{ margin: 'auto' }}>
                             <Button
                                 variant='contained'
                                 color='secondary'

@@ -7,7 +7,7 @@ import {
     Typography
 } from '@material-ui/core';
 import { NavLink } from 'react-router-dom';
-import BookCard from '../BookCard/BookCard'
+import BookCard from '../BookCard/BookCard';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -35,22 +35,15 @@ function BookCardsHolder(props) {
             className={classes.holder}
             spacing={2}
         >        
-            <Grid
-                item container
-                justify='space-between'
-            >
+            <Grid item container justify='space-between'>
                 <Typography>
                     {props.name}
                 </Typography>
-                <NavLink
-                    to="/404"
-                >
+                <NavLink to="/404">
                     <Button
                         variant='contained'
                         color='secondary'
-                        style={{
-                            padding: '2px 0'
-                        }}
+                        style={{ padding: '2px 0' }}
                     >
                         More
                     </Button>
@@ -94,7 +87,7 @@ function BookCardsHolder(props) {
             </Grid>
             <Divider orientation='horizontal' className={classes.divider} />  
         </Grid>
-    )
+    );
 }
 
 export default BookCardsHolder;
