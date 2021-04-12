@@ -10,7 +10,7 @@ import {
     Avatar,
     useMediaQuery,
     TextField,
-    Button
+    Button,
 } from '@material-ui/core';
 import { NavLink } from 'react-router-dom';
 import Rating from '@material-ui/lab/Rating';
@@ -47,6 +47,7 @@ const useStyles = makeStyles((theme) => ({
 function Ad() {
     const classes = useStyles();
     const [buttonContent, setButtonContent] = React.useState("My number");
+    const [message, setMessage] = React.useState("");
     const mobile = useMediaQuery('(max-width:960px)');
 
     const handleSubmit = event => {
@@ -134,6 +135,12 @@ function Ad() {
                             variant="outlined"
                             required
                             color="secondary"
+                            value={message}
+                            onChange={event => setMessage(event.target.value)}
+                            inputProps={{
+                                maxLength: 100,
+                            }}
+                            helperText={`${message.length}/${100}`}
                         />
                         <Button
                             fullWidth
