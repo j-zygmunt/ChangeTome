@@ -4,11 +4,12 @@ namespace App\Entity;
 
 use App\Repository\AddressRepository;
 use Doctrine\ORM\Mapping as ORM;
+use JsonSerializable;
 
 /**
  * @ORM\Entity(repositoryClass=AddressRepository::class)
  */
-class Address
+class Address implements JsonSerializable
 {
     /**
      * @ORM\Id
@@ -71,5 +72,10 @@ class Address
         $this->postalCode = $postalCode;
 
         return $this;
+    }
+
+    public function jsonSerialize()
+    {
+        return (object) get_object_vars($this);
     }
 }

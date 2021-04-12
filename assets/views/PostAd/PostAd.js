@@ -68,8 +68,9 @@ function PostAd() {
     }, []);
 
     React.useEffect(() => {
-        fetch("/api/users")
-        .then(user => console.log(user))
+        fetch("/api/getUser")
+        .then(response => response.json())
+        .then(data => console.log(data));
 
     }, []);
 
