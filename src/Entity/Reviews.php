@@ -32,6 +32,24 @@ class Reviews
      */
     private $reviewedAt;
 
+    /**
+     * @ORM\OneToOne(targetEntity=ad::class, cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $ad;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=user::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $reviewer;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=user::class, inversedBy="reviews")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $reviewee;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -69,6 +87,42 @@ class Reviews
     public function setReviewedAt(\DateTimeInterface $reviewedAt): self
     {
         $this->reviewedAt = $reviewedAt;
+
+        return $this;
+    }
+
+    public function getAd(): ?ad
+    {
+        return $this->ad;
+    }
+
+    public function setAd(ad $ad): self
+    {
+        $this->ad = $ad;
+
+        return $this;
+    }
+
+    public function getReviewer(): ?user
+    {
+        return $this->reviewer;
+    }
+
+    public function setReviewer(?user $reviewer): self
+    {
+        $this->reviewer = $reviewer;
+
+        return $this;
+    }
+
+    public function getReviewee(): ?user
+    {
+        return $this->reviewee;
+    }
+
+    public function setReviewee(?user $reviewee): self
+    {
+        $this->reviewee = $reviewee;
 
         return $this;
     }

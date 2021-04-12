@@ -32,6 +32,11 @@ class UserDetails
      */
     private $phoneNumber;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Address::class)
+     */
+    private $address;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -69,6 +74,18 @@ class UserDetails
     public function setPhoneNumber(string $phoneNumber): self
     {
         $this->phoneNumber = $phoneNumber;
+
+        return $this;
+    }
+
+    public function getAddress(): ?Address
+    {
+        return $this->address;
+    }
+
+    public function setAddress(?Address $address): self
+    {
+        $this->address = $address;
 
         return $this;
     }

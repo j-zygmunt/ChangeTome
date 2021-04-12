@@ -47,6 +47,12 @@ class Ad
      */
     private $createdAt;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=user::class, inversedBy="ads")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $creator;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -120,6 +126,18 @@ class Ad
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getCreator(): ?user
+    {
+        return $this->creator;
+    }
+
+    public function setCreator(?user $creator): self
+    {
+        $this->creator = $creator;
 
         return $this;
     }
