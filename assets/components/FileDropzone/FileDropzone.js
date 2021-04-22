@@ -1,53 +1,45 @@
-import React, { useRef, useState } from "react";
-import {
-    Paper,
-    Grid,
-    Typography,
-    Button,
-    makeStyles,
-    Input,
-    IconButton,
-} from '@material-ui/core';
+import React from "react";
+import { Grid, Typography, makeStyles } from '@material-ui/core';
 import { useDropzone } from "react-dropzone";
-
 
 const useStyles = makeStyles((theme) => ({
     dnd: {
-        height: '200px',
-        width: '50%',
-        padding: '4em',
+        height: '150px',
+        width: '100%',
+        padding: '1em',
         backgroundColor: theme.palette.background.default,
-        [theme.breakpoints.down('sm')]:{
-            padding: '2em'
-        },
+        border: '5px dashed',
+        cursor: 'pointer',
+        borderColor: theme.palette.secondary.main,
     },
     dndActive: {
-        backgroundColor: '#000000'
+        border: '5px solid',
+        borderColor: theme.palette.secondary.main,
     }
 }));
 
-function FileDropzone(props) {
+function FileDropzone({ onDrop }) {
     const classes = useStyles();
 
-    const { getRootProps, getInputProps, isDragActive } = useDropzone( props.onDrop );
+    const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop, accept: 'image/jpeg, image/png' });
 
     return (
-        <Grid 
+        <Grid
             container
-            component={Paper}
             alignItems="center"
             justify="center"
             className={isDragActive ? classes.dndActive + ' ' + classes.dnd : classes.dnd}
             {...getRootProps()}
         >
             <input className="dropzone-input" {...getInputProps()} />
-            <div className="text-center">
+            <div style={{textAlign: 'center'}}>
                 {isDragActive ? (
-                    <p className="dropzone-content">Release to drop the files here</p>
+                    <Typography variant='body1'>Release to upload the files</Typography>
                 ) : (
-                    <p className="dropzone-content">
-                        Drag 'n' drop some files here, or click to select files
-                    </p>
+                    <div>
+                        <Typography variant='body1'>Drag your images or click</Typography>
+                        <Typography variant='caption' color='secondary'>(Only .jpeg and .png)</Typography>
+                    </div>
                 )}
             </div>
         </Grid>

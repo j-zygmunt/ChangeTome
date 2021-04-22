@@ -32,6 +32,13 @@ const useStyles = makeStyles((theme) => ({
 function Home() {
     const classes = useStyles();
 
+    React.useEffect(() => {
+        fetch("/api/getUser")
+        .then(response => response.json())
+        .then(data => console.log(data));
+
+    }, []);
+
     return(
         <Grid
             container
