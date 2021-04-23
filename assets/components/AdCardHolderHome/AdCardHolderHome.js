@@ -7,7 +7,7 @@ import {
     Typography
 } from '@material-ui/core';
 import { NavLink } from 'react-router-dom';
-import BookCard from '../BookCard/BookCard';
+import AdCard from '../AdCard/AdCard';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function BookCardsHolder(props) {
+function AdCardHolderHome(props) {
     const classes = useStyles();
 
     return (
@@ -53,41 +53,41 @@ function BookCardsHolder(props) {
                 item
                 xl={2} lg={2} md={4} sm={4} xs={12}
             >
-                <BookCard />
+                <AdCard />
             </Grid>
             <Grid
                 item
                 xl={2} lg={2} md={4} sm={4} xs={12}
             >
-                <BookCard />
+                <AdCard />
             </Grid>
             <Grid
                 item
                 xl={2} lg={2} md={4} sm={4} xs={12}
             >
-                <BookCard />
+                <AdCard />
             </Grid>
             <Grid
                 item
                 xl={2} lg={2} md={4} sm={4} xs={12}
             >
-                <BookCard />
+                <AdCard />
             </Grid>
             <Grid
                 item
                 xl={2} lg={2} md={4} sm={4} xs={12}
             >
-                <BookCard />
+                <AdCard />
             </Grid>
             <Grid
                 item
                 xl={2} lg={2} md={4} sm={4} xs={12}
             >
-                <BookCard />
+                <AdCard />
             </Grid>
             <Divider orientation='horizontal' className={classes.divider} />  
         </Grid>
     );
 }
 
-export default BookCardsHolder;
+export default AdCardHolderHome;

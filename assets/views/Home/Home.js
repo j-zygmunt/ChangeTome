@@ -8,7 +8,7 @@ import {
 } from '@material-ui/core'
 import { NavLink } from 'react-router-dom';
 import SearchBar from '../../components/SearchBar/SearchBar';
-import BookCardsHolder from '../../components/BookCardsHolder/BookCardsHolder';
+import AdCardHolderHome from '../../components/AdCardHolderHome/AdCardHolderHome';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -97,8 +97,8 @@ function Home() {
                     </Grid>
                 </Grid> 
             </Grid>
-                <BookCardsHolder name="Lastest"/>           
-                <BookCardsHolder name="Popular"/>           
+                <AdCardHolderHome name="Lastest"/>           
+                <AdCardHolderHome name="Popular"/>           
         </Grid>
     );
 }

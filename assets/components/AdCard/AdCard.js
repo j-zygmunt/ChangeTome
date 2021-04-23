@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function BookCard(props) {
+function AdCard(props) {
     const classes = useStyles();
 
     return (
@@ -70,4 +70,4 @@ function BookCard(props) {
     );
 }
 
-export default BookCard;
+export default AdCard;

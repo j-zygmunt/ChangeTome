@@ -8,6 +8,7 @@ import SignIn from './views/SignIn/SignIn';
 import SignUp from './views/SignUp/SignUp';
 import Header from './components/Header/Header';
 import Ad from './views/Ad/Ad';
+import YourAds from './views/YourAds/YourAds';
 
 
 function App() {
@@ -22,7 +23,7 @@ function App() {
                 <Route path="/home" component={Home} />
                 <Route path="/post-ad" component={PostAd} />
                 <Route path="/manage-account" component={Profile} />
-                <Route path="/your-ads" component={Profile} />
+                <Route path="/your-ads" component={YourAds} />
                 <Route path="/messages" component={Error} />
                 <Route path="/favourites" component={Error} />
                 <Route path="/signin" component={SignIn} />

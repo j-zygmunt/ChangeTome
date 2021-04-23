@@ -90,6 +90,7 @@ function PostAd() {
     const [description, setDescription] = React.useState('');
     const [price, setPrice] = React.useState();
     const mobile = useMediaQuery('(max-width:600px)');
+    const maxImagesAmount = 8;
 
     React.useEffect(() => {
         fetch("/api/getUser")
@@ -117,7 +118,7 @@ function PostAd() {
         acceptedFiles.map(file => {
             const reader = new FileReader();
             reader.onload = (event) => {
-                setImages(prevState => prevState.length < 8 ? [
+                setImages(prevState => prevState.length < maxImagesAmount ? [
                     ...prevState,
                     { id: cuid(), src: event.target.result }
                 ] : prevState);
@@ -220,6 +221,7 @@ function PostAd() {
                             required
                             fullWidth
                             value={price}
+                            name="price"
                             onChange={event => setPrice(event.target.value)}
                             variant="outlined"
                             color="secondary"
@@ -271,13 +273,12 @@ function PostAd() {
             </Grid>
             <Grid
                 container item
-                className={classes.paper}
-                component={Paper}
                 alignItems="center"
-                justify="center"
+                justify="flex-end"
+                style={{ marginBottom: '2rem' }}
                 xl={8} lg={8} md={9} sm={10} xs={10}
             >
-                <Grid item sm={6} xs={12}>
+                <Grid item sm={4} xs={12}>
                     <NavLink to="/home">
                         <Button
                             fullWidth
