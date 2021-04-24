@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AdRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -52,6 +54,16 @@ class Ad
      * @ORM\JoinColumn(nullable=false)
      */
     private $creator;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Photo::class, mappedBy="idAd", orphanRemoval=true)
+     */
+    private $photos;
+
+    public function __construct()
+    {
+        $this->photos = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -138,6 +150,36 @@ class Ad
     public function setCreator(?user $creator): self
     {
         $this->creator = $creator;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Photo[]
+     */
+    public function getPhotos(): Collection
+    {
+        return $this->photos;
+    }
+
+    public function addPhoto(Photo $photo): self
+    {
+        if (!$this->photos->contains($photo)) {
+            $this->photos[] = $photo;
+            $photo->setIdAd($this);
+        }
+
+        return $this;
+    }
+
+    public function removePhoto(Photo $photo): self
+    {
+        if ($this->photos->removeElement($photo)) {
+            // set the owning side to null (unless already changed)
+            if ($photo->getIdAd() === $this) {
+                $photo->setIdAd(null);
+            }
+        }
 
         return $this;
     }

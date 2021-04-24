@@ -42,12 +42,6 @@ class User implements JsonSerializable
     private $createdAt;
 
     /**
-     * @ORM\OneToOne(targetEntity=UserDetails::class, cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $userDetails;
-
-    /**
      * @ORM\OneToMany(targetEntity=Ad::class, mappedBy="creator", orphanRemoval=true)
      */
     private $ads;
@@ -61,6 +55,26 @@ class User implements JsonSerializable
      * @ORM\ManyToMany(targetEntity=ad::class)
      */
     private $starredAds;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $name;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $surname;
+
+    /**
+     * @ORM\Column(type="string", length=20)
+     */
+    private $phone;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Address::class, inversedBy="users")
+     */
+    private $idAddress;
 
     public function __construct()
     {
@@ -122,10 +136,6 @@ class User implements JsonSerializable
         return $this;
     }
 
-    public function getUserDetails(): ?UserDetails
-    {
-        return $this->userDetails;
-    }
 
     public function setUserDetails(UserDetails $userDetails): self
     {
@@ -221,5 +231,53 @@ class User implements JsonSerializable
     public function jsonSerialize()
     {
         return (object) get_object_vars($this);
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getSurname(): ?string
+    {
+        return $this->surname;
+    }
+
+    public function setSurname(string $surname): self
+    {
+        $this->surname = $surname;
+
+        return $this;
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(string $phone): self
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    public function getIdAddress(): ?Address
+    {
+        return $this->idAddress;
+    }
+
+    public function setIdAddress(?Address $idAddress): self
+    {
+        $this->idAddress = $idAddress;
+
+        return $this;
     }
 }

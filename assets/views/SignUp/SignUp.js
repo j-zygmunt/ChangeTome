@@ -21,11 +21,11 @@ const useStyles = makeStyles((theme) => ({
     },
     loginForm: {
         height: 'auto',
-        padding: '2em 3em 3em 3em',
+        padding: '2rem 3rem 3rem 3rem',
         '@media (max-width:600px)': {
-            padding: '1em 2em 2em 2em'
+            padding: '1rem 2rem 1rem 2rem'
         },
-        margin: '0 auto',
+        margin: 'auto' 
     },
     image: {
         backgroundImage: 'url("./img/bookshelf.jpg")',
@@ -38,6 +38,9 @@ const useStyles = makeStyles((theme) => ({
         textDecoration: 'none',
         color: theme.palette.secondary.main,
         fontSize: '1.2em',
+        '@media (max-width:600px)': {
+            fontSize: '1rem'
+        },
     },
     wrap: {
         margin: '0 16px',
@@ -50,6 +53,7 @@ function SignUp() {
     const [name, setName] = useState('');
     const [surname, setSurname] = useState('');
     const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
     const [password2, setPassword2] = useState('');
     const [accepted, setAccepted] = useState(false);
@@ -88,7 +92,7 @@ function SignUp() {
                     component="form"
                     alignItems="center"
                     justify="center"
-                    spacing={mobile ? 2 : 4}
+                    spacing={mobile ? 2 : 2}
                     onSubmit={handleSubmit}
                 >
                     <Grid item xs={12}>
@@ -128,6 +132,20 @@ function SignUp() {
                             label="Email"
                             value={email}
                             onChange={event => setEmail(event.target.value)}
+                            variant="outlined"
+                            color="secondary"
+                            size={mobile ? 'small' : 'medium'}
+                        /> 
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            required
+                            fullWidth
+                            id="phone"
+                            name="phone"
+                            label="Phone"
+                            value={phone}
+                            onChange={event => setPhone(event.target.value)}
                             variant="outlined"
                             color="secondary"
                             size={mobile ? 'small' : 'medium'}

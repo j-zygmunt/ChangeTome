@@ -5,7 +5,6 @@ import {
     Typography,
     makeStyles,
 } from '@material-ui/core';
-import MyAdCard from '../../components/MyAdCard/MyAdCard';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -16,6 +15,26 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
         marginBottom: '2rem',
         padding: '1.5rem',
+    },
+    rating: {
+        color: theme.palette.secondary.main,
+    },
+    divider: {
+        height: 1,
+        width: '100%',
+        backgroundColor: theme.palette.secondary.main,
+    },
+    media: {
+        height: 200,
+    },
+    infoWrapper: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    link: {
+        textDecoration: 'none',
+        color: 'inherit',
     },
 }));
 
@@ -32,7 +51,7 @@ function YourAds() {
         >
             <Grid item xl={8} lg={8} md={9} sm={10} xs={10}>
                 <Typography variant="h4" style={{ fontWeight: 'bold', margin: '2rem 0 1rem 0' }}>
-                    Your ads
+                    Messages
                 </Typography>
             </Grid>
             <Grid
@@ -44,37 +63,6 @@ function YourAds() {
                 spacing={3}
                 xl={8} lg={8} md={9} sm={10} xs={10}
             >
-                <Grid
-                    item xl={3} lg={4} md={4} sm={6} xs={12}
-                >
-                    <MyAdCard/>
-                </Grid>
-                <Grid
-                    item xl={3} lg={4} md={4} sm={6} xs={12}
-                >
-                    <MyAdCard/>
-                </Grid>
-                <Grid
-                    item xl={3} lg={4} md={4} sm={6} xs={12}
-                >
-                    <MyAdCard/>
-                </Grid>
-                <Grid
-                    item xl={3} lg={4} md={4} sm={6} xs={12}
-                >
-                    <MyAdCard/>
-                </Grid>
-                <Grid
-                    item xl={3} lg={4} md={4} sm={6} xs={12}
-                >
-                    <MyAdCard/>
-                </Grid>
-                <Grid
-                    item xl={3} lg={4} md={4} sm={6} xs={12}
-                >
-                    <MyAdCard/>
-                </Grid>
-
             </Grid>
 
         </Grid>
