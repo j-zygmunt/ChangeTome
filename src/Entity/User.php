@@ -11,6 +11,7 @@ use JsonSerializable;
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\Table(name="`user`")
+ * @ORM\HasLifecycleCallbacks
  */
 class User implements JsonSerializable
 {
@@ -227,57 +228,65 @@ class User implements JsonSerializable
 
         return $this;
     }
-
-    public function jsonSerialize()
-    {
-        return (object) get_object_vars($this);
-    }
-
+    
     public function getName(): ?string
     {
         return $this->name;
     }
-
+    
     public function setName(string $name): self
     {
         $this->name = $name;
-
+        
         return $this;
     }
-
+    
     public function getSurname(): ?string
     {
         return $this->surname;
     }
-
+    
     public function setSurname(string $surname): self
     {
         $this->surname = $surname;
-
+        
         return $this;
     }
-
+    
     public function getPhone(): ?string
     {
         return $this->phone;
     }
-
+    
     public function setPhone(string $phone): self
     {
         $this->phone = $phone;
-
+        
         return $this;
     }
-
+    
     public function getIdAddress(): ?Address
     {
         return $this->idAddress;
     }
-
+    
     public function setIdAddress(?Address $idAddress): self
     {
         $this->idAddress = $idAddress;
-
+        
         return $this;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedAtValue()
+    {
+        $this->createdAt = new \DateTime();
+    }
+
+    public function jsonSerialize()
+    {
+        return (object) get_object_vars($this);
     }
 }

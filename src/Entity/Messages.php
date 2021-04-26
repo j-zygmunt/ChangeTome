@@ -4,11 +4,12 @@ namespace App\Entity;
 
 use App\Repository\MessagesRepository;
 use Doctrine\ORM\Mapping as ORM;
+use JsonSerializable;
 
 /**
  * @ORM\Entity(repositoryClass=MessagesRepository::class)
  */
-class Messages
+class Messages implements JsonSerializable
 {
     /**
      * @ORM\Id
@@ -108,5 +109,18 @@ class Messages
         $this->reciever = $reciever;
 
         return $this;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function setSentAtValue()
+    {
+        $this->sentAt = new \DateTime();
+    }
+
+    public function jsonSerialize()
+    {
+        return (object) get_object_vars($this);
     }
 }

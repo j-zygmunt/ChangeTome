@@ -86,11 +86,6 @@ class Address implements JsonSerializable
         return $this;
     }
 
-    public function jsonSerialize()
-    {
-        return (object) get_object_vars($this);
-    }
-
     /**
      * @return Collection|User[]
      */
@@ -98,17 +93,17 @@ class Address implements JsonSerializable
     {
         return $this->users;
     }
-
+    
     public function addUser(User $user): self
     {
         if (!$this->users->contains($user)) {
             $this->users[] = $user;
             $user->setIdAddress($this);
         }
-
+        
         return $this;
     }
-
+    
     public function removeUser(User $user): self
     {
         if ($this->users->removeElement($user)) {
@@ -117,7 +112,12 @@ class Address implements JsonSerializable
                 $user->setIdAddress(null);
             }
         }
-
+        
         return $this;
+    }
+
+    public function jsonSerialize()
+    {
+        return (object) get_object_vars($this);
     }
 }

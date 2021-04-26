@@ -33,7 +33,7 @@ function Home() {
     const classes = useStyles();
 
     React.useEffect(() => {
-        fetch("/api/getUser")
+        fetch("/api/postAd", {method: "POST", headers: {'Content-type': 'application/json'}, body:JSON.stringify({test: 'wielki chuj', test2:'mały chuj'})})
         .then(response => response.json())
         .then(data => console.log(data));
 

@@ -4,12 +4,14 @@ namespace App\Entity;
 
 use App\Repository\PhotoRepository;
 use Doctrine\ORM\Mapping as ORM;
+use JsonSerializable;
 
 /**
  * @ORM\Entity(repositoryClass=PhotoRepository::class)
  */
-class Photo
+class Photo implements JsonSerializable
 {
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -72,5 +74,18 @@ class Photo
         $this->idAd = $idAd;
 
         return $this;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function setUploadedAtValue()
+    {
+        $this->uploaded_at = new \DateTime();
+    }
+
+    public function jsonSerialize()
+    {
+        return (object) get_object_vars($this);
     }
 }
