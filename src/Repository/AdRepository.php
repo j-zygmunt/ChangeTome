@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Ad;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -47,4 +48,26 @@ class AdRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function getLastestOffers()
+    {
+        return $this->createQueryBuilder('ad')
+            ->orderBy('ad.createdAt', 'DESC')
+            ->setMaxResults(6)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function getOffersPaginator(int $offset): Paginator
+    {
+        $query = $this->createQueryBuilder('ad')
+            ->orderBy('ad.createdAt', 'DESC')
+            ->setMaxResults(10)
+            ->setFirstResult($offset)
+            ->getQuery()
+        ;
+
+        return new Paginator($query);
+    }
 }

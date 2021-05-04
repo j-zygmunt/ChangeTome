@@ -1,5 +1,5 @@
 import React from 'react';
-import { 
+import {
     IconButton,
     Divider,
     Typography,
@@ -24,10 +24,11 @@ const useStyles = makeStyles((theme) => ({
     media: {
         height: 200,
     },
-    infoWrapper: {
+    wrapper: {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
+        padding: 0
     },
     link: {
         textDecoration: 'none',
@@ -39,32 +40,37 @@ function AdCard(props) {
     const classes = useStyles();
 
     return (
-        <Card style={{width: '100%', padding: '1em'}}>
+        <Card style={{ width: '100%', padding: '1em' }}>
             <NavLink to="/ad" className={classes.link}>
-                <CardMedia className={classes.media} image={require('../../img/book.jpg')}/>
-                <CardContent style={{padding: '1em 0 0 0'}}>
-                    <Typography gutterBottom variant="h5" component="h2">
-                        Title | Author
+                <CardMedia className={classes.media} image={require('../../img/book.jpg')} />
+                <CardContent style={{ padding: '1em 0 0 0' }}>
+                    <Typography gutterBottom variant="h6">
+                        {props.item.title} | {props.item.author}
                     </Typography>
-                    <Typography variant="body2" color="textSecondary" component="p" align="right">
-                        City - date hh:mm
-                    </Typography>
-                    <Box className={classes.infoWrapper}>
+                    <Box className={classes.wrapper}>
                         <Box>
                             <Typography component="legend">Condition</Typography>
-                            <Rating name="read-only" value={3} readOnly size="small"/>
+                            <Rating name="read-only" value={props.item.condition} readOnly size="small" />
                         </Box>
                         <Typography>
-                            5$
+                            {props.item.price}$
                         </Typography>
                     </Box>
                     <Divider orientation='horizontal' className={classes.divider} />
                 </CardContent>
             </NavLink>
-            <CardActions style={{padding: '0.5em 0 0 0'}}>
+            <CardActions className={classes.wrapper}>
                 <IconButton color="secondary">
-                    <FavoriteBorderIcon/>
+                    <FavoriteBorderIcon />
                 </IconButton>
+                <Box>
+                    <Typography variant="caption" color="textSecondary" align="right" component="p" style={{marginLeft: "auto"}}>
+                        city
+                    </Typography>
+                    <Typography variant="caption" color="textSecondary" align="right" component="p" style={{margin: "0 0 0 auto"}}>
+                        date hh:mm
+                    </Typography>
+                </Box>
             </CardActions>
         </Card>
     );

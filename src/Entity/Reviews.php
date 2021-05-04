@@ -8,6 +8,7 @@ use JsonSerializable;
 
 /**
  * @ORM\Entity(repositoryClass=ReviewsRepository::class)
+ * @ORM\HasLifecycleCallbacks
  */
 class Reviews implements JsonSerializable
 {
@@ -34,19 +35,19 @@ class Reviews implements JsonSerializable
     private $reviewedAt;
 
     /**
-     * @ORM\OneToOne(targetEntity=ad::class, cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=Ad::class, cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $ad;
 
     /**
-     * @ORM\ManyToOne(targetEntity=user::class)
+     * @ORM\ManyToOne(targetEntity=User::class)
      * @ORM\JoinColumn(nullable=false)
      */
     private $reviewer;
 
     /**
-     * @ORM\ManyToOne(targetEntity=user::class, inversedBy="reviews")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="reviews")
      * @ORM\JoinColumn(nullable=false)
      */
     private $reviewee;
@@ -92,36 +93,36 @@ class Reviews implements JsonSerializable
         return $this;
     }
 
-    public function getAd(): ?ad
+    public function getAd(): ?Ad
     {
         return $this->ad;
     }
 
-    public function setAd(ad $ad): self
+    public function setAd(Ad $ad): self
     {
         $this->ad = $ad;
 
         return $this;
     }
 
-    public function getReviewer(): ?user
+    public function getReviewer(): ?User
     {
         return $this->reviewer;
     }
 
-    public function setReviewer(?user $reviewer): self
+    public function setReviewer(?User $reviewer): self
     {
         $this->reviewer = $reviewer;
 
         return $this;
     }
 
-    public function getReviewee(): ?user
+    public function getReviewee(): ?User
     {
         return $this->reviewee;
     }
 
-    public function setReviewee(?user $reviewee): self
+    public function setReviewee(?User $reviewee): self
     {
         $this->reviewee = $reviewee;
 

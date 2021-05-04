@@ -6,16 +6,14 @@ use Symfony\Component\HttpFoundation\Response;
 
 class JsonResponseFactory
 {
-    public static function prepareJsonResponse(): Response 
+    public static function prepareJsonResponse($arg): Response 
     {
-        $args = func_num_args();
-
         $response = new Response();
 
         $response->headers->set('Content-Type', 'application/json');
         $response->headers->set('Access-Control-Allow-Origin', '*');
 
-        $response->setContent(json_encode($args));
+        $response->setContent(json_encode($arg));
 
         return $response;
     }

@@ -8,6 +8,7 @@ use JsonSerializable;
 
 /**
  * @ORM\Entity(repositoryClass=MessagesRepository::class)
+ * @ORM\HasLifecycleCallbacks
  */
 class Messages implements JsonSerializable
 {
@@ -35,13 +36,13 @@ class Messages implements JsonSerializable
     private $ad;
 
     /**
-     * @ORM\ManyToOne(targetEntity=user::class)
+     * @ORM\ManyToOne(targetEntity=User::class)
      * @ORM\JoinColumn(nullable=false)
      */
     private $sender;
 
     /**
-     * @ORM\ManyToOne(targetEntity=user::class)
+     * @ORM\ManyToOne(targetEntity=User::class)
      * @ORM\JoinColumn(nullable=false)
      */
     private $reciever;
@@ -87,24 +88,24 @@ class Messages implements JsonSerializable
         return $this;
     }
 
-    public function getSender(): ?user
+    public function getSender(): ?User
     {
         return $this->sender;
     }
 
-    public function setSender(?user $sender): self
+    public function setSender(?User $sender): self
     {
         $this->sender = $sender;
 
         return $this;
     }
 
-    public function getReciever(): ?user
+    public function getReciever(): ?User
     {
         return $this->reciever;
     }
 
-    public function setReciever(?user $reciever): self
+    public function setReciever(?User $reciever): self
     {
         $this->reciever = $reciever;
 

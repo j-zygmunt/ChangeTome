@@ -9,6 +9,7 @@ import {
 import { NavLink } from 'react-router-dom';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import AdCardHolderHome from '../../components/AdCardHolderHome/AdCardHolderHome';
+import axios from 'axios';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -31,12 +32,12 @@ const useStyles = makeStyles((theme) => ({
 
 function Home() {
     const classes = useStyles();
+    const [isLoading, setIsLoading] = React.useState(true);
+    const [lastestAds, setLastestAds] = React.useState([]);
 
     React.useEffect(() => {
-        fetch("/api/postAd", {method: "POST", headers: {'Content-type': 'application/json'}, body:JSON.stringify({test: 'wielki chuj', test2:'mały chuj'})})
-        .then(response => response.json())
-        .then(data => console.log(data));
-
+        axios.get("/api/getLastestAds").then(response => setLastestAds(response.data)).finally(setIsLoading(false));
+        //axios.post("/api/postAd", {title: 'test2', author: 'test', condition: '4', price: '12', description: 'test', creator: '1'}).then(response => console.log(response.data));
     }, []);
 
     return(
@@ -95,10 +96,12 @@ function Home() {
                             </Button>
                         </NavLink>
                     </Grid>
-                </Grid> 
+                </Grid>
             </Grid>
-                <AdCardHolderHome name="Lastest"/>           
-                <AdCardHolderHome name="Popular"/>           
+            {!isLoading &&
+                <AdCardHolderHome name="Lastest" lastestAds={lastestAds}/>
+            }
+                
         </Grid>
     );
 }

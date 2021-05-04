@@ -52,7 +52,7 @@ class Ad implements JsonSerializable
     private $createdAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity=user::class, inversedBy="ads")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="ads")
      * @ORM\JoinColumn(nullable=false)
      */
     private $creator;
@@ -144,12 +144,12 @@ class Ad implements JsonSerializable
         return $this;
     }
 
-    public function getCreator(): ?user
+    public function getCreator(): ?User
     {
         return $this->creator;
     }
 
-    public function setCreator(?user $creator): self
+    public function setCreator(?User $creator): self
     {
         $this->creator = $creator;
 

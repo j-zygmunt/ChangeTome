@@ -2,11 +2,14 @@
 
 namespace App\Controller;
 
-use App\Repository\UserRepository;
-use App\Repository\AddressRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
+use App\Repository\UserRepository;
+use App\Repository\AddressRepository;
 use App\Entity\User;
 use App\Entity\Ad;
 use App\Utils\JsonResponseFactory;
@@ -14,13 +17,13 @@ use App\Utils\JsonResponseFactory;
 class UserController extends AbstractController
 {
     /**
-     * @Route("/api/getUser{id}", name="user", methods={"GET"})
+     * @Route("/api/getUser/{id}", name="user", methods={"GET"})
      * @param userRepository $userRepository
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function getUserById(int $id, UserRepository $userRepository): Response
     {
-        $user = $userRepository->find($id);
+        $user = $userRepository->find((int) $id);
 
         if (!$user) {
             throw $this->createNotFoundException('No user found for id '.$id);
@@ -31,49 +34,49 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/api/getUsersAds{id}", name="usersAds", methods={"GET"})
+     * @Route("/api/getUsersAds/{id}", name="usersAds", methods={"GET"})
      * @param userRepository $userRepository
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function getUsersAds(int $id, UserRepository $userRepository): Response
     {
-        $user = $userRepository->find($id);
+        $user = $userRepository->find((int) $id);
 
         if (!$user) {
             throw $this->createNotFoundException('No user found for id '.$id);
         }
-
-        $ads = $user->getAds();
+        
+        $ads = $user->getAds()->toArray();
         $response = JsonResponseFactory::prepareJsonResponse($ads);
         return $response;
     }
 
     /**
-     * @Route("/api/getUsersStarredAds{id}", name="usersStarredAds", methods={"GET"})
+     * @Route("/api/getUsersStarredAds/{id}", name="usersStarredAds", methods={"GET"})
      * @param userRepository $userRepository
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function getUsersStarredAds(int $id, UserRepository $userRepository): Response
     {
-        $user = $userRepository->find($id);
+        $user = $userRepository->find((int) $id);
 
         if (!$user) {
             throw $this->createNotFoundException('No user found for id '.$id);
         }
 
-        $starredAds = $user->getStarredAds();
+        $starredAds = $user->getStarredAds()->toArray();
         $response = JsonResponseFactory::prepareJsonResponse($starredAds);
         return $response;
     }
 
     /**
-     * @Route("/api/getUsersAddress{id}", name="usersAddress", methods={"GET"})
+     * @Route("/api/getUsersAddress/{id}", name="usersAddress", methods={"GET"})
      * @param userRepository $userRepository
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function getUsersAddress(int $id, UserRepository $userRepository, AddressRepository $addressRepository): Response
     {
-        $user = $userRepository->find($id);
+        $user = $userRepository->find((int) $id);
 
         if (!$user) {
             throw $this->createNotFoundException('No user found for id '.$id);
@@ -83,6 +86,83 @@ class UserController extends AbstractController
         $address = $addressRepository->find($idAddress);
 
         $response = JsonResponseFactory::prepareJsonResponse($address);
+        return $response;
+    }
+
+    /**
+     * @Route("/api/editUser", name="editUser", methods={"PUT"})
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function editUser(Request $request, ValidatorInterface $validator): Response
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $user = $entityManager->getRepository(User::class)->find((int) $data['userId']);
+
+        if (!$user) {
+            throw $this->createNotFoundException('No user found for id '.$id);
+        }
+
+        if ($data['email'] != ''){
+            $user->setEmail($data['email']);
+        }
+
+        if ($data['password'] != ''){
+            $user->setEmail($data['password']);
+        }
+
+        if ($data['phone'] != ''){
+            $user->setEmail($data['phone']);
+        }
+
+        $errors = $validator->validate($user);
+        if (count($errors) > 0) {
+            return JsonResponseFactory::PrepareJsonResponse((string) $errors);
+        }
+
+        try {
+            $entityManager->flush();
+            $response = JsonResponseFactory::PrepareJsonResponse("succes");
+        } catch (UniqueConstraintViolationException $e) {
+            $response = JsonResponseFactory::PrepareJsonResponse($e->getMessage());
+        }
+
+        return $response;
+    }
+
+    /**
+     * @Route("/api/addUser", name="addUser", methods={"POST"})
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function addUser(Request $request, ValidatorInterface $validator): Response
+    {
+        $data = json_decode($request->getContent(), true);
+        //return JsonResponseFactory::PrepareJsonResponse($data);
+
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $user = new User();
+        $user->setEmail($data['email']);
+        $user->setPassword($data['password']);
+        $user->setName($data['name']);
+        $user->setSurname($data['surname']);
+        $user->setPhone($data['phone']);
+        $user->setIsActive(false);
+
+        $errors = $validator->validate($user);
+        if (count($errors) > 0) {
+            return JsonResponseFactory::PrepareJsonResponse((string) $errors);
+        }
+
+        try {
+            $entityManager->persist($user);
+            $entityManager->flush();
+            $response = JsonResponseFactory::PrepareJsonResponse("succes");
+        } catch (UniqueConstraintViolationException $e) {
+            $response = JsonResponseFactory::PrepareJsonResponse($e->getMessage());
+        }
+
         return $response;
     }
 }

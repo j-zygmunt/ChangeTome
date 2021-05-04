@@ -6,11 +6,14 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use JsonSerializable;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\Table(name="`user`")
+ * @UniqueEntity(fields="email", message="User with this mail already exists")
+ * @UniqueEntity(fields="phone", message="User with this phone number already exists")
  * @ORM\HasLifecycleCallbacks
  */
 class User implements JsonSerializable
@@ -23,7 +26,7 @@ class User implements JsonSerializable
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $email;
 
@@ -53,7 +56,7 @@ class User implements JsonSerializable
     private $reviews;
 
     /**
-     * @ORM\ManyToMany(targetEntity=ad::class)
+     * @ORM\ManyToMany(targetEntity=Ad::class)
      */
     private $starredAds;
 
@@ -68,7 +71,7 @@ class User implements JsonSerializable
     private $surname;
 
     /**
-     * @ORM\Column(type="string", length=20)
+     * @ORM\Column(type="string", length=20, unique=true)
      */
     private $phone;
 
@@ -137,14 +140,6 @@ class User implements JsonSerializable
         return $this;
     }
 
-
-    public function setUserDetails(UserDetails $userDetails): self
-    {
-        $this->userDetails = $userDetails;
-
-        return $this;
-    }
-
     /**
      * @return Collection|Ad[]
      */
@@ -206,14 +201,14 @@ class User implements JsonSerializable
     }
 
     /**
-     * @return Collection|ad[]
+     * @return Collection|Ad[]
      */
     public function getStarredAds(): Collection
     {
         return $this->starredAds;
     }
 
-    public function addStarredAd(ad $starredAd): self
+    public function addStarredAd(Ad $starredAd): self
     {
         if (!$this->starredAds->contains($starredAd)) {
             $this->starredAds[] = $starredAd;
@@ -222,7 +217,7 @@ class User implements JsonSerializable
         return $this;
     }
 
-    public function removeStarredAd(ad $starredAd): self
+    public function removeStarredAd(Ad $starredAd): self
     {
         $this->starredAds->removeElement($starredAd);
 
@@ -287,6 +282,7 @@ class User implements JsonSerializable
 
     public function jsonSerialize()
     {
+        //todo return only data that i need
         return (object) get_object_vars($this);
     }
 }

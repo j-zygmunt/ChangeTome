@@ -4,10 +4,13 @@ namespace App\Entity;
 
 use App\Repository\PhotoRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use JsonSerializable;
 
 /**
  * @ORM\Entity(repositoryClass=PhotoRepository::class)
+ * @UniqueEntity(fields="name", message="Photo with this name already exists")
+ * @ORM\HasLifecycleCallbacks
  */
 class Photo implements JsonSerializable
 {
@@ -20,7 +23,7 @@ class Photo implements JsonSerializable
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $name;
 

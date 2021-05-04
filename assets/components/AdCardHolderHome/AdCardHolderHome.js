@@ -1,5 +1,5 @@
 import React from 'react';
-import { 
+import {
     makeStyles,
     Button,
     Divider,
@@ -34,7 +34,7 @@ function AdCardHolderHome(props) {
             justify="space-between"
             className={classes.holder}
             spacing={2}
-        >        
+        >
             <Grid item container justify='space-between'>
                 <Typography>
                     {props.name}
@@ -49,43 +49,21 @@ function AdCardHolderHome(props) {
                     </Button>
                 </NavLink>
             </Grid>
-            <Grid
-                item
-                xl={2} lg={2} md={4} sm={4} xs={12}
-            >
-                <AdCard />
-            </Grid>
-            <Grid
-                item
-                xl={2} lg={2} md={4} sm={4} xs={12}
-            >
-                <AdCard />
-            </Grid>
-            <Grid
-                item
-                xl={2} lg={2} md={4} sm={4} xs={12}
-            >
-                <AdCard />
-            </Grid>
-            <Grid
-                item
-                xl={2} lg={2} md={4} sm={4} xs={12}
-            >
-                <AdCard />
-            </Grid>
-            <Grid
-                item
-                xl={2} lg={2} md={4} sm={4} xs={12}
-            >
-                <AdCard />
-            </Grid>
-            <Grid
-                item
-                xl={2} lg={2} md={4} sm={4} xs={12}
-            >
-                <AdCard />
-            </Grid>
-            <Divider orientation='horizontal' className={classes.divider} />  
+            {
+                props.lastestAds.map((item) => {
+                    console.log(item)
+                    return (
+                        <Grid
+                            key={item.id}
+                            item
+                            xl={2} lg={2} md={4} sm={4} xs={12}
+                        >
+                            <AdCard item={item}/>
+                        </Grid>
+                    )
+                })
+            }
+            <Divider orientation='horizontal' className={classes.divider} />
         </Grid>
     );
 }
