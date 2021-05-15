@@ -60,7 +60,7 @@ function SignUp() {
     const mobile = useMediaQuery('(max-width:600px)');
 
     const handleSubmit = event => {
-        
+        axios.post("/api/register", {title: 'test2', author: 'test32', condition: '4', price: '12', description: 'test', creator: '1'}).then(response => console.log(response.data));
     }
 
     return(

@@ -5,8 +5,8 @@ import {
     Paper,
     Button,
     Typography,
-} from '@material-ui/core'
-import { NavLink } from 'react-router-dom';
+} from '@material-ui/core';
+import {NavLink} from 'react-router-dom';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import AdCardHolderHome from '../../components/AdCardHolderHome/AdCardHolderHome';
 import axios from 'axios';
@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     root: {
         marginTop: 64,
         backgroundColor: theme.palette.background.default,
-    }, 
+    },
     image: {
         backgroundImage: 'url("../../img/bookshelf.jpg")',
         height: '280px',
@@ -37,10 +37,10 @@ function Home() {
 
     React.useEffect(() => {
         axios.get("/api/getLastestAds").then(response => setLastestAds(response.data)).finally(setIsLoading(false));
-        //axios.post("/api/postAd", {title: 'test2', author: 'test', condition: '4', price: '12', description: 'test', creator: '1'}).then(response => console.log(response.data));
+        //axios.post("/api/postAd", {title: 'test2', author: 'test32', condition: '4', price: '12', description: 'test', creator: '1'}).then(response => console.log(response.data));
     }, []);
 
-    return(
+    return (
         <Grid
             container
             component="main"
@@ -99,9 +99,9 @@ function Home() {
                 </Grid>
             </Grid>
             {!isLoading &&
-                <AdCardHolderHome name="Lastest" lastestAds={lastestAds}/>
+                <AdCardHolderHome name="Lastest" lastestAds={lastestAds} />
             }
-                
+
         </Grid>
     );
 }

@@ -130,39 +130,4 @@ class UserController extends AbstractController
 
         return $response;
     }
-
-    /**
-     * @Route("/api/addUser", name="addUser", methods={"POST"})
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
-     */
-    public function addUser(Request $request, ValidatorInterface $validator): Response
-    {
-        $data = json_decode($request->getContent(), true);
-        //return JsonResponseFactory::PrepareJsonResponse($data);
-
-        $entityManager = $this->getDoctrine()->getManager();
-
-        $user = new User();
-        $user->setEmail($data['email']);
-        $user->setPassword($data['password']);
-        $user->setName($data['name']);
-        $user->setSurname($data['surname']);
-        $user->setPhone($data['phone']);
-        $user->setIsActive(false);
-
-        $errors = $validator->validate($user);
-        if (count($errors) > 0) {
-            return JsonResponseFactory::PrepareJsonResponse((string) $errors);
-        }
-
-        try {
-            $entityManager->persist($user);
-            $entityManager->flush();
-            $response = JsonResponseFactory::PrepareJsonResponse("succes");
-        } catch (UniqueConstraintViolationException $e) {
-            $response = JsonResponseFactory::PrepareJsonResponse($e->getMessage());
-        }
-
-        return $response;
-    }
 }
