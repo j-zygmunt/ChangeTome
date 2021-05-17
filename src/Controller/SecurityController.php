@@ -16,32 +16,17 @@ use App\Repository\UserRepository;
 class SecurityController extends AbstractController
 {
     /**
-     * @Route("/api/login_check", name="login", methods={"POST"})
-     * @param userRepository $userRepository
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
-     */
-    public function login(int $id, UserRepository $userRepository): Response
-    {
-        $response = JsonResponseFactory::prepareJsonResponse("not implemented");
-        return $response;
-    }
-
-    /**
      * @Route("/api/register", name="register", methods={"POST"})
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function addUser(Request $request, ValidatorInterface $validator, UserPasswordEncoderInterface $encoder): Response
+    public function register(Request $request, ValidatorInterface $validator, UserPasswordEncoderInterface $encoder): Response
     {
-        $data = json_decode($request->getContent(), true);
-        $user = new User();
-        $xd = $encoder->encodePassword($user, $data['password']);
-        return JsonResponseFactory::PrepareJsonResponse($xd);
-
         $entityManager = $this->getDoctrine()->getManager();
 
+        $data = json_decode($request->getContent(), true);
         $user = new User();
         $user->setEmail($data['email']);
-        $user->setPassword($data['password']);
+        $user->setPassword($encoder->encodePassword($user, $data['password']));
         $user->setName($data['name']);
         $user->setSurname($data['surname']);
         $user->setPhone($data['phone']);

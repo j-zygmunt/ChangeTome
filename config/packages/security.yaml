@@ -6,8 +6,11 @@ security:
             cost: 12
 
     providers:
-        users_in_memory: { memory: null }
-    
+        database:
+            entity:
+                class: App\Entity\User
+                property: email
+                
     firewalls:
         login:
             pattern:  ^/api/login
@@ -17,9 +20,10 @@ security:
                 check_path:               /api/login_check
                 success_handler:          lexik_jwt_authentication.handler.authentication_success
                 failure_handler:          lexik_jwt_authentication.handler.authentication_failure
+                require_previous_session: false
        
         register:
-            pattern:  ^/register
+            pattern:  ^api/register
             stateless: true
             anonymous: true
 
@@ -27,10 +31,7 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         
-        main:
-            anonymous: true
-            lazy: true
-            provider: users_in_memory
+
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication

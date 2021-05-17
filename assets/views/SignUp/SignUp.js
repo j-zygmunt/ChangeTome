@@ -11,7 +11,7 @@ import {
 } from '@material-ui/core';
 import { NavLink } from 'react-router-dom';
 import PasswordInput from '../../components/PasswordInput/PasswordInput';
-
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -60,7 +60,8 @@ function SignUp() {
     const mobile = useMediaQuery('(max-width:600px)');
 
     const handleSubmit = event => {
-        axios.post("/api/register", {title: 'test2', author: 'test32', condition: '4', price: '12', description: 'test', creator: '1'}).then(response => console.log(response.data));
+        event.preventDefault();
+        axios.post("/api/register", {name: 'test2', surname: 'test32', email: 'xdsds', phone: '121121121', password: 'test', password2: 'test'}).then(response => console.log(response.data));
     }
 
     return(

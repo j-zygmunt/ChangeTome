@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core';
 import { NavLink } from 'react-router-dom';
 import PasswordInput from '../../components/PasswordInput/PasswordInput';
-
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -47,7 +47,8 @@ function SignIn() {
     const mobile = useMediaQuery('(max-width:600px)');
 
     const handleSubmit = event => {
-        
+        event.preventDefault();
+        axios.post("/api/login_check",{"username": email, "password": password}).then(response => console.log(response.data));
     }
     
     return (
