@@ -61,7 +61,9 @@ function SignUp() {
 
     const handleSubmit = event => {
         event.preventDefault();
-        axios.post("/api/register", {name: 'test2', surname: 'test32', email: 'xdsds', phone: '121121121', password: 'test', password2: 'test'}).then(response => console.log(response.data));
+        axios.post("/api/register", 
+            {name: name, surname: surname, email: email, phone: phone, password: password, password2: password2}
+        ).then(response => console.log(response.data));
     }
 
     return(

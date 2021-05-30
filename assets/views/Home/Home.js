@@ -37,6 +37,9 @@ function Home() {
 
     React.useEffect(() => {
         axios.get("/api/getLastestAds").then(response => setLastestAds(response.data)).finally(setIsLoading(false));
+
+        // test
+        axios.get("/api").then(response => console.log(response.data));
         //axios.post("/api/postAd", {title: 'test2', author: 'test32', condition: '4', price: '12', description: 'test', creator: '1'}).then(response => console.log(response.data));
     }, []);
 

@@ -11,6 +11,7 @@ import {
 import { NavLink } from 'react-router-dom';
 import PasswordInput from '../../components/PasswordInput/PasswordInput';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -46,11 +47,25 @@ function SignIn() {
     const [password, setPassword] = useState('');
     const mobile = useMediaQuery('(max-width:600px)');
 
-    const handleSubmit = event => {
-        event.preventDefault();
-        axios.post("/api/login_check",{"username": email, "password": password}).then(response => console.log(response.data));
+    const login = async () => {
+        return axios.post("/api/login_check", {username: email, password: password}).then(response => {
+            const test = response.data.token;
+            setToken(test);
+        });
     }
-    
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        await login().
+        then(console.log(token)).
+        finally(axios.get("/api").
+        then(response => console.log(response.data)));
+    }
+
+    // test
+    axios.get("/api").
+    then(response => console.log(response.data));
+
     return (
         <Grid
             container
