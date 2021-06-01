@@ -1,6 +1,7 @@
-import React from 'react';
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import React, {useState, useEffect} from 'react';
+import {HashRouter, Switch, Route, Redirect} from 'react-router-dom';
 import Error from './views/Error/Error';
+import axios from 'axios';
 import Home from './views/Home/Home';
 import PostAd from './views/PostAd/PostAd';
 import Profile from './views/Profile/Profile';
@@ -9,36 +10,70 @@ import SignUp from './views/SignUp/SignUp';
 import Header from './components/Header/Header';
 import Ad from './views/Ad/Ad';
 import YourAds from './views/YourAds/YourAds';
-
+import jwtDecode from 'jwt-decode'
 
 function App() {
+    const [isAuthorized, setIsAuthorized] = useState(false);
+
+    useEffect(() => {
+        if(localStorage.getItem('token')) {
+            if(jwtDecode(localStorage.getItem('token')).exp < Date.now() / 1000) {
+                localStorage.clear();
+                setIsAuthorized(false);
+            } else {
+                setIsAuthorized(true);
+            } 
+        } else {
+            axios.get('api/private/isAuthorized')
+            .then(response => {
+                if(response.status === 200) {
+                    setIsAuthorized(true);
+                    localStorage.setItem('token', response.data.token);
+                }
+            }).catch(error => {
+                console.log(error);
+                setIsAuthorized(false);
+                localStorage.removeItem('token');
+            })
+        }
+    });
 
     return (
-        <BrowserRouter>
-            <Header />
+        <HashRouter>
+            <Header isAuthorized={isAuthorized} setIsAuthorized={setIsAuthorized}/>
             <Switch>
                 <Route exact path="/" >
                     <Redirect to="/home" />
                 </Route>    
-                <Route path="/home" component={Home} />
-                <Route path="/post-ad" component={PostAd} />
-                <Route path="/manage-account" component={Profile} />
-                <Route path="/your-ads" component={YourAds} />
-                <Route path="/messages" component={Error} />
-                <Route path="/favourites" component={Error} />
-                <Route path="/signin" component={SignIn} />
-                <Route path="/ad" component={Ad} />
                 <Route path="/login">
                     <Redirect to="/signin" />
                 </Route>
-                <Route path="/signup" component={SignUp} />
                 <Route path="/register">
                     <Redirect to="/signup" />
                 </Route>
-                <Route path="/404" component={Error} />
+                <Route path="/home" render={
+                    (props) => (<Home {...props} isAuthorized={isAuthorized} setIsAuthorized={setIsAuthorized}/>)}/>
+                <Route path="/post-ad" render={
+                    (props) => (<PostAd {...props} isAuthorized={isAuthorized} setIsAuthorized={setIsAuthorized}/>)}/>
+                <Route path="/manage-account" render={
+                    (props) => (<Profile {...props} isAuthorized={isAuthorized} setIsAuthorized={setIsAuthorized}/>)}/>
+                <Route path="/your-ads" render={
+                    (props) => (<YourAds {...props} isAuthorized={isAuthorized} setIsAuthorized={setIsAuthorized}/>)}/>
+                <Route path="/messages" render={
+                    (props) => (<Error {...props} isAuthorized={isAuthorized} setIsAuthorized={setIsAuthorized}/>)}/>
+                <Route path="/favourites" render={
+                    (props) => (<Error {...props} isAuthorized={isAuthorized} setIsAuthorized={setIsAuthorized}/>)}/>
+                <Route path="/signin" render={
+                    (props) => (<SignIn {...props} isAuthorized={isAuthorized} setIsAuthorized={setIsAuthorized}/>)}/>
+                <Route path="/ad" render={
+                    (props) => (<Ad {...props} isAuthorized={isAuthorized} setIsAuthorized={setIsAuthorized}/>)}/>
+                <Route path="/signup" render={
+                    (props) => (<SignUp {...props} isAuthorized={isAuthorized} setIsAuthorized={setIsAuthorized}/>)}/>
+                <Route path="/404" render={
+                    (props) => (<Error {...props} isAuthorized={isAuthorized} setIsAuthorized={setIsAuthorized}/>)}/>
                 <Redirect to="/404" />
             </Switch>
-        </BrowserRouter>
+        </HashRouter>
     );
 }
 

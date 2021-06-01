@@ -13,7 +13,6 @@ import LoginHeader from '../LoginHeader/LoginHeader';
 import DesktopHeaderItems from '../DesktopHeaderItems/DesktopHeaderItems';
 import MobileHeaderItems from '../MobileHeaderItems/MobileHeaderItems';
 
-
 const useStyles = makeStyles((theme) => ({
     menuButton: {
         marginRight: theme.spacing(2),
@@ -40,7 +39,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Header(props) {
-    const [isUser, setIsUser] = useState(true);
     const classes = useStyles();
     const mobile = useMediaQuery('(max-width:960px)');
 
@@ -101,8 +99,8 @@ function Header(props) {
             <Toolbar className={classes.default}>
                 {mobile &&
                     <MobileHeaderItems
-                        headerItems={isUser ? menuForUser : menuForGuest}
-                        isUser={isUser}
+                        headerItems={props.isAuthorized ? menuForUser : menuForGuest}
+                        isAuthorized={props.isAuthorized}
                     />
                 }
                 <Typography variant="h6" className={classes.title}>
@@ -112,8 +110,8 @@ function Header(props) {
                 </Typography>
                 {!mobile &&
                     <DesktopHeaderItems 
-                        headerItems={isUser ? menuForUser : menuForGuest}
-                        isUser={isUser}
+                        headerItems={props.isAuthorized ? menuForUser : menuForGuest}
+                        isAuthorized={props.isAuthorized}
                     />
                 }
             </Toolbar>

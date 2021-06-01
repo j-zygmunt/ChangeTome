@@ -39,11 +39,11 @@ function AdCardHolderHome(props) {
                 <Typography>
                     {props.name}
                 </Typography>
-                <NavLink to="/404">
+                <NavLink to="/404" style={{textDecoration: 'none'}}>
                     <Button
                         variant='contained'
                         color='secondary'
-                        style={{ padding: '2px 0' }}
+                        style={{padding: '2px 0'}}
                     >
                         More
                     </Button>
@@ -51,7 +51,6 @@ function AdCardHolderHome(props) {
             </Grid>
             {
                 props.lastestAds.map((item) => {
-                    console.log(item)
                     return (
                         <Grid
                             key={item.id}

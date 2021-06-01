@@ -3,12 +3,13 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Doctrine\ORM\EntityManagerInterface;
 use App\Utils\JsonResponseFactory;
 use App\Entity\User;
 use App\Repository\UserRepository;
@@ -46,5 +47,14 @@ class SecurityController extends AbstractController
         }
 
         return $response;
+    }
+
+    /**
+     * @Route("/api/private/isAuthorized", name="isAuthorized", methods={"GET"})
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function getAuthorizedUser(Security $security) {
+        $token = $security->getToken();
+        return JsonResponseFactory::PrepareJsonResponse($token);
     }
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import { 
     Grid, 
     makeStyles,
@@ -8,10 +8,9 @@ import {
     Button,
     useMediaQuery
 } from '@material-ui/core';
-import { NavLink } from 'react-router-dom';
+import {NavLink, useHistory} from 'react-router-dom';
 import PasswordInput from '../../components/PasswordInput/PasswordInput';
 import axios from 'axios';
-import Cookies from 'js-cookie';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -41,30 +40,31 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function SignIn() {
+function SignIn(props) {
     const classes = useStyles();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const mobile = useMediaQuery('(max-width:600px)');
+    const history = useHistory();
 
-    const login = async () => {
-        return axios.post("/api/login_check", {username: email, password: password}).then(response => {
-            const test = response.data.token;
-            setToken(test);
-        });
+    if(localStorage.getItem('token')) {
+        history.push("/");
     }
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = event => {
         event.preventDefault();
-        await login().
-        then(console.log(token)).
-        finally(axios.get("/api").
-        then(response => console.log(response.data)));
+        return axios.post("/api/login_check", {username: email, password: password})
+            .then(response => {
+                if(response.status === 200) {
+                    props.setIsAuthorized(true);
+                    localStorage.setItem('token', response.data.token);
+                    history.push("/");
+                }
+            }).catch(error => {
+                console.log(error);
+                props.setIsAuthorized(false);
+            });
     }
-
-    // test
-    axios.get("/api").
-    then(response => console.log(response.data));
 
     return (
         <Grid

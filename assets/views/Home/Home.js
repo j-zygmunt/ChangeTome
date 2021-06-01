@@ -37,12 +37,11 @@ function Home() {
 
     React.useEffect(() => {
         axios.get("/api/getLastestAds").then(response => setLastestAds(response.data)).finally(setIsLoading(false));
-
-        // test
-        axios.get("/api").then(response => console.log(response.data));
         //axios.post("/api/postAd", {title: 'test2', author: 'test32', condition: '4', price: '12', description: 'test', creator: '1'}).then(response => console.log(response.data));
     }, []);
 
+    axios.get('api/private/isAuthorized')
+    
     return (
         <Grid
             container
@@ -85,7 +84,7 @@ function Home() {
                         </Typography>
                     </Grid>
                     <Grid item container xs={12} justify='center'>
-                        <NavLink to="post-ad" style={{ margin: 'auto' }}>
+                        <NavLink to="post-ad" style={{ margin: 'auto', textDecoration: 'none' }}>
                             <Button
                                 variant='contained'
                                 color='secondary'

@@ -93,9 +93,9 @@ function PostAd() {
     const maxImagesAmount = 8;
 
     React.useEffect(() => {
-        fetch("/api/getUser")
-            .then(response => response.json())
-            .then(data => console.log(data));
+        // fetch("/api/getUser")
+        //     .then(response => response.json())
+        //     .then(data => console.log(data));
 
     }, []);
 

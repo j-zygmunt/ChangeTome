@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     desktopButtons: {
         '& > *': {
             marginLeft: theme.spacing(1),
-
+            textDecoration: 'none',
         },
     },
     paper: {
@@ -49,13 +49,13 @@ function DesktopHeaderItems(props) {
     }, [open]);
 
 
-    if (!props.isUser)
+    if (!props.isAuthorized)
         return (
             <div className={classes.desktopButtons}>
                 {
                     props.headerItems.map((item) => {
                         return (
-                            <NavLink to={item.link} key={item.itemName}>
+                            <NavLink to={item.link} key={item.itemName} style={{textDecoration: 'none'}}>
                                 <Button
                                     color="secondary"
                                     size="large"
@@ -99,7 +99,7 @@ function DesktopHeaderItems(props) {
                                                 <NavLink
                                                     to={item.link}
                                                     key={item.itemName}
-                                                    style={{ display: 'block' }}
+                                                    style={{display: 'block', textDecoration: 'none'}}
                                                 >
                                                     <Button
                                                         onClick={handleClose}
@@ -118,7 +118,7 @@ function DesktopHeaderItems(props) {
                     </Grow>
                 )}
             </Popper>
-            <NavLink to={props.headerItems[0].link} key={props.headerItems[0].itemName}>
+            <NavLink to={props.headerItems[0].link} key={props.headerItems[0].itemName} style={{textDecoration: 'none'}}>
                 <Button color="secondary" size="large" variant='contained'>
                     {props.headerItems[0].itemName}
                 </Button>
