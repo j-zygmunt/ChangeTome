@@ -108,7 +108,6 @@ function PostAd() {
     }
 
     const onDrop = React.useCallback(acceptedFiles => {
-        console.log(images.length);
         acceptedFiles.map(file => {
             const reader = new FileReader();
             reader.onload = (event) => {
@@ -123,8 +122,18 @@ function PostAd() {
     }, []);
 
     const handleSubmit = () => {
-        axios.post()
-
+        axios.post('/api/private/postAd', 
+            {
+                title: title,
+                author: author,
+                description: description,
+                price: price,
+                condition: condition,
+                images: images,
+                
+            },
+            {headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}})
+            .then(response => console.log(response.data))
     }
 
     return (

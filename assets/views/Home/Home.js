@@ -40,8 +40,6 @@ function Home() {
         //axios.post("/api/postAd", {title: 'test2', author: 'test32', condition: '4', price: '12', description: 'test', creator: '1'}).then(response => console.log(response.data));
     }, []);
 
-    axios.get('api/private/isAuthorized', {headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}})
-
     return (
         <Grid
             container

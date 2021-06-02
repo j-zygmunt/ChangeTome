@@ -31,6 +31,11 @@ function MobileHeaderItems(props) {
         setOpen(open);
     }
 
+    const logoutWrapper = () => {
+        setOpen(false);
+        props.logout();
+    }
+
     return (
         <div>
             <IconButton
@@ -56,14 +61,22 @@ function MobileHeaderItems(props) {
                         props.headerItems.map((item) => {
                             return item.itemName === 'Logout'
                             ? (
-                                <Button
+                                <a
+                                    style={{display: 'block'}}
                                     key={item.itemName}
-                                    nClick={props.logout}
-                                    tartIcon={item.icon}
-                                    olor='primary'
                                 >
-                                    {item.itemName}
-                                </Button>
+                                    <Button
+                                        onClick={logoutWrapper}
+                                        startIcon={item.icon}
+                                        color='secondary'
+                                        size='large'
+                                        variant='text'
+                                        fullWidth
+                                        style={{justifyContent: 'flex-start'}}
+                                    >
+                                        {item.itemName}
+                                    </Button>
+                                </a>
                             )
                             : (
                                 <NavLink

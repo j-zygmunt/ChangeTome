@@ -10,7 +10,8 @@ import SignUp from './views/SignUp/SignUp';
 import Header from './components/Header/Header';
 import Ad from './views/Ad/Ad';
 import YourAds from './views/YourAds/YourAds';
-import jwtDecode from 'jwt-decode'
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
+import jwtDecode from 'jwt-decode';
 
 function App() {
     const [isAuthorized, setIsAuthorized] = useState(false);
@@ -24,7 +25,7 @@ function App() {
                 setIsAuthorized(true);
             } 
         } else {
-            axios.get('api/private/isAuthorized', {header: {Authorization: 'Bearer ' + localStorage.getItem('token')}})
+            axios.get('api/private/isAuthorized', {headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}})
             .then(response => {
                 if(response.status === 200) {
                     setIsAuthorized(true);
@@ -53,8 +54,11 @@ function App() {
                 </Route>
                 <Route path="/home" render={
                     (props) => (<Home {...props} isAuthorized={isAuthorized} setIsAuthorized={setIsAuthorized}/>)}/>
-                <Route path="/post-ad" render={
-                    (props) => (<PostAd {...props} isAuthorized={isAuthorized} setIsAuthorized={setIsAuthorized}/>)}/>
+                <PrivateRoute path="/post-ad" isAuthorized={isAuthorized} setIsAuthorized={setIsAuthorized} render={(props) => (
+                    <PostAd {...props}/>
+                )}/>
+                {/* <Route path="/post-ad" render={
+                    (props) => (<PostAd {...props} isAuthorized={isAuthorized} setIsAuthorized={setIsAuthorized}/>)}/> */}
                 <Route path="/manage-account" render={
                     (props) => (<Profile {...props} isAuthorized={isAuthorized} setIsAuthorized={setIsAuthorized}/>)}/>
                 <Route path="/your-ads" render={

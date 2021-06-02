@@ -29,12 +29,13 @@ class AdController extends AbstractController
         return JsonResponseFactory::PrepareJsonResponse($user);
     }
     /**
-     * @Route("/api/postAd", name="postAd", methods={"POST"})
+     * @Route("/api/private/postAd", name="postAd", methods={"POST"})
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function postAd(Request $request, ValidatorInterface $validator): Response 
     {
         $data = json_decode($request->getContent(), true);
+        return JsonResponseFactory::PrepareJsonResponse($data);
         
         $entityManager = $this->getDoctrine()->getManager();
         $user = $entityManager->getRepository(User::class)->find((int) $data['creator']);
