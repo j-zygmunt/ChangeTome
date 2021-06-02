@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\UserInterface;
 use JsonSerializable;
 
 /**
@@ -16,7 +17,7 @@ use JsonSerializable;
  * @UniqueEntity(fields="phone", message="User with this phone number already exists")
  * @ORM\HasLifecycleCallbacks
  */
-class User implements JsonSerializable
+class User implements JsonSerializable, UserInterface
 {
     /**
      * @ORM\Id
@@ -100,7 +101,7 @@ class User implements JsonSerializable
     public function setEmail(string $email): self
     {
         $this->email = $email;
-
+        
         return $this;
     }
 
@@ -271,6 +272,34 @@ class User implements JsonSerializable
         
         return $this;
     }
+
+    ///////////////////////
+    public function getUsername(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setUsername(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+    
+    public function getRoles()
+    {
+        return array('ROLE_USER');
+    }
+
+    public function getSalt()
+    {
+        return null;
+    }
+
+    public function eraseCredentials()
+    {
+    }
+    ////////////////////////
 
     /**
      * @ORM\PrePersist

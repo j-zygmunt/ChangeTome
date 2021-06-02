@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import { 
     Grid, 
     makeStyles,
@@ -8,9 +8,9 @@ import {
     Button,
     useMediaQuery
 } from '@material-ui/core';
-import { NavLink } from 'react-router-dom';
+import {NavLink, useHistory} from 'react-router-dom';
 import PasswordInput from '../../components/PasswordInput/PasswordInput';
-
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -40,16 +40,32 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function SignIn() {
+function SignIn(props) {
     const classes = useStyles();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const mobile = useMediaQuery('(max-width:600px)');
+    const history = useHistory();
+
+    if(localStorage.getItem('token')) {
+        history.push("/");
+    }
 
     const handleSubmit = event => {
-        
+        event.preventDefault();
+        return axios.post("/api/login_check", {username: email, password: password})
+            .then(response => {
+                if(response.status === 200) {
+                    props.setIsAuthorized(true);
+                    localStorage.setItem('token', response.data.token);
+                    history.push("/");
+                }
+            }).catch(error => {
+                console.log(error);
+                props.setIsAuthorized(false);
+            });
     }
-    
+
     return (
         <Grid
             container

@@ -6,8 +6,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\Security\Core\Security;
+use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\AdRepository;
 use App\Repository\UserRepository;
 use App\Repository\PhotoRepository;
@@ -15,8 +16,18 @@ use App\Entity\Ad;
 use App\Entity\User;
 use App\Utils\JsonResponseFactory;
 
+
 class AdController extends AbstractController
 {
+    /**
+     * @Route("/api/private", name="private", methods={"GET"})
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function private(Request $request, Security $security)
+    {
+        $user = $security->getToken()->getUser();
+        return JsonResponseFactory::PrepareJsonResponse($user);
+    }
     /**
      * @Route("/api/postAd", name="postAd", methods={"POST"})
      * @return \Symfony\Component\HttpFoundation\JsonResponse
@@ -61,7 +72,7 @@ class AdController extends AbstractController
      */
     public function getAdById(Request $request): Response
     {
-        $data = $request->query->all(); //działa
+        $data = $request->query->all();
         
         $entityManager = $this->getDoctrine()->getManager();
         $ad = $entityManager->getRepository(Ad::class)->find((int) $data['id']);
@@ -165,7 +176,7 @@ class AdController extends AbstractController
      * @Route("/api/getLastestAds", name="getLastestAds", methods={"GET"})
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function getLastestAds(AdRepository $adRepository): Response
+    public function getLastestAds(Request $request, AdRepository $adRepository): Response
     {
         return JsonResponseFactory::PrepareJsonResponse($adRepository->getLastestOffers());
     }
