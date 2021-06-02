@@ -54,7 +54,18 @@ function MobileHeaderItems(props) {
                 <MenuList className={classes.mobileButtons}>
                     {
                         props.headerItems.map((item) => {
-                            return(
+                            return item.itemName === 'Logout'
+                            ? (
+                                <Button
+                                    key={item.itemName}
+                                    nClick={props.logout}
+                                    tartIcon={item.icon}
+                                    olor='primary'
+                                >
+                                    {item.itemName}
+                                </Button>
+                            )
+                            : (
                                 <NavLink
                                     to={item.link}
                                     key={item.itemName}

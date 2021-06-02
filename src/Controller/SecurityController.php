@@ -50,6 +50,15 @@ class SecurityController extends AbstractController
     }
 
     /**
+     * @Route("/api/private/logout", name="logout", methods={"POST"})
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function logout() {
+        //todo 
+        return JsonResponseFactory::PrepareJsonResponse("succes");
+    }
+
+    /**
      * @Route("/api/private/isAuthorized", name="isAuthorized", methods={"GET"})
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */

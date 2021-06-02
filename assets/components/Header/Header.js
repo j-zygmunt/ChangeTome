@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { AppBar, Toolbar, Typography, useMediaQuery } from '@material-ui/core'
-import { NavLink, withRouter } from 'react-router-dom';
+import { NavLink, withRouter, useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import {
     FolderOpen,
@@ -12,6 +12,7 @@ import {
 import LoginHeader from '../LoginHeader/LoginHeader';
 import DesktopHeaderItems from '../DesktopHeaderItems/DesktopHeaderItems';
 import MobileHeaderItems from '../MobileHeaderItems/MobileHeaderItems';
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
     menuButton: {
@@ -41,6 +42,7 @@ const useStyles = makeStyles((theme) => ({
 function Header(props) {
     const classes = useStyles();
     const mobile = useMediaQuery('(max-width:960px)');
+    const history = useHistory();
 
     const menuForUser = [
         {
@@ -94,6 +96,16 @@ function Header(props) {
             <LoginHeader/>
         );
 
+    const logout = () => {
+        axios.post('api/private/logout', {header: {Authorization: 'Bearer ' + localStorage.getItem('token')}})
+            .then(() => {
+                props.setIsAuthorized(false);
+                localStorage.removeItem('token');
+                history.push("/");
+            })
+            .catch();
+    }
+
     return (
         <AppBar>
             <Toolbar className={classes.default}>
@@ -101,6 +113,7 @@ function Header(props) {
                     <MobileHeaderItems
                         headerItems={props.isAuthorized ? menuForUser : menuForGuest}
                         isAuthorized={props.isAuthorized}
+                        logout={logout}
                     />
                 }
                 <Typography variant="h6" className={classes.title}>
@@ -112,6 +125,7 @@ function Header(props) {
                     <DesktopHeaderItems 
                         headerItems={props.isAuthorized ? menuForUser : menuForGuest}
                         isAuthorized={props.isAuthorized}
+                        logout={logout}
                     />
                 }
             </Toolbar>

@@ -18,13 +18,13 @@ function App() {
     useEffect(() => {
         if(localStorage.getItem('token')) {
             if(jwtDecode(localStorage.getItem('token')).exp < Date.now() / 1000) {
-                localStorage.clear();
+                localStorage.removeItem('token');
                 setIsAuthorized(false);
             } else {
                 setIsAuthorized(true);
             } 
         } else {
-            axios.get('api/private/isAuthorized')
+            axios.get('api/private/isAuthorized', {header: {Authorization: 'Bearer ' + localStorage.getItem('token')}})
             .then(response => {
                 if(response.status === 200) {
                     setIsAuthorized(true);

@@ -95,7 +95,18 @@ function DesktopHeaderItems(props) {
                                 <MenuList autoFocusItem={open}>
                                     {
                                         props.headerItems.slice(1, 6).map((item) => {
-                                            return (
+                                            return item.itemName === 'Logout' 
+                                            ? (
+                                                <Button
+                                                    key={item.itemName}
+                                                    onClick={props.logout}
+                                                    startIcon={item.icon}
+                                                    color='primary'
+                                                >
+                                                    {item.itemName}
+                                                </Button>
+                                            )
+                                            : (
                                                 <NavLink
                                                     to={item.link}
                                                     key={item.itemName}

@@ -18,6 +18,7 @@ import update from "immutability-helper";
 import cuid from 'cuid';
 import FileDropzone from '../../components/FileDropzone/FileDropzone';
 import ImagesPreview from '../../components/ImagesPreview/ImagesPreview';
+import axios from 'axios';
 
 
 const RatingLabels = {
@@ -92,13 +93,6 @@ function PostAd() {
     const mobile = useMediaQuery('(max-width:600px)');
     const maxImagesAmount = 8;
 
-    React.useEffect(() => {
-        // fetch("/api/getUser")
-        //     .then(response => response.json())
-        //     .then(data => console.log(data));
-
-    }, []);
-
     const moveImage = (dragIndex, hoverIndex) => {
         const draggedImage = images[dragIndex];
         setImages(
@@ -127,6 +121,11 @@ function PostAd() {
             return file;
         });
     }, []);
+
+    const handleSubmit = () => {
+        axios.post()
+
+    }
 
     return (
         <Grid
@@ -279,17 +278,16 @@ function PostAd() {
                 xl={8} lg={8} md={9} sm={10} xs={10}
             >
                 <Grid item sm={4} xs={12}>
-                    <NavLink to="/home">
-                        <Button
-                            fullWidth
-                            type='submit'
-                            variant='contained'
-                            color='secondary'
-                            size='large'
-                        >
-                            Add
-                        </Button>
-                    </NavLink>
+                    <Button
+                        fullWidth
+                        type='submit'
+                        variant='contained'
+                        color='secondary'
+                        size='large'
+                        onClick={handleSubmit}
+                    >
+                        Add
+                    </Button>
                 </Grid>
             </Grid>
         </Grid>
