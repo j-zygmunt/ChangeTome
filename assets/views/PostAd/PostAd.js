@@ -117,11 +117,12 @@ function PostAd() {
                 ] : prevState);
             };
             reader.readAsDataURL(file);
-            return file;
+            //return file;
         });
     }, []);
 
     const handleSubmit = () => {
+        console.log(images);
         axios.post('/api/private/postAd', 
             {
                 title: title,
@@ -129,8 +130,7 @@ function PostAd() {
                 description: description,
                 price: price,
                 condition: condition,
-                images: images,
-                
+                images: images
             },
             {headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}})
             .then(response => console.log(response.data))

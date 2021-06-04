@@ -14,6 +14,7 @@ use App\Repository\UserRepository;
 use App\Repository\PhotoRepository;
 use App\Entity\Ad;
 use App\Entity\User;
+use App\Entity\Photo;
 use App\Utils\JsonResponseFactory;
 
 
@@ -35,8 +36,7 @@ class AdController extends AbstractController
     public function postAd(Request $request, ValidatorInterface $validator): Response 
     {
         $data = json_decode($request->getContent(), true);
-        return JsonResponseFactory::PrepareJsonResponse($data);
-        
+
         $entityManager = $this->getDoctrine()->getManager();
         $user = $entityManager->getRepository(User::class)->find((int) $data['creator']);
 
@@ -48,7 +48,18 @@ class AdController extends AbstractController
         $ad->setDescription($data['description']);
         $ad->setCreator($user);
 
-        //todo photos upload
+        $images = $data['images'];
+        foreach ($images as $image) {
+            $base64=str_replace('data:image/png;base64,', '', $image['src']);
+            $file = fopen($this->getParameter('uploads_directory').$image['id'].'.png', 'wb');
+            fwrite($file, base64_decode($base64));
+            fclose($file);
+            $photo = new Photo();
+            $photo->setName($image['id'].'.png');
+            $ad->addPhoto($photo);
+            $entityManager->persist($photo);
+        }
+        
         $errors = $validator->validate($ad);
         if (count($errors) > 0) {
             return JsonResponseFactory::PrepareJsonResponse((string) $errors);
