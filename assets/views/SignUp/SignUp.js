@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import { 
     Grid, 
     makeStyles,
@@ -9,7 +9,7 @@ import {
     Checkbox,
     useMediaQuery
 } from '@material-ui/core';
-import { NavLink } from 'react-router-dom';
+import {NavLink,  useHistory} from 'react-router-dom';
 import PasswordInput from '../../components/PasswordInput/PasswordInput';
 import axios from 'axios';
 
@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
         '@media (max-width:600px)': {
             padding: '1rem 2rem 1rem 2rem'
         },
-        margin: 'auto' 
+        margin: 'auto',
     },
     image: {
         backgroundImage: 'url("./img/bookshelf.jpg")',
@@ -39,17 +39,19 @@ const useStyles = makeStyles((theme) => ({
         color: theme.palette.secondary.main,
         fontSize: '1.2em',
         '@media (max-width:600px)': {
-            fontSize: '1rem'
+            fontSize: '1rem',
         },
     },
     wrap: {
         margin: '0 16px',
-        padding: '0 !important'
+        padding: '0 !important',
     },
 }));
 
 function SignUp() {
     const classes = useStyles();
+    const mobile = useMediaQuery('(max-width:600px)');
+    const history = useHistory();
     const [name, setName] = useState('');
     const [surname, setSurname] = useState('');
     const [email, setEmail] = useState('');
@@ -57,13 +59,17 @@ function SignUp() {
     const [password, setPassword] = useState('');
     const [password2, setPassword2] = useState('');
     const [accepted, setAccepted] = useState(false);
-    const mobile = useMediaQuery('(max-width:600px)');
+
+    if(localStorage.getItem('token')) {
+        history.push("/");
+    }
 
     const handleSubmit = event => {
         event.preventDefault();
         axios.post("/api/register", 
             {name: name, surname: surname, email: email, phone: phone, password: password, password2: password2}
-        ).then(response => console.log(response.data));
+        )
+        .then(response => console.log(response.data));
     }
 
     return(

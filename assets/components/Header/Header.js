@@ -99,7 +99,6 @@ function Header(props) {
     const logout = () => {
         axios.post('api/private/logout', {header: {Authorization: 'Bearer ' + localStorage.getItem('token')}})
             .then(() => {
-                props.setIsAuthorized(false);
                 localStorage.removeItem('token');
                 history.push("/");
             })
@@ -111,8 +110,7 @@ function Header(props) {
             <Toolbar className={classes.default}>
                 {mobile &&
                     <MobileHeaderItems
-                        headerItems={props.isAuthorized ? menuForUser : menuForGuest}
-                        isAuthorized={props.isAuthorized}
+                        headerItems={localStorage.getItem('token') ? menuForUser : menuForGuest}
                         logout={logout}
                     />
                 }
@@ -123,8 +121,7 @@ function Header(props) {
                 </Typography>
                 {!mobile &&
                     <DesktopHeaderItems 
-                        headerItems={props.isAuthorized ? menuForUser : menuForGuest}
-                        isAuthorized={props.isAuthorized}
+                        headerItems={localStorage.getItem('token') ? menuForUser : menuForGuest}
                         logout={logout}
                     />
                 }

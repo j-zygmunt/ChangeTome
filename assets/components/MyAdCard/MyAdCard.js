@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function MyAdCard() {
+function MyAdCard(props) {
     const classes = useStyles();
     
     return (

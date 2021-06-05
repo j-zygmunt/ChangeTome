@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function SignIn(props) {
+function SignIn() {
     const classes = useStyles();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -56,13 +56,11 @@ function SignIn(props) {
         axios.post("/api/login_check", {username: email, password: password})
             .then(response => {
                 if(response.status === 200) {
-                    props.setIsAuthorized(true);
                     localStorage.setItem('token', response.data.token);
                     history.push("/");
                 }
             }).catch(error => {
-                console.log(error);
-                props.setIsAuthorized(false);
+                //todo
             });
     }
 

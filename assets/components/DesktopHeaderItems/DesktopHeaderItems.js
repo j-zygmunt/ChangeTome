@@ -49,7 +49,7 @@ function DesktopHeaderItems(props) {
     }, [open]);
 
 
-    if (!props.isAuthorized)
+    if (!localStorage.getItem('token'))
         return (
             <div className={classes.desktopButtons}>
                 {
