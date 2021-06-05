@@ -53,7 +53,7 @@ function SignIn(props) {
 
     const handleSubmit = event => {
         event.preventDefault();
-        return axios.post("/api/login_check", {username: email, password: password})
+        axios.post("/api/login_check", {username: email, password: password})
             .then(response => {
                 if(response.status === 200) {
                     props.setIsAuthorized(true);

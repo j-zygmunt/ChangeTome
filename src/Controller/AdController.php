@@ -148,7 +148,7 @@ class AdController extends AbstractController
 
         $entityManager = $this->getDoctrine()->getManager();
         $user = $entityManager->getRepository(User::class)->find((int) $data['userId']);
-        $ad = $entityManager->getRepository(Ad::class)->find((int)  $data['adId']);
+        $ad = $entityManager->getRepository(Ad::class)->find((int) $data['adId']);
 
         if($user->getStarredAds()->contains($ad)) {
             $user->removeStarredAd($ad);
