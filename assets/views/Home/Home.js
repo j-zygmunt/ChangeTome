@@ -10,7 +10,7 @@ import {NavLink} from 'react-router-dom';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import AdCardHolderHome from '../../components/AdCardHolderHome/AdCardHolderHome';
 import axios from 'axios';
-
+import jwtDecode from 'jwt-decode';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -36,11 +36,10 @@ function Home() {
     const [lastestAds, setLastestAds] = React.useState([]);
 
     React.useEffect(() => {
-        axios.get("/api/getLastestAds").then(response => setLastestAds(response.data)).finally(setIsLoading(false));
+        axios.get("/api/getLastestAds")
+            .then(response => setLastestAds(response.data)).finally(setIsLoading(false));
         //axios.post("/api/postAd", {title: 'test2', author: 'test32', condition: '4', price: '12', description: 'test', creator: '1'}).then(response => console.log(response.data));
     }, []);
-
-    axios.get('api/private/isAuthorized', {headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}})
 
     return (
         <Grid

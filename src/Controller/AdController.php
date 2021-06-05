@@ -14,30 +14,21 @@ use App\Repository\UserRepository;
 use App\Repository\PhotoRepository;
 use App\Entity\Ad;
 use App\Entity\User;
+use App\Entity\Photo;
 use App\Utils\JsonResponseFactory;
-
 
 class AdController extends AbstractController
 {
     /**
-     * @Route("/api/private", name="private", methods={"GET"})
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
-     */
-    public function private(Request $request, Security $security)
-    {
-        $user = $security->getToken()->getUser();
-        return JsonResponseFactory::PrepareJsonResponse($user);
-    }
-    /**
-     * @Route("/api/postAd", name="postAd", methods={"POST"})
+     * @Route("/api/private/postAd", name="postAd", methods={"POST"})
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function postAd(Request $request, ValidatorInterface $validator): Response 
     {
         $data = json_decode($request->getContent(), true);
-        
+
         $entityManager = $this->getDoctrine()->getManager();
-        $user = $entityManager->getRepository(User::class)->find((int) $data['creator']);
+        $user = $entityManager->getRepository(User::class)->findOneByEmail($data['creator']);
 
         $ad = new Ad();
         $ad->setTitle($data['title']);
@@ -47,7 +38,18 @@ class AdController extends AbstractController
         $ad->setDescription($data['description']);
         $ad->setCreator($user);
 
-        //todo photos upload
+        $images = $data['images'];
+        foreach ($images as $image) {
+            $base64=str_replace('data:image/png;base64,', '', $image['src']);
+            $file = fopen($this->getParameter('uploads_directory').$image['id'].'.png', 'wb');
+            fwrite($file, base64_decode($base64));
+            fclose($file);
+            $photo = new Photo();
+            $photo->setName($image['id'].'.png');
+            $ad->addPhoto($photo);
+            $entityManager->persist($photo);
+        }
+        
         $errors = $validator->validate($ad);
         if (count($errors) > 0) {
             return JsonResponseFactory::PrepareJsonResponse((string) $errors);
@@ -81,8 +83,7 @@ class AdController extends AbstractController
             throw $this->createNotFoundException('No ad found for id '.$data);
         }
 
-        $response = JsonResponseFactory::prepareJsonResponse($ad);
-        return $response;
+        return JsonResponseFactory::PrepareJsonResponse($ad);
     }
 
     /**
@@ -176,8 +177,10 @@ class AdController extends AbstractController
      * @Route("/api/getLastestAds", name="getLastestAds", methods={"GET"})
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function getLastestAds(Request $request, AdRepository $adRepository): Response
+    public function getLastestAds(): Response
     {
-        return JsonResponseFactory::PrepareJsonResponse($adRepository->getLastestOffers());
+        $entityManager = $this->getDoctrine()->getManager();
+        $offers = $entityManager->getRepository(Ad::class)->getLastestOffers();
+        return JsonResponseFactory::PrepareJsonResponse($offers);
     }
 }

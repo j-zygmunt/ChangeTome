@@ -19,7 +19,7 @@ import cuid from 'cuid';
 import FileDropzone from '../../components/FileDropzone/FileDropzone';
 import ImagesPreview from '../../components/ImagesPreview/ImagesPreview';
 import axios from 'axios';
-
+import jwtDecode from 'jwt-decode';
 
 const RatingLabels = {
     0.5: 'Used: Poor',
@@ -108,7 +108,6 @@ function PostAd() {
     }
 
     const onDrop = React.useCallback(acceptedFiles => {
-        console.log(images.length);
         acceptedFiles.map(file => {
             const reader = new FileReader();
             reader.onload = (event) => {
@@ -118,13 +117,24 @@ function PostAd() {
                 ] : prevState);
             };
             reader.readAsDataURL(file);
-            return file;
+            //return file;
         });
     }, []);
 
     const handleSubmit = () => {
-        axios.post()
-
+        console.log(images);
+        axios.post('/api/private/postAd', 
+            {
+                title: title,
+                author: author,
+                description: description,
+                price: price,
+                condition: condition,
+                images: images,
+                creator: jwtDecode(localStorage.getItem('token')).email
+            },
+            {headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}})
+            .then(response => console.log(response.data))
     }
 
     return (
