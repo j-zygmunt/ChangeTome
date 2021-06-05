@@ -1,21 +1,20 @@
-import React from 'react'
+import React from 'react';
 import Carousel from 'react-material-ui-carousel';
-import { makeStyles, Container } from '@material-ui/core';
+import {makeStyles, Container} from '@material-ui/core';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
-
 
 const useStyles = makeStyles((theme) => ({
     image: {
         height: '100%',
         width: '100%',
-        objectFit: 'contain'
+        objectFit: 'contain',
     },
     wrapper: {
         height: '500px',
         width: "100%",
-        padding: 0
+        padding: 0,
     }
 }));
 
@@ -57,18 +56,25 @@ function PhotoCarousel(props) {
             navButtonsAlwaysVisible={true}
             style={{width: '100%'}}
         >
-            <Container className={classes.wrapper}>
-                <img src="../../img/bookshelf.jpg" className={classes.image} />
-            </Container>
-            <Container className={classes.wrapper}>
-                <img src={require("../../img/book.jpg")} className={classes.image} />
-            </Container>
-            <Container className={classes.wrapper}>
-                <img src={require("../../img/2.jpg")} className={classes.image} />
-            </Container>
-            <Container className={classes.wrapper}>
-                <img src="../../img/bookshelf.jpg" className={classes.image} />
-            </Container>
+            {
+                typeof props.photos[0] === 'undefined'
+                ? <Container className={classes.wrapper}>
+                    <img 
+                        src={require('../../img/NoImage.png')} 
+                        className={classes.image}
+                    />
+                </Container>
+                : props.photos.map((photo) => {
+                    return (
+                    <Container className={classes.wrapper} key={photo.id}>
+                        <img 
+                            src={require(`../../../public/uploads/${photo.name}`)} 
+                            className={classes.image}
+                        />
+                    </Container>
+                    );
+                })
+            }
         </Carousel>
     )
 }

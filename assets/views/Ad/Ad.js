@@ -12,11 +12,11 @@ import {
     TextField,
     Button,
 } from '@material-ui/core';
-import { NavLink } from 'react-router-dom';
+import {NavLink, useParams} from 'react-router-dom';
 import Rating from '@material-ui/lab/Rating';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import PhotoCarousel from '../../components/PhotoCarousel/PhotoCarousel';
-
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -44,9 +44,12 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function Ad() {
+function Ad(props) {
     const classes = useStyles();
+    const { id } = useParams();
     const [buttonContent, setButtonContent] = React.useState("My number");
+    const [isLoading, setIsLoading] = React.useState(true);
+    const [content, setContent] = React.useState({});
     const [message, setMessage] = React.useState("");
     const mobile = useMediaQuery('(max-width:960px)');
 
@@ -57,6 +60,18 @@ function Ad() {
     const handleClick = (text) => {
         buttonContent === 'My number' ? setButtonContent(text) : setButtonContent('My number');
     }
+
+    React.useEffect(() => {
+        axios.get("/api/getAd", {params: {id: id}})
+            .then(response => setContent(response.data))
+            .finally(() => {
+                setTimeout(() => {
+                    setIsLoading(false);
+                }, 500);
+            })
+    }, []);
+
+    console.log(content, isLoading);
 
     return (
         <Grid
@@ -77,9 +92,10 @@ function Ad() {
             >
                 <Grid item xs={12}>
                     <Paper className={classes.paper}>
-                        <PhotoCarousel>
-
+                        {!isLoading &&
+                        <PhotoCarousel photos={content.photos}>
                         </PhotoCarousel>
+                        }
                     </Paper>
                 </Grid>
                 <Grid item xs={12}>
@@ -88,7 +104,7 @@ function Ad() {
                             date hh:mm
                         </Typography>
                         <Typography variant="h5" style={{ margin: '1rem 0' }}>
-                            Title | Author
+                            {content.title} | Author
                         </Typography>
                         <Typography>
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.

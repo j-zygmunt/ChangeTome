@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\AdRepository;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -12,7 +13,7 @@ use JsonSerializable;
  * @ORM\Entity(repositoryClass=AdRepository::class)
  * @ORM\HasLifecycleCallbacks
  */
-class Ad implements JsonSerializable
+class Ad
 {
     /**
      * @ORM\Id
@@ -58,7 +59,7 @@ class Ad implements JsonSerializable
     private $creator;
 
     /**
-     * @ORM\OneToMany(targetEntity=Photo::class, mappedBy="idAd", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Photo::class, mappedBy="idAd", orphanRemoval=true, fetch="EAGER")
      */
     private $photos;
 
@@ -159,9 +160,9 @@ class Ad implements JsonSerializable
     /**
      * @return Collection|Photo[]
      */
-    public function getPhotos(): Collection
+    public function getPhotos(): Array
     {
-        return $this->photos;
+        return $this->photos->getValues();
     }
 
     public function addPhoto(Photo $photo): self
@@ -192,10 +193,5 @@ class Ad implements JsonSerializable
     public function setCreatedAtValue()
     {
         $this->createdAt = new \DateTime();
-    }
-
-    public function jsonSerialize()
-    {
-        return (object) get_object_vars($this);
     }
 }

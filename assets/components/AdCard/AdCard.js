@@ -10,10 +10,9 @@ import {
     CardActions,
     makeStyles
 } from '@material-ui/core';
-import Rating from '@material-ui/lab/Rating'
-import { NavLink } from 'react-router-dom';
+import Rating from '@material-ui/lab/Rating';
+import {NavLink} from 'react-router-dom';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-
 
 const useStyles = makeStyles((theme) => ({
     divider: {
@@ -41,8 +40,12 @@ function AdCard(props) {
 
     return (
         <Card style={{ width: '100%', padding: '1em' }}>
-            <NavLink to="/ad" className={classes.link}>
-                <CardMedia className={classes.media} image={require('../../img/book.jpg')} />
+            <NavLink to={`/ad/${props.item.id}`} className={classes.link}>
+                <CardMedia className={classes.media} image={
+                    typeof props.item.photos[0] === 'undefined'
+                    ? require('../../img/NoImage.png')
+                    : require(`../../../public/uploads/${props.item.photos[0].name}`)} 
+                />
                 <CardContent style={{ padding: '1em 0 0 0' }}>
                     <Typography gutterBottom variant="h6">
                         {props.item.title} | {props.item.author}

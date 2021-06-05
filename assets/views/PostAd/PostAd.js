@@ -19,7 +19,7 @@ import cuid from 'cuid';
 import FileDropzone from '../../components/FileDropzone/FileDropzone';
 import ImagesPreview from '../../components/ImagesPreview/ImagesPreview';
 import axios from 'axios';
-
+import jwtDecode from 'jwt-decode';
 
 const RatingLabels = {
     0.5: 'Used: Poor',
@@ -130,7 +130,8 @@ function PostAd() {
                 description: description,
                 price: price,
                 condition: condition,
-                images: images
+                images: images,
+                creator: jwtDecode(localStorage.getItem('token')).email
             },
             {headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}})
             .then(response => console.log(response.data))
