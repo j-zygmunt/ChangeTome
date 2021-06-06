@@ -7,13 +7,20 @@ import {
     DialogActions,
     Button
 } from '@material-ui/core';
+import {useHistory} from "react-router-dom";
 
 function AlertDialog(props) {
+    const history = useHistory();
 
     const handleClose = () => {
         props.setIsOpened(false);
+        console.log(typeof props.redirect !== 'undefined')
+        if(typeof props.redirect !== 'undefined') {
+            console.log(props.redirect);
+            history.push(props.redirect);
+        }
     }
-
+    console.log(typeof props.redirect !== 'undefined')
     return (
         <Dialog
             open={props.isOpened}

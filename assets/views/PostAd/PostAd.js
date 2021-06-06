@@ -11,8 +11,6 @@ import {
 import Rating from '@material-ui/lab/Rating';
 import {DndProvider} from "react-dnd";
 import {HTML5Backend} from "react-dnd-html5-backend";
-import NumberFormat from 'react-number-format';
-import PropTypes from 'prop-types';
 import update from "immutability-helper";
 import cuid from 'cuid';
 import axios from 'axios';
@@ -21,6 +19,7 @@ import FileDropzone from '../../components/FileDropzone/FileDropzone';
 import ImagesPreview from '../../components/ImagesPreview/ImagesPreview';
 import AlertDialog from '../../components/AlertDialog/AlertDialog';
 import {useHistory} from 'react-router-dom';
+import NumberFormatCustom from '../../utils/NumberFormatCustom';
 
 const RatingLabels = {
     0.5: 'Used: Poor',
@@ -50,38 +49,6 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function NumberFormatCustom(props) {
-    const { inputRef, onChange, ...other } = props;
-
-    return (
-        <NumberFormat
-            {...other}
-            getInputRef={inputRef}
-            onValueChange={(values) => {
-                onChange({
-                    target: {
-                        name: props.name,
-                        value: values.value,
-                    },
-                });
-            }}
-            thousandSeparator
-            isNumericString
-            prefix="$"
-            isAllowed={(values) =>{
-                const {formattedValue, floatValue} = values;
-                return formattedValue === '' || (floatValue >=0 && floatValue <=100000);
-            }}
-        />
-    );
-}
-
-NumberFormatCustom.propTypes = {
-    inputRef: PropTypes.func.isRequired,
-    name: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired,
-};
-
 function PostAd() {
     const classes = useStyles();
     const history = useHistory();
@@ -94,10 +61,6 @@ function PostAd() {
     const [price, setPrice] = React.useState();
     const mobile = useMediaQuery('(max-width:600px)');
     const maxImagesAmount = 8;
-
-    const [isDialogOpened, setIsDialogOpened] = React.useState(false);
-    const [dialogTitle, setDialogTitle] = React.useState('');
-    const [dialogContent, setDialogContent] = React.useState('');
     
     const moveImage = (dragIndex, hoverIndex) => {
         const draggedImage = images[dragIndex];
@@ -249,7 +212,7 @@ function PostAd() {
                         </Grid>
                     </Grid>
                     <Grid item xl={2} lg={2} md={4} sm={4} xs={12}>
-                        <Typography variant="body1" style={{ fontWeight: 'bold' }}>Price*</Typography>
+                        <Typography variant="body1" style={{ fontWeight: 'bold' }}>Price($)*</Typography>
                         <Grid item sm={8} xs={4}>
                             <TextField
                                 required
@@ -325,7 +288,7 @@ function PostAd() {
                     </Grid>
                 </Grid>
             </Grid>
-            <AlertDialog title={dialogTitle} content={dialogContent} isOpened={isDialogOpened} setIsOpened={setIsDialogOpened}/>
+            <AlertDialog/>
         </Grid>
     );
 }

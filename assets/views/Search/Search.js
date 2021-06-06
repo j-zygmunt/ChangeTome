@@ -5,7 +5,7 @@ import {
     Typography,
     makeStyles,
 } from '@material-ui/core';
-import { useLocation } from "react-router-dom";
+import {useLocation} from "react-router-dom";
 import Pagination from '@material-ui/lab/Pagination';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import AdCard from '../../components/AdCard/AdCard';

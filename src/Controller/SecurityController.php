@@ -35,7 +35,12 @@ class SecurityController extends AbstractController
 
         $errors = $validator->validate($user);
         if (count($errors) > 0) {
-            return JsonResponseFactory::PrepareJsonResponse((string) $errors);
+            $messages = '';
+            foreach ($errors as $error){
+                $messages .= $error->getMessage();
+                $messages .= '. ';
+            }
+            return JsonResponseFactory::PrepareJsonResponse($messages);
         }
 
         try {

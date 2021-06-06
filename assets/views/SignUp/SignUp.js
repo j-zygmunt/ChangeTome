@@ -12,6 +12,8 @@ import {
 import {NavLink,  useHistory} from 'react-router-dom';
 import PasswordInput from '../../components/PasswordInput/PasswordInput';
 import axios from 'axios';
+import NumberFormatCustom from '../../utils/NumberFormatCustom';
+import AlertDialog, {createAlertDialog} from '../../components/AlertDialog/AlertDialog';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -60,16 +62,40 @@ function SignUp() {
     const [password2, setPassword2] = useState('');
     const [accepted, setAccepted] = useState(false);
 
+    const [isDialogOpened, setIsDialogOpened] = React.useState(false);
+    const [dialogTitle, setDialogTitle] = React.useState('');
+    const [dialogContent, setDialogContent] = React.useState('');
+    const [dialogRedirectPath, setDialogRedirectPath] = React.useState();
+
     if(localStorage.getItem('token')) {
         history.push("/");
     }
 
     const handleSubmit = event => {
         event.preventDefault();
-        axios.post("/api/register", 
-            {name: name, surname: surname, email: email, phone: phone, password: password, password2: password2}
-        )
-        .then(response => console.log(response.data));
+        if (password !== password2) {
+            setDialogTitle('Sign up');
+            setDialogContent("Passwords don't match");
+            setIsDialogOpened(true);
+        }
+        if (!accepted) {
+            setDialogTitle('Sign up');
+            setDialogContent('You have to accept the terms and conditions');
+            setIsDialogOpened(true);
+        }
+        else {
+            axios.post("/api/register", 
+                {name: name, surname: surname, email: email, phone: phone, password: password, password2: password2}
+            )
+            .then(response => {
+                if(response.data === 'success') {
+                    setDialogRedirectPath('/login');
+                }
+                setDialogTitle('Sign up');
+                setDialogContent(response.data);
+                setIsDialogOpened(true);
+            })
+        }
     }
 
     return(
@@ -158,6 +184,9 @@ function SignUp() {
                             variant="outlined"
                             color="secondary"
                             size={mobile ? 'small' : 'medium'}
+                            InputProps={{
+                                inputComponent: NumberFormatCustom,
+                            }}
                         /> 
                     </Grid>
                     <Grid item xs={12}>
@@ -211,6 +240,12 @@ function SignUp() {
                     </NavLink>
                 </Grid>
             </Grid>
+            <AlertDialog 
+                title={dialogTitle} 
+                content={dialogContent} 
+                isOpened={isDialogOpened} 
+                setIsOpened={setIsDialogOpened} 
+                redirect={dialogRedirectPath}/>
         </Grid>
     );
 }
