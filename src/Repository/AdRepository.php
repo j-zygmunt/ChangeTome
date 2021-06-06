@@ -15,39 +15,35 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class AdRepository extends ServiceEntityRepository
 {
+    public const PAGINATOR_PER_PAGE = 12;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Ad::class);
     }
 
-    // /**
-    //  * @return Ad[] Returns an array of Ad objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('a.id', 'ASC')
-            ->setMaxResults(10)
+    public function countSearchResults(string $phase){
+        return $this->createQueryBuilder('ad')
+            ->andWhere('ad.title LIKE :phase OR ad.author LIKE :phase')
+            ->setParameter('phase', '%'.$phase.'%')
+            ->select('count(ad.id)')
             ->getQuery()
-            ->getResult()
+            ->getSingleScalarResult()
         ;
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Ad
+    public function findBysearchPhase(string $phase, int $offset): Paginator
     {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
+        $query = $this->createQueryBuilder('ad')
+            ->andWhere('ad.title LIKE :phase OR ad.author LIKE :phase')
+            ->setParameter('phase', '%'.$phase.'%')
+            ->orderBy('ad.createdAt', 'DESC')
+            ->setMaxResults(self::PAGINATOR_PER_PAGE)
+            ->setFirstResult($offset)
             ->getQuery()
-            ->getOneOrNullResult()
         ;
+        return new Paginator($query);
     }
-    */
 
     public function getLastestOffers()
     {
@@ -63,7 +59,7 @@ class AdRepository extends ServiceEntityRepository
     {
         $query = $this->createQueryBuilder('ad')
             ->orderBy('ad.createdAt', 'DESC')
-            ->setMaxResults(10)
+            ->setMaxResults(self::PAGINATOR_PER_PAGE)
             ->setFirstResult($offset)
             ->getQuery()
         ;

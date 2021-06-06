@@ -74,9 +74,15 @@ function YourAds() {
                 >
                     <MyAdCard/>
                 </Grid>
-
             </Grid>
-
+            <Grid 
+                container item
+                justify="center" 
+                xl={4} lg={5} md={5} sm={7} xs={10}
+                style={{marginBottom: '1.5rem'}}
+            >
+                <Pagination count={4} color='secondary'/>
+            </Grid>
         </Grid>
     )
 }

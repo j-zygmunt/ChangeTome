@@ -6,7 +6,7 @@ import {
     Grid,
     Typography
 } from '@material-ui/core';
-import { NavLink } from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 import AdCard from '../AdCard/AdCard';
 
 
@@ -26,6 +26,15 @@ const useStyles = makeStyles((theme) => ({
 
 function AdCardHolderHome(props) {
     const classes = useStyles();
+    const history = useHistory();
+
+    const handleClick = () => {
+
+        history.push({
+            pathname: '/search',
+            state: {phase: props.more}
+        })
+    }
 
     return (
         <Grid
@@ -39,15 +48,14 @@ function AdCardHolderHome(props) {
                 <Typography>
                     {props.name}
                 </Typography>
-                <NavLink to="/404" style={{textDecoration: 'none'}}>
-                    <Button
-                        variant='contained'
-                        color='secondary'
-                        style={{padding: '2px 0'}}
-                    >
-                        More
-                    </Button>
-                </NavLink>
+                <Button
+                    variant='contained'
+                    color='secondary'
+                    style={{padding: '2px 0'}}
+                    onClick={handleClick}
+                >
+                    More
+                </Button>
             </Grid>
             {
                 props.lastestAds.map((item) => {

@@ -71,7 +71,7 @@ function AdCard(props) {
                         city
                     </Typography>
                     <Typography variant="caption" color="textSecondary" align="right" component="p" style={{margin: "0 0 0 auto"}}>
-                        date hh:mm
+                        {props.item.createdAt}
                     </Typography>
                 </Box>
             </CardActions>

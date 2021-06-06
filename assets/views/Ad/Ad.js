@@ -12,7 +12,7 @@ import {
     TextField,
     Button,
 } from '@material-ui/core';
-import {NavLink, useParams} from 'react-router-dom';
+import {NavLink, useParams, withRouter} from 'react-router-dom';
 import Rating from '@material-ui/lab/Rating';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import PhotoCarousel from '../../components/PhotoCarousel/PhotoCarousel';
@@ -51,6 +51,7 @@ function Ad(props) {
     const [isLoading, setIsLoading] = React.useState(true);
     const [content, setContent] = React.useState({});
     const [message, setMessage] = React.useState("");
+    const [userRating, setUserRating] = React.useState(0);
     const mobile = useMediaQuery('(max-width:960px)');
 
     const handleSubmit = event => {
@@ -67,11 +68,11 @@ function Ad(props) {
             .finally(() => {
                 setTimeout(() => {
                     setIsLoading(false);
-                }, 500);
+                }, 300);
             })
-    }, []);
+    }, [id]);
 
-    console.log(content, isLoading);
+    console.log(content, content.condition);
 
     return (
         <Grid
@@ -101,13 +102,13 @@ function Ad(props) {
                 <Grid item xs={12}>
                     <Paper className={classes.paper}>
                         <Typography variant="body2" color="textSecondary" align="right">
-                            date hh:mm
+                            {content.createdAt}
                         </Typography>
                         <Typography variant="h5" style={{ margin: '1rem 0' }}>
-                            {content.title} | Author
+                            {content.title} | {content.author}
                         </Typography>
                         <Typography>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            {content.description}
                         </Typography>
                         <Typography 
                             align="center" 
@@ -118,13 +119,15 @@ function Ad(props) {
                                 margin: '1rem 0',
                             }}
                         >
-                            5$
+                            {content.price}$
                         </Typography>
                         <Divider orientation='horizontal' className={classes.divider} />
                         <Box className={classes.boxWrapper}>
                             <Box style={{ marginTop: '1em' }}>
                                 <Typography component="legend">Condition</Typography>
-                                <Rating name="read-only" value={3} readOnly size="small"/>
+                                {!isLoading&&
+                                <Rating name="read-only" value={content.condition} readOnly precision={0.5} size="small"/>
+                                }
                             </Box>
                             <IconButton color="secondary">
                                 <FavoriteBorderIcon/>
@@ -184,6 +187,7 @@ function Ad(props) {
                     alignItems='center'
                     justify='center'
                 >
+                    {!isLoading &&
                     <Paper className={classes.paper}>
                         <Box style={{
                             display: 'flex',
@@ -192,17 +196,20 @@ function Ad(props) {
                         }}
                         >
                             <NavLink to="/404" className={classes.link}>
-                                <Avatar>NS</Avatar>
+                                <Avatar alt={content.creator.name}></Avatar>
                             </NavLink>
                             <Box style={{ marginLeft: '1rem' }}>
                                 <NavLink to="/404" className={classes.link}>
                                     <Typography variant="h6">
-                                        Name | Surname
+                                        {content.creator.name} | {content.creator.surname}
                                     </Typography>
                                 </NavLink>
                                 <Typography variant="body2" color="textSecondary">
-                                    Last seen: dd:mm:rrrr
+                                    eamil: {content.creator.email}
                                 </Typography>
+                                {/* <Typography variant="body2" color="textSecondary">
+                                    Last seen: dd:mm:rrrr
+                                </Typography> */}
                             </Box>
                         </Box>
                         <Box className={classes.boxWrapper}>
@@ -223,6 +230,7 @@ function Ad(props) {
                             </Box>
                         </Box>
                     </Paper>
+                    }
                 </Grid>
             </Grid>
         </Grid>

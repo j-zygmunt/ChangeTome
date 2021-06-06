@@ -48,11 +48,19 @@ function SearchBar(props) {
 
     return (
         <Paper className={classes.searchBar}>
-            <IconButton color="secondary">
+            <IconButton 
+                color="secondary"
+                onClick={() => props.handleSearch()}
+                >
                 <SearchIcon />
             </IconButton>
             <Divider orientation='vertical' className={classes.divider}/>
-            <InputBase placeholder="Search" className={classes.input}/>
+            <InputBase 
+                placeholder="Search" 
+                className={classes.input}
+                value={props.searchPhase}
+                onChange={event => props.setSearchPhase(event.target.value)}
+                />
             <Divider orientation='vertical' className={classes.divider}/>
             <IconButton color='secondary' onClick={toggleDrawer(true)}>
                 <TuneIcon/>

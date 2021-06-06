@@ -9,7 +9,7 @@ import {
 } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -55,7 +55,7 @@ function DesktopHeaderItems(props) {
                 {
                     props.headerItems.map((item) => {
                         return (
-                            <NavLink to={item.link} key={item.itemName} style={{textDecoration: 'none'}}>
+                            <Link to={item.link} key={item.itemName} style={{textDecoration: 'none'}}>
                                 <Button
                                     color="secondary"
                                     size="large"
@@ -63,7 +63,7 @@ function DesktopHeaderItems(props) {
                                 >
                                     {item.itemName}
                                 </Button>
-                            </NavLink>
+                            </Link>
                         );
                     })
                 }
@@ -107,7 +107,7 @@ function DesktopHeaderItems(props) {
                                                 </Button>
                                             )
                                             : (
-                                                <NavLink
+                                                <Link
                                                     to={item.link}
                                                     key={item.itemName}
                                                     style={{display: 'block', textDecoration: 'none'}}
@@ -119,7 +119,7 @@ function DesktopHeaderItems(props) {
                                                     >
                                                         {item.itemName}
                                                     </Button>
-                                                </NavLink>
+                                                </Link>
                                             )
                                         })
                                     }
@@ -129,11 +129,11 @@ function DesktopHeaderItems(props) {
                     </Grow>
                 )}
             </Popper>
-            <NavLink to={props.headerItems[0].link} key={props.headerItems[0].itemName} style={{textDecoration: 'none'}}>
+            <Link to={props.headerItems[0].link} key={props.headerItems[0].itemName} style={{textDecoration: 'none'}}>
                 <Button color="secondary" size="large" variant='contained'>
                     {props.headerItems[0].itemName}
                 </Button>
-            </NavLink>
+            </Link>
         </div>
     );
 }

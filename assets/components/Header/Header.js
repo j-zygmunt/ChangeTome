@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { AppBar, Toolbar, Typography, useMediaQuery } from '@material-ui/core'
-import { NavLink, withRouter, useHistory } from 'react-router-dom';
+import { withRouter, useHistory, Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import {
     FolderOpen,
@@ -47,7 +47,7 @@ function Header(props) {
     const menuForUser = [
         {
             itemName: "Exchange",
-            link: "post-ad",
+            link: "/post-ad",
         },
         {
             itemName: "Manage my Ads",
@@ -115,9 +115,9 @@ function Header(props) {
                     />
                 }
                 <Typography variant="h6" className={classes.title}>
-                    <NavLink to="/home" className={classes.link}>
+                    <Link to="/home" className={classes.link}>
                         ChangeTome
-                    </NavLink>
+                    </Link>
                 </Typography>
                 {!mobile &&
                     <DesktopHeaderItems 

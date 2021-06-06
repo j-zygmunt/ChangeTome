@@ -9,9 +9,11 @@ function isAuthorized(){
     } else {
         axios.get('api/private/isAuthorized', {headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}})
         .then(response => {
-            if(response.status === 200) {
-                localStorage.setItem('token', response.data.token);
-            }
+            setTimeout(() => {
+                if(response.status === 200) {
+                    localStorage.setItem('token', response.data.token);
+                }
+            }, 300);
         })
         .catch(error => {
             localStorage.removeItem('token');

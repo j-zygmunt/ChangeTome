@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {HashRouter, Switch, Route, Redirect} from 'react-router-dom';
+import {HashRouter, Switch, Route, Redirect, BrowserRouter} from 'react-router-dom';
 import Error from './views/Error/Error';
 import Home from './views/Home/Home';
 import PostAd from './views/PostAd/PostAd';
@@ -9,6 +9,7 @@ import SignUp from './views/SignUp/SignUp';
 import Header from './components/Header/Header';
 import Ad from './views/Ad/Ad';
 import YourAds from './views/YourAds/YourAds';
+import Search from './views/Search/Search';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import AuthorizationCheckService from './services/AuthorizationCheckService';
 
@@ -20,12 +21,9 @@ function App() {
     });
 
     return (
-        <HashRouter>
+        <BrowserRouter>
             <Header/>
             <Switch>
-                <Route exact path="/" >
-                    <Redirect to="/home" />
-                </Route>    
                 <Route path="/login">
                     <Redirect to="/signin" />
                 </Route>
@@ -54,16 +52,16 @@ function App() {
                 <Route path="/signin" render={(props) => (
                     <SignIn {...props} isAuthorized={isAuthorized} setIsAuthorized={setIsAuthorized}/>
                 )}/>
-                <Route path="/ad/:id" render={(props) => (
-                    <Ad {...props} isAuthorized={isAuthorized} setIsAuthorized={setIsAuthorized}/>
-                )}/>
+                <Route path="/ad/:id" component={Ad}/>
                 <Route path="/signup" component={SignUp}/>
-                <Route path="/404" render={(props) => (
-                    <Error {...props} isAuthorized={isAuthorized} setIsAuthorized={setIsAuthorized}/>
-                )}/>
+                <Route path="/search" component={Search}/>
+                <Route path="/404" component={Error}/>
+                <Route exact path="/" >
+                    <Redirect to="/home" />
+                </Route>   
                 <Redirect to="/404" />
             </Switch>
-        </HashRouter>
+        </BrowserRouter>
     );
 }
 

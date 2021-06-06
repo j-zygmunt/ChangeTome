@@ -6,7 +6,7 @@ import {
     Button,
     Typography,
 } from '@material-ui/core';
-import {NavLink} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import AdCardHolderHome from '../../components/AdCardHolderHome/AdCardHolderHome';
 import axios from 'axios';
@@ -33,12 +33,25 @@ function Home() {
     const classes = useStyles();
     const [isLoading, setIsLoading] = React.useState(true);
     const [lastestAds, setLastestAds] = React.useState([]);
+    const [searchPhase, setSearchPhase] = React.useState('');
+    const history = useHistory();
 
     React.useEffect(() => {
         axios.get("/api/getLastestAds")
             .then(response => setLastestAds(response.data))
-            .finally(setIsLoading(false));
+            .finally(
+                setTimeout(() => {
+                    setIsLoading(false);
+                }, 300)
+            )
     }, []);
+
+    const handleSearch = () => {
+        history.push({
+            pathname: '/search',
+            state: {phase: searchPhase}
+        })
+    }
 
     return (
         <Grid
@@ -49,7 +62,7 @@ function Home() {
             justify="center"
         >
             <Grid item xl={4} lg={5} md={5} sm={7} xs={10}>
-                <SearchBar />
+                <SearchBar searchPhase={searchPhase} setSearchPhase={setSearchPhase} handleSearch={handleSearch}/>
             </Grid>
             <Grid
                 container item
@@ -82,7 +95,7 @@ function Home() {
                         </Typography>
                     </Grid>
                     <Grid item container xs={12} justify='center'>
-                        <NavLink to="post-ad" style={{ margin: 'auto', textDecoration: 'none' }}>
+                        <Link to="post-ad" style={{ margin: 'auto', textDecoration: 'none' }}>
                             <Button
                                 variant='contained'
                                 color='secondary'
@@ -94,12 +107,12 @@ function Home() {
                             >
                                 Start exchanging
                             </Button>
-                        </NavLink>
+                        </Link>
                     </Grid>
                 </Grid>
             </Grid>
             {!isLoading &&
-                <AdCardHolderHome name="Lastest" lastestAds={lastestAds} />
+                <AdCardHolderHome name="Lastest" lastestAds={lastestAds} more={''}/>
             }
         </Grid>
     );

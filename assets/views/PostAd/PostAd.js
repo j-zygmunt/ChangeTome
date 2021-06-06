@@ -20,6 +20,7 @@ import jwtDecode from 'jwt-decode';
 import FileDropzone from '../../components/FileDropzone/FileDropzone';
 import ImagesPreview from '../../components/ImagesPreview/ImagesPreview';
 import AlertDialog from '../../components/AlertDialog/AlertDialog';
+import {useHistory} from 'react-router-dom';
 
 const RatingLabels = {
     0.5: 'Used: Poor',
@@ -83,6 +84,7 @@ NumberFormatCustom.propTypes = {
 
 function PostAd() {
     const classes = useStyles();
+    const history = useHistory();
     const [condition, setCondition] = React.useState(-1);
     const [hover, setHover] = React.useState(-1);
     const [images, setImages] = React.useState([]);
@@ -142,6 +144,10 @@ function PostAd() {
                 .catch(error => {
                     //todo
                 })
+                .finally(
+                    setTimeout(() => {
+                        history.push("/");
+                }, 500))
         }
         else {
             setDialogTitle('Invalid value');

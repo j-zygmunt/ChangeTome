@@ -1,21 +1,13 @@
 import {Redirect, Route} from "react-router-dom";
 import React, {useEffect} from "react";
-import axios from 'axios';
+import AuthorizationCheckService from '../../services/AuthorizationCheckService';
 
 function PrivateRoute(props) {
     useEffect(() => {
-        axios.get('api/private/isAuthorized', {headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}})
-            .then(data => {
-                if(data.status === 200){
-                    props.setIsAuthorized(true);
-                }
-            })
-            .catch(() => {
-                props.setIsAuthorized(false);
-            })
+        AuthorizationCheckService.isAuthorized();
     }, [])
 
-    return props.isAuthorized 
+    return localStorage.getItem('token')
     ? (
         <Route {...props} />
     ) : (

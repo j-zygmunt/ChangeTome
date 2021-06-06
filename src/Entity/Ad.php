@@ -133,9 +133,9 @@ class Ad
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt()
     {
-        return $this->createdAt;
+        return $this->createdAt->format('d-m-Y H:i');
     }
 
     public function setCreatedAt(\DateTimeInterface $createdAt): self

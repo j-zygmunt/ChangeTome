@@ -183,4 +183,30 @@ class AdController extends AbstractController
         $offers = $entityManager->getRepository(Ad::class)->getLastestOffers();
         return JsonResponseFactory::PrepareJsonResponse($offers);
     }
+
+    /**
+     * @Route("/api/getNumberOfResults", name="getNumberOfResults", methods={"GET"})
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function getNumberOfResults(Request $request): Response
+    {
+        $data = $request->query->all();
+        $entityManager = $this->getDoctrine()->getManager();
+        $result = $entityManager->getRepository(Ad::class)->countSearchResults($data['phase']);
+        return JsonResponseFactory::PrepareJsonResponse($result);
+    }
+
+    /**
+     * @Route("/api/searchAds", name="searchAds", methods={"GET"})
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function searchAds(Request $request): Response
+    {
+        $data = $request->query->all();
+        $offset = max(0, (int) $data['offset']);
+        $entityManager = $this->getDoctrine()->getManager();
+        $adRepository = $entityManager->getRepository(Ad::class);
+        $paginator = $adRepository->findBysearchPhase($data['phase'], $offset);
+        return JsonResponseFactory::PrepareJsonResponse($paginator);
+    }
 }

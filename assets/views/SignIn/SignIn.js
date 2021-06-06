@@ -22,9 +22,9 @@ const useStyles = makeStyles((theme) => ({
         height: 'auto',
         padding: '2em 3em 3em 3em',
         '@media (max-width:600px)': {
-            padding: '1em 2em 2em 2em'
+            padding: '1em 2em 2em 2em',
         },
-        margin: '0 auto'
+        margin: '0 auto',
     },
     image: {
         backgroundImage: 'url("../../img/bookshelf.jpg")',
@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     link: {
         textDecoration: 'none',
         color: theme.palette.secondary.light,
-        fontSize: '1.2em'
+        fontSize: '1.2em',
     }
 }));
 
