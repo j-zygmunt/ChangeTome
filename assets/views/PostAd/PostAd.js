@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useCallback} from 'react';
 import {
     Paper,
     Grid,
@@ -52,15 +52,19 @@ const useStyles = makeStyles((theme) => ({
 function PostAd() {
     const classes = useStyles();
     const history = useHistory();
-    const [condition, setCondition] = React.useState(-1);
-    const [hover, setHover] = React.useState(-1);
-    const [images, setImages] = React.useState([]);
-    const [title, setTitle] = React.useState('');
-    const [author, setAuthor] = React.useState('');
-    const [description, setDescription] = React.useState('');
-    const [price, setPrice] = React.useState();
+    const [condition, setCondition] = useState(-1);
+    const [hover, setHover] = useState(-1);
+    const [images, setImages] = useState([]);
+    const [title, setTitle] = useState('');
+    const [author, setAuthor] = useState('');
+    const [description, setDescription] = useState('');
+    const [price, setPrice] = useState();
     const mobile = useMediaQuery('(max-width:600px)');
     const maxImagesAmount = 8;
+
+    const [isDialogOpened, setIsDialogOpened] = useState(false);
+    const [dialogTitle, setDialogTitle] = useState('');
+    const [dialogContent, setDialogContent] = useState('');
     
     const moveImage = (dragIndex, hoverIndex) => {
         const draggedImage = images[dragIndex];
@@ -76,7 +80,7 @@ function PostAd() {
         setImages(newImages);
     }
 
-    const onDrop = React.useCallback(acceptedFiles => {
+    const onDrop = useCallback(acceptedFiles => {
         acceptedFiles.map(file => {
             const fileReader = new FileReader();
             fileReader.onload = (event) => {
@@ -109,8 +113,9 @@ function PostAd() {
                 })
                 .finally(
                     setTimeout(() => {
-                        history.push("/");
-                }, 500))
+                        history.push('/')
+                        window.location.reload();
+                }, 5000))
         }
         else {
             setDialogTitle('Invalid value');
@@ -122,19 +127,19 @@ function PostAd() {
     return (
         <Grid
             container
-            component="main"
+            component='main'
             className={classes.root}
-            alignItems="flex-start"
-            justify="center"
+            alignItems='flex-start'
+            justify='center'
         >
             <Grid
                 container item
                 onSubmit={handleSubmit}
-                component="form"
-                justify="center" 
+                component='form'
+                justify='center' 
             >
                 <Grid item xl={8} lg={8} md={9} sm={10} xs={10}>
-                    <Typography variant="h4" style={{ fontWeight: 'bold', margin: '2rem 0 1rem 0' }}>
+                    <Typography variant='h4' style={{ fontWeight: 'bold', margin: '2rem 0 1rem 0' }}>
                         Post your offer!
                     </Typography>
                 </Grid>
@@ -142,107 +147,99 @@ function PostAd() {
                     container item
                     className={classes.paper}
                     component={Paper}
-                    alignItems="center"
-                    justify="flex-start"
+                    alignItems='center'
+                    justify='flex-start'
                     spacing={1}
                     xl={8} lg={8} md={9} sm={10} xs={10}
                 >
                     <Grid item xs={12}>
-                        <Typography variant="h5" style={{ fontWeight: 'bold' }} paragraph>Informations</Typography>
+                        <Typography variant='h5' style={{fontWeight: 'bold'}} paragraph>Informations</Typography>
                     </Grid>
                     <Grid item xs={12}>
-                        <Typography variant="body1" style={{ fontWeight: 'bold' }}>Title*</Typography>
+                        <Typography variant='body1' style={{fontWeight: 'bold'}}>Title*</Typography>
                         <Grid item xl={8} lg={8} md={12} sm={12} xs={12}>
                             <TextField
                                 required
                                 fullWidth
                                 multiline
-                                placeholder="e.g Metro 2033 brand new"
+                                placeholder='e.g Metro 2033 brand new'
                                 value={title}
                                 onChange={event => setTitle(event.target.value)}
-                                variant="outlined"
-                                color="secondary"
+                                variant='outlined'
+                                color='secondary'
                                 size={mobile ? 'small' : 'medium'}
-                                inputProps={{
-                                    maxLength: 70,
-                                }}
+                                inputProps={{maxLength: 70}}
                                 helperText={`${title.length}/${70}`}
                             />
                         </Grid>
                     </Grid>
                     <Grid item xs={12}>
-                        <Typography variant="body1" style={{ fontWeight: 'bold' }}>Author*</Typography>
+                        <Typography variant='body1' style={{fontWeight: 'bold'}}>Author*</Typography>
                         <Grid item xl={8} lg={8} md={12} sm={12} xs={12}>
                             <TextField
                                 required
                                 fullWidth
                                 multiline
-                                placeholder="e.g Dimitri Glukhovsky"
+                                placeholder='e.g Dimitri Glukhovsky'
                                 value={author}
                                 onChange={event => setAuthor(event.target.value)}
-                                variant="outlined"
-                                color="secondary"
+                                variant='outlined'
+                                color='secondary'
                                 size={mobile ? 'small' : 'medium'}
-                                inputProps={{
-                                    maxLength: 70,
-                                }}
+                                inputProps={{maxLength: 70}}
                                 helperText={`${author.length}/${70}`}
                             />
                         </Grid>
                     </Grid>
                     <Grid item xs={12}>
-                        <Typography variant="body1" style={{ fontWeight: 'bold' }}>Description*</Typography>
+                        <Typography variant="body1" style={{fontWeight: 'bold'}}>Description*</Typography>
                         <Grid item xl={8} lg={8} md={12} sm={12} xs={12}>
                             <TextField
                                 required
                                 fullWidth
                                 rows={4}
                                 multiline
-                                placeholder="Write as many details as possible"
+                                placeholder='Write as many details as possible'
                                 value={description}
                                 onChange={event => setDescription(event.target.value)}
-                                variant="outlined"
-                                color="secondary"
+                                variant='outlined'
+                                color='secondary'
                                 size={mobile ? 'small' : 'medium'}
-                                inputProps={{
-                                    maxLength: 5000,
-                                }}
+                                inputProps={{maxLength: 5000}}
                                 helperText={`${description.length}/${5000}`}
                             />
                         </Grid>
                     </Grid>
                     <Grid item xl={2} lg={2} md={4} sm={4} xs={12}>
-                        <Typography variant="body1" style={{ fontWeight: 'bold' }}>Price($)*</Typography>
+                        <Typography variant="body1" style={{fontWeight: 'bold'}}>Price($)*</Typography>
                         <Grid item sm={8} xs={4}>
                             <TextField
                                 required
                                 fullWidth
                                 value={price}
-                                name="price"
+                                name='price'
                                 onChange={event => setPrice(event.target.value)}
-                                variant="outlined"
-                                color="secondary"
-                                size={mobile ? 'small' : 'medium'}
-                                InputProps={{
-                                    inputComponent: NumberFormatCustom,
-                                }}
+                                variant='outlined'
+                                color='secondary'
+                                size='small'
+                                InputProps={{inputComponent: NumberFormatCustom}}
                             />
                         </Grid>
                     </Grid>
                     <Grid item xl={10} lg={10} md={8} sm={8} xs={12}>
-                        <Typography variant="body1" style={{ fontWeight: 'bold' }}>Condition*</Typography>
-                        <Grid container item xs={12} justify="flex-start" alignItems="center">
+                        <Typography variant='body1' style={{fontWeight: 'bold'}}>Condition*</Typography>
+                        <Grid container item xs={12} justify='flex-start' alignItems='center'>
                             <Rating
                                 className={classes.rating}
-                                name="condition"
+                                name='condition'
                                 value={condition}
                                 precision={0.5}
-                                onChange={(event, condition) => { setCondition(condition); }}
-                                onChangeActive={(event, hover) => { setHover(hover); }}
+                                onChange={(event, condition) => {setCondition(condition)}}
+                                onChangeActive={(event, hover) => {setHover(hover)}}
                             />
                             {
                                 condition !== null &&
-                                <Typography align="center" style={{ marginLeft: '1rem' }} variant='caption'>
+                                <Typography align='center' style={{marginLeft: '1rem'}} variant='caption'>
                                     {RatingLabels[hover !== -1 ? hover : condition]}
                                 </Typography>
                             }
@@ -253,26 +250,26 @@ function PostAd() {
                     container item
                     className={classes.paper}
                     component={Paper}
-                    alignItems="center"
-                    justify="center"
+                    alignItems='center'
+                    justify='center'
                     xl={8} lg={8} md={9} sm={10} xs={10}
                 >
                     <Grid item xs={12}>
-                        <Typography variant="h4" style={{ fontWeight: 'bold' }} paragraph>Images</Typography>
-                        <Typography variant="caption" align="left" color="secondary">
+                        <Typography variant='h4' style={{fontWeight: 'bold'}} paragraph>Images</Typography>
+                        <Typography variant='caption' align='left' color='secondary'>
                             The first image will be the main one. You can drag and drop the image to change its order. You can upload up to 8 images.
                             </Typography>
-                        <FileDropzone onDrop={onDrop} />
+                        <FileDropzone onDrop={onDrop}/>
                         <DndProvider backend={HTML5Backend}>
-                            <ImagesPreview images={images} moveImage={moveImage} deleteImage={deleteImage} />
+                            <ImagesPreview images={images} moveImage={moveImage} deleteImage={deleteImage}/>
                         </DndProvider>
                     </Grid>
                 </Grid>
                 <Grid
                     container item
-                    alignItems="center"
-                    justify="flex-end"
-                    style={{ marginBottom: '2rem' }}
+                    alignItems='center'
+                    justify='flex-end'
+                    style={{marginBottom: '2rem'}}
                     xl={8} lg={8} md={9} sm={10} xs={10}
                 >
                     <Grid item sm={4} xs={12}>
@@ -288,7 +285,12 @@ function PostAd() {
                     </Grid>
                 </Grid>
             </Grid>
-            <AlertDialog/>
+            <AlertDialog
+                title={dialogTitle} 
+                content={dialogContent} 
+                isOpened={isDialogOpened} 
+                setIsOpened={setIsDialogOpened}
+            />
         </Grid>
     );
 }

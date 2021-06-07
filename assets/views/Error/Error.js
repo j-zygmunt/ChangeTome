@@ -6,7 +6,7 @@ import {
     Button,
     makeStyles,
 } from '@material-ui/core';
-import { NavLink } from "react-router-dom";
+import {NavLink} from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -15,30 +15,29 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: theme.palette.background.default,
     },
     paper: {
-        
         width: '100%',
         padding: '4em',
         [theme.breakpoints.down('sm')]:{
-            padding: '2em'
+            padding: '2em',
         },
     },
     error: {
         fontWeight: "bold",
         fontSize: '12rem',
         [theme.breakpoints.down('sm')]:{
-            fontSize: '8rem'
+            fontSize: '8rem',
         },
     },
     message: {
         fontSize: '1.4rem',
         [theme.breakpoints.down('md')]:{
-            fontSize: '1.2rem'
+            fontSize: '1.2rem',
         },
         [theme.breakpoints.down('sm')]:{
-            fontSize: '1rem'
+            fontSize: '1rem',
         },
         [theme.breakpoints.down('xs')]:{
-            fontSize: '0.8rem'
+            fontSize: '0.8rem',
         },
     },
 }));
@@ -49,23 +48,23 @@ function Error() {
     return(
         <Grid
             container
-            component="main"
+            component='main'
             className={classes.root}
-            alignItems="center"
-            justify="center"
+            alignItems='center'
+            justify='center'
         >
             <Grid
                 container item
                 className={classes.paper}
                 component={Paper}
-                alignItems="center"
-                justify="center"
+                alignItems='center'
+                justify='center'
                 xl={5} lg={6} md={7} sm={8} xs={10}
             >
                 <Grid item xs={12} >
                     <Typography align='center' className={classes.error}>
                         4
-                        <Typography component={'span'} color="secondary" className={classes.error}>
+                        <Typography component={'span'} color='secondary' className={classes.error}>
                             0
                         </Typography>
                         4
@@ -75,7 +74,7 @@ function Error() {
                     </Typography>
                 </Grid>
                 <Grid item xs={12}>
-                    <NavLink to="/home">
+                    <NavLink to='/home'>
                         <Button
                             fullWidth
                             type='submit'

@@ -35,18 +35,13 @@ class SecurityController extends AbstractController
 
         $errors = $validator->validate($user);
         if (count($errors) > 0) {
-            $messages = '';
-            foreach ($errors as $error){
-                $messages .= $error->getMessage();
-                $messages .= '. ';
-            }
-            return JsonResponseFactory::PrepareJsonResponse($messages);
+            return JsonResponseFactory::PrepareJsonResponse($errors[0]->getMessage().'.');
         }
 
         try {
             $entityManager->persist($user);
             $entityManager->flush();
-            $response = JsonResponseFactory::PrepareJsonResponse("succes");
+            $response = JsonResponseFactory::PrepareJsonResponse("success");
         } catch (UniqueConstraintViolationException $e) {
             $response = JsonResponseFactory::PrepareJsonResponse($e->getMessage());
         }
@@ -59,8 +54,8 @@ class SecurityController extends AbstractController
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function logout() {
-        //todo 
-        return JsonResponseFactory::PrepareJsonResponse("succes");
+        //todo change isActive flag
+        return JsonResponseFactory::PrepareJsonResponse("success");
     }
 
     /**

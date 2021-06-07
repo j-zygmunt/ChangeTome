@@ -8,7 +8,6 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
-use JsonSerializable;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -17,7 +16,7 @@ use JsonSerializable;
  * @UniqueEntity(fields="phone", message="User with this phone number already exists")
  * @ORM\HasLifecycleCallbacks
  */
-class User implements JsonSerializable, UserInterface
+class User implements UserInterface
 {
     /**
      * @ORM\Id
@@ -307,11 +306,5 @@ class User implements JsonSerializable, UserInterface
     public function setCreatedAtValue()
     {
         $this->createdAt = new \DateTime();
-    }
-
-    public function jsonSerialize()
-    {
-        //todo return only data that i need
-        return (object) get_object_vars($this);
     }
 }

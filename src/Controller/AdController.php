@@ -92,7 +92,7 @@ class AdController extends AbstractController
      */
     public function editAd(Request $request, ValidatorInterface $validator): Response
     {
-        $data = json_decode($request->getContent(), true); //działa
+        $data = json_decode($request->getContent(), true);
 
         $entityManager = $this->getDoctrine()->getManager();
         $ad = $entityManager->getRepository(Ad::class)->find((int) $data['adId']);
@@ -120,17 +120,15 @@ class AdController extends AbstractController
         if ($data['description'] != ''){
             $ad->setDescription($data['description']);
         }
-        
-        //todo photos
 
         $errors = $validator->validate($ad);
         if (count($errors) > 0) {
-            return JsonResponseFactory::PrepareJsonResponse((string) $errors);
+            return JsonResponseFactory::PrepareJsonResponse($errors[0]->getMessage().'.');
         }
 
         try {
             $entityManager->flush();
-            $response = JsonResponseFactory::PrepareJsonResponse("succes");
+            $response = JsonResponseFactory::PrepareJsonResponse("success");
         } catch (UniqueConstraintViolationException $e) {
             $response = JsonResponseFactory::PrepareJsonResponse($e->getMessage());
         }
@@ -159,7 +157,7 @@ class AdController extends AbstractController
 
         $errors = $validator->validate($ad);
         if (count($errors) > 0) {
-            return JsonResponseFactory::PrepareJsonResponse((string) $errors);
+            return JsonResponseFactory::PrepareJsonResponse($errors[0]->getMessage().'.');
         }
 
         try {
@@ -206,7 +204,7 @@ class AdController extends AbstractController
         $offset = max(0, (int) $data['offset']);
         $entityManager = $this->getDoctrine()->getManager();
         $adRepository = $entityManager->getRepository(Ad::class);
-        $paginator = $adRepository->findBysearchPhase($data['phase'], $offset);
+        $paginator = $adRepository->findOffersBysearchPhase($data['phase'], $offset);
         return JsonResponseFactory::PrepareJsonResponse($paginator);
     }
 }

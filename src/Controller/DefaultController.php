@@ -12,7 +12,6 @@ class DefaultController extends AbstractController
      * @Template("default/index.html.twig")
      * @Route("/{reactRouting}", name="home", priority="-1", defaults={"reactRouting": null}, requirements={"reactRouting"=".+"})
     */
-
     public function index() {
         return [];
     }

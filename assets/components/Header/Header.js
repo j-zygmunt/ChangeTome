@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { AppBar, Toolbar, Typography, useMediaQuery } from '@material-ui/core'
-import { withRouter, useHistory, Link } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
+import React from 'react';
+import {AppBar, Toolbar, Typography, useMediaQuery} from '@material-ui/core';
+import {withRouter, useHistory, Link} from 'react-router-dom';
+import {makeStyles} from '@material-ui/core/styles';
 import {
     FolderOpen,
     MailOutline,
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     },
     desktopButtons: {
         '& > *': {
-            marginLeft: theme.spacing(1)
+            marginLeft: theme.spacing(1),
         },
     },
     link: {
@@ -46,58 +46,63 @@ function Header(props) {
 
     const menuForUser = [
         {
-            itemName: "Exchange",
-            link: "/post-ad",
+            itemName: 'Exchange',
+            link: '/post-ad',
         },
         {
-            itemName: "Manage my Ads",
-            link: "/your-ads",
+            itemName: 'Manage my Ads',
+            link: '/your-ads',
             icon: <FolderOpen/>
         },
         {
-            itemName: "Messages",
-            link: "/messages",
+            itemName: 'Messages',
+            link: '/messages',
             icon: <MailOutline/>
         },
         {
-            itemName: "Favourites",
-            link: "/favourites",
+            itemName: 'Favourites',
+            link: '/favourites',
             icon: <FavoriteBorder/>
         },
         {
-            itemName: "My Details",
-            link: "/manage-account",
+            itemName: 'My Details',
+            link: '/manage-account',
             icon: <PermIdentity/>
         },
         {
-            itemName: "Logout",
-            link: "/logout",
+            itemName: 'Logout',
+            link: '/logout',
             icon: <ExitToApp/>
         },
     ]
 
     const menuForGuest = [
         {
-            itemName: "Sign in",
-            link: "/signin"
+            itemName: 'Sign in',
+            link: '/signin'
         },
         {
-            itemName: "Sign up",
-            link: "/signup"
+            itemName: 'Sign up',
+            link: '/signup'
         },
         {
-            itemName: "Exchange",
-            link: "/signin"
+            itemName: 'Exchange',
+            link: '/signin'
         },
     ]
 
-    if (props.location.pathname.toUpperCase() == "/SIGNUP" || props.location.pathname.toUpperCase() == "/SIGNIN")
+    if (props.location.pathname.toUpperCase() == '/SIGNUP' || props.location.pathname.toUpperCase() == '/SIGNIN')
         return (
             <LoginHeader/>
         );
 
     const logout = () => {
-        axios.post('api/private/logout', {header: {Authorization: 'Bearer ' + localStorage.getItem('token')}})
+        axios.post('api/private/logout', 
+            {
+                header: {
+                    Authorization: 'Bearer ' + localStorage.getItem('token')
+                }
+            })
             .then(() => {
                 localStorage.removeItem('token');
                 history.push("/");
@@ -108,22 +113,24 @@ function Header(props) {
     return (
         <AppBar>
             <Toolbar className={classes.default}>
-                {mobile &&
-                    <MobileHeaderItems
-                        headerItems={localStorage.getItem('token') ? menuForUser : menuForGuest}
-                        logout={logout}
-                    />
+                {
+                    mobile &&
+                        <MobileHeaderItems
+                            headerItems={localStorage.getItem('token') ? menuForUser : menuForGuest}
+                            logout={logout}
+                        />
                 }
-                <Typography variant="h6" className={classes.title}>
-                    <Link to="/home" className={classes.link}>
+                <Typography variant='h6' className={classes.title}>
+                    <Link to='/home' className={classes.link}>
                         ChangeTome
                     </Link>
                 </Typography>
-                {!mobile &&
-                    <DesktopHeaderItems 
-                        headerItems={localStorage.getItem('token') ? menuForUser : menuForGuest}
-                        logout={logout}
-                    />
+                {
+                    !mobile &&
+                        <DesktopHeaderItems 
+                            headerItems={localStorage.getItem('token') ? menuForUser : menuForGuest}
+                            logout={logout}
+                        />
                 }
             </Toolbar>
         </AppBar>

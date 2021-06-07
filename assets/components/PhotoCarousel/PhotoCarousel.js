@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
         height: '500px',
         width: "100%",
         padding: 0,
-    }
+    },
 }));
 
 function PhotoCarousel(props) {
@@ -37,8 +37,8 @@ function PhotoCarousel(props) {
                     marginTop: '-20px'
                 }
             }}
-            NextIcon={<NavigateNextIcon fontSize="large"/>}
-            PrevIcon={<NavigateBeforeIcon fontSize="large"/>}
+            NextIcon={<NavigateNextIcon fontSize='large'/>}
+            PrevIcon={<NavigateBeforeIcon fontSize='large'/>}
             IndicatorIcon={<FiberManualRecordIcon/>}
             activeIndicatorIconButtonProps={{
                 style: {

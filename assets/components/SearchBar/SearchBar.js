@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { 
     IconButton,
     Drawer,
@@ -12,7 +12,7 @@ import {
 import SearchIcon from '@material-ui/icons/Search';
 import CloseIcon from '@material-ui/icons/Close';
 import TuneIcon from '@material-ui/icons/Tune';
-import { NavLink } from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 
 function SearchBar(props) {
     const classes = useStyles();
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
 
     const toggleDrawer = (open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -49,14 +49,14 @@ function SearchBar(props) {
     return (
         <Paper className={classes.searchBar}>
             <IconButton 
-                color="secondary"
+                color='secondary'
                 onClick={() => props.handleSearch()}
                 >
                 <SearchIcon />
             </IconButton>
             <Divider orientation='vertical' className={classes.divider}/>
             <InputBase 
-                placeholder="Search" 
+                placeholder='Search' 
                 className={classes.input}
                 value={props.searchPhase}
                 onChange={event => props.setSearchPhase(event.target.value)}
@@ -67,23 +67,23 @@ function SearchBar(props) {
             </IconButton>
             <Drawer
                 open={open}
-                anchor="right"
+                anchor='right'
                 onClose={toggleDrawer(false)}
                 BackdropProps={{ invisible: true }}
             >
                 <IconButton
-                    color="secondary"
-                    aria-label="menu"
+                    color='secondary'
+                    aria-label='menu'
                     onClick={toggleDrawer(false)}
                 >
-                    <CloseIcon style={{fontSize: "1.5em"}}/>
+                    <CloseIcon style={{fontSize: '1.5em'}}/>
                 </IconButton>
                 <MenuList >
                     <NavLink to='/404' style={{display: 'block'}}>
                         <Button
                             onClick={toggleDrawer(false)}
                             color='secondary'
-                            size="large"
+                            size='large'
                             fullWidth
                         >
                             button

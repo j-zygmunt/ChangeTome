@@ -13,7 +13,7 @@ import {NavLink,  useHistory} from 'react-router-dom';
 import PasswordInput from '../../components/PasswordInput/PasswordInput';
 import axios from 'axios';
 import NumberFormatCustom from '../../utils/NumberFormatCustom';
-import AlertDialog, {createAlertDialog} from '../../components/AlertDialog/AlertDialog';
+import AlertDialog from '../../components/AlertDialog/AlertDialog';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -62,36 +62,40 @@ function SignUp() {
     const [password2, setPassword2] = useState('');
     const [accepted, setAccepted] = useState(false);
 
-    const [isDialogOpened, setIsDialogOpened] = React.useState(false);
-    const [dialogTitle, setDialogTitle] = React.useState('');
-    const [dialogContent, setDialogContent] = React.useState('');
-    const [dialogRedirectPath, setDialogRedirectPath] = React.useState();
+    const [isDialogOpened, setIsDialogOpened] = useState(false);
+    const [dialogTitle, setDialogTitle] = useState('');
+    const [dialogContent, setDialogContent] = useState('');
 
     if(localStorage.getItem('token')) {
-        history.push("/");
+        history.push('/');
     }
 
     const handleSubmit = event => {
         event.preventDefault();
+        setDialogTitle('Sign up');
         if (password !== password2) {
-            setDialogTitle('Sign up');
             setDialogContent("Passwords don't match");
             setIsDialogOpened(true);
         }
-        if (!accepted) {
-            setDialogTitle('Sign up');
+        else if (!accepted) {
             setDialogContent('You have to accept the terms and conditions');
             setIsDialogOpened(true);
         }
         else {
-            axios.post("/api/register", 
-                {name: name, surname: surname, email: email, phone: phone, password: password, password2: password2}
-            )
+            axios.post('/api/register', 
+            {
+                name: name,
+                surname: surname,
+                email: email,
+                phone: phone,
+                password: password,
+                password2: password2
+            })
             .then(response => {
+                console.log(response.data);
                 if(response.data === 'success') {
-                    setDialogRedirectPath('/login');
+                    history.push('/')
                 }
-                setDialogTitle('Sign up');
                 setDialogContent(response.data);
                 setIsDialogOpened(true);
             })
@@ -101,9 +105,9 @@ function SignUp() {
     return(
         <Grid
             container
-            component="div"
+            component='div'
             className={classes.root}
-            alignItems="center"
+            alignItems='center'
         >
             <Grid 
                 item
@@ -115,18 +119,18 @@ function SignUp() {
                 component={Paper}
                 elevation={2}
                 className={classes.loginForm}
-                alignItems="center"
-                justify="center"
+                alignItems='center'
+                justify='center'
                 xl={4} lg={5} md={5} sm={7} xs={11}
             > 
-                <Typography component="h1" variant="h5" paragraph>
+                <Typography variant='h5' paragraph>
                     Sign up
                 </Typography>
                 <Grid
                     container
-                    component="form"
-                    alignItems="center"
-                    justify="center"
+                    component='form'
+                    alignItems='center'
+                    justify='center'
                     spacing={mobile ? 2 : 2}
                     onSubmit={handleSubmit}
                 >
@@ -134,13 +138,13 @@ function SignUp() {
                         <TextField
                             required
                             fullWidth
-                            id="name"
-                            name="name"
-                            label="First Name"
+                            id='name'
+                            name='name'
+                            label='First Name'
                             value={name}
                             onChange={event => setName(event.target.value)}
-                            variant="outlined"
-                            color="secondary"
+                            variant='outlined'
+                            color='secondary'
                             size={mobile ? 'small' : 'medium'}
                         /> 
                     </Grid>
@@ -148,13 +152,13 @@ function SignUp() {
                         <TextField
                             required
                             fullWidth
-                            id="surname"
-                            name="surname"
-                            label="Last Name"
+                            id='surname'
+                            name='surname'
+                            label='Last Name'
                             value={surname}
                             onChange={event => setSurname(event.target.value)}
-                            variant="outlined"
-                            color="secondary"
+                            variant='outlined'
+                            color='secondary'
                             size={mobile ? 'small' : 'medium'}
                         /> 
                     </Grid>
@@ -162,13 +166,13 @@ function SignUp() {
                         <TextField
                             required
                             fullWidth
-                            id="email"
-                            name="email"
-                            label="Email"
+                            id='email'
+                            name='email'
+                            label='Email'
                             value={email}
                             onChange={event => setEmail(event.target.value)}
-                            variant="outlined"
-                            color="secondary"
+                            variant='outlined'
+                            color='secondary'
                             size={mobile ? 'small' : 'medium'}
                         /> 
                     </Grid>
@@ -176,27 +180,25 @@ function SignUp() {
                         <TextField
                             required
                             fullWidth
-                            id="phone"
-                            name="phone"
-                            label="Phone"
+                            id='phone'
+                            name='phone'
+                            label='Phone'
                             value={phone}
                             onChange={event => setPhone(event.target.value)}
-                            variant="outlined"
-                            color="secondary"
+                            variant='outlined'
+                            color='secondary'
                             size={mobile ? 'small' : 'medium'}
-                            InputProps={{
-                                inputComponent: NumberFormatCustom,
-                            }}
+                            InputProps={{inputComponent: NumberFormatCustom}}
                         /> 
                     </Grid>
                     <Grid item xs={12}>
                         <PasswordInput 
-                            id="password"
-                            name="password"
+                            id='password'
+                            name='password'
                             value={password}
                             onChange={event => setPassword(event.target.value)}
-                            label="Password"
-                            color="secondary"
+                            label='Password'
+                            color='secondary'
                             size={mobile ? 'small' : 'medium'}
                         />
                     </Grid>
@@ -205,22 +207,22 @@ function SignUp() {
                         </Typography>
                     <Grid item xs={12}>
                         <PasswordInput 
-                            id="password2"
-                            name="password2"
+                            id='password2'
+                            name='password2'
                             value={password2}
                             onChange={event => setPassword2(event.target.value)}
-                            label="Confirm password"
-                            color="secondary"
+                            label='Confirm password'
+                            color='secondary'
                             size={mobile ? 'small' : 'medium'}
                         />
                     </Grid>
                     <Grid item xs={12} className={classes.wrap}>
                         <Checkbox 
-                            color="secondary" 
+                            color='secondary'
                             value={accepted}
                             onClick={() => setAccepted(!accepted)}
                         />
-                        <NavLink to="/terms-and-conditions" className={classes.link}>
+                        <NavLink to='/terms-and-conditions' className={classes.link}>
                                 I accept terms and conditions
                         </NavLink>
                     </Grid>
@@ -235,7 +237,7 @@ function SignUp() {
                             Sign up
                         </Button>
                     </Grid>
-                    <NavLink to="/signin" className={classes.link}>
+                    <NavLink to='/signin' className={classes.link}>
                         Sign in
                     </NavLink>
                 </Grid>
@@ -244,8 +246,8 @@ function SignUp() {
                 title={dialogTitle} 
                 content={dialogContent} 
                 isOpened={isDialogOpened} 
-                setIsOpened={setIsDialogOpened} 
-                redirect={dialogRedirectPath}/>
+                setIsOpened={setIsDialogOpened}
+            />
         </Grid>
     );
 }

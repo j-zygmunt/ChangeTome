@@ -4,13 +4,12 @@ namespace App\Entity;
 
 use App\Repository\ReviewsRepository;
 use Doctrine\ORM\Mapping as ORM;
-use JsonSerializable;
 
 /**
  * @ORM\Entity(repositoryClass=ReviewsRepository::class)
  * @ORM\HasLifecycleCallbacks
  */
-class Reviews implements JsonSerializable
+class Reviews
 {
     /**
      * @ORM\Id
@@ -135,10 +134,5 @@ class Reviews implements JsonSerializable
     public function setReviewedAtValue()
     {
         $this->reviewedAt = new \DateTime();
-    }
-
-    public function jsonSerialize()
-    {
-        return (object) get_object_vars($this);
     }
 }

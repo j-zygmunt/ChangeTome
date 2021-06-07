@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
     makeStyles,
     Grid,
@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     image: {
         backgroundImage: 'url("../../img/bookshelf.jpg")',
         height: '280px',
-        backgroundRepeat: "no-repeat",
+        backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         marginTop: theme.spacing(4),
@@ -27,17 +27,29 @@ const useStyles = makeStyles((theme) => ({
     banner: {
         backgroundColor: theme.palette.background.default,
     },
+    bannerText: {
+        fontSize: '2rem',
+        [theme.breakpoints.down('md')]:{
+            fontSize: '1.6rem',
+        },
+        [theme.breakpoints.down('sm')]:{
+            fontSize: '1.4rem',
+        },
+        [theme.breakpoints.down('xs')]:{
+            fontSize: '1.2rem',
+        },
+    }
 }));
 
 function Home() {
     const classes = useStyles();
-    const [isLoading, setIsLoading] = React.useState(true);
-    const [lastestAds, setLastestAds] = React.useState([]);
-    const [searchPhase, setSearchPhase] = React.useState('');
+    const [isLoading, setIsLoading] = useState(true);
+    const [lastestAds, setLastestAds] = useState([]);
+    const [searchPhase, setSearchPhase] = useState('');
     const history = useHistory();
 
-    React.useEffect(() => {
-        axios.get("/api/getLastestAds")
+    useEffect(() => {
+        axios.get('/api/getLastestAds')
             .then(response => setLastestAds(response.data))
             .finally(
                 setTimeout(() => {
@@ -56,10 +68,10 @@ function Home() {
     return (
         <Grid
             container
-            component="main"
+            component='main'
             className={classes.root}
-            alignItems="flex-start"
-            justify="center"
+            alignItems='flex-start'
+            justify='center'
         >
             <Grid item xl={4} lg={5} md={5} sm={7} xs={10}>
                 <SearchBar searchPhase={searchPhase} setSearchPhase={setSearchPhase} handleSearch={handleSearch}/>
@@ -67,43 +79,36 @@ function Home() {
             <Grid
                 container item
                 className={classes.image}
-                alignItems="center"
-                justify="center"
+                alignItems='center'
+                justify='center'
                 xs={12}
             >
                 <Grid
                     container item
                     elevation={2}
                     component={Paper}
-                    alignItems="center"
-                    justify="center"
+                    alignItems='center'
+                    justify='center'
                     square
                     className={classes.banner}
                     xl={5} lg={5} md={6} sm={7} xs={10}
                 >
                     <Grid item xs={12} >
                         <Typography
-                            variant='h4'
-                            style={{
-                                fontWeight: 'bold',
-                                marginTop: '2rem',
-                                marginBottom: '1rem'
-                            }}
                             align='center'
+                            className={classes.bannerText}
+                            style={{fontWeight: 'bold', marginTop: '2rem', marginBottom: '1rem'}}
                         >
                             Get rid of unwanted books now
                         </Typography>
                     </Grid>
                     <Grid item container xs={12} justify='center'>
-                        <Link to="post-ad" style={{ margin: 'auto', textDecoration: 'none' }}>
+                        <Link to='post-ad' style={{ margin: 'auto', textDecoration: 'none' }}>
                             <Button
                                 variant='contained'
                                 color='secondary'
-                                style={{
-                                    marginBottom: '2rem',
-                                    fontSize: '2em',
-                                    padding: '0 2em'
-                                }}
+                                className={classes.bannerText}
+                                style={{marginBottom: '2rem', padding: '0 2em'}}
                             >
                                 Start exchanging
                             </Button>
@@ -111,8 +116,9 @@ function Home() {
                     </Grid>
                 </Grid>
             </Grid>
-            {!isLoading &&
-                <AdCardHolderHome name="Lastest" lastestAds={lastestAds} more={''}/>
+            {
+                !isLoading &&
+                <AdCardHolderHome name='Lastest' ads={lastestAds} more={''}/>
             }
         </Grid>
     );

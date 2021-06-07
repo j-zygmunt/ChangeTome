@@ -9,7 +9,7 @@ import {
 } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import React from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -57,9 +57,9 @@ function DesktopHeaderItems(props) {
                         return (
                             <Link to={item.link} key={item.itemName} style={{textDecoration: 'none'}}>
                                 <Button
-                                    color="secondary"
+                                    color='secondary'
                                     size="large"
-                                    variant={item.itemName === "Exchange" ? 'contained' : 'text'}
+                                    variant={item.itemName === 'Exchange' ? 'contained' : 'text'}
                                 >
                                     {item.itemName}
                                 </Button>
@@ -77,18 +77,18 @@ function DesktopHeaderItems(props) {
                 aria-controls={open ? 'menu-list-grow' : undefined}
                 aria-haspopup="true"
                 onClick={handleToggle}
-                endIcon={<ExpandMoreIcon style={{ fontSize: '2em' }} />}
+                endIcon={<ExpandMoreIcon style={{fontSize: '2em'}}/>}
                 size='large'
-                color="secondary"
-                style={{ marginRight: '2em' }}
+                color='secondary'
+                style={{marginRight: '2em'}}
             >
                 My Profile
             </Button>
             <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
-                {({ TransitionProps, placement }) => (
+                {({TransitionProps, placement}) => (
                     <Grow
                         {...TransitionProps}
-                        style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+                        style={{transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom'}}
                     >
                         <Paper className={classes.paper}>
                             <ClickAwayListener onClickAway={handleClose}>
@@ -130,7 +130,7 @@ function DesktopHeaderItems(props) {
                 )}
             </Popper>
             <Link to={props.headerItems[0].link} key={props.headerItems[0].itemName} style={{textDecoration: 'none'}}>
-                <Button color="secondary" size="large" variant='contained'>
+                <Button color='secondary' size='large' variant='contained'>
                     {props.headerItems[0].itemName}
                 </Button>
             </Link>

@@ -20,8 +20,8 @@ const useStyles = makeStyles((theme) => ({
     divider: {
         height: 1,
         width: '100%',
-        backgroundColor: theme.palette.secondary.main
-    }
+        backgroundColor: theme.palette.secondary.main,
+    },
 }));
 
 function AdCardHolderHome(props) {
@@ -32,15 +32,15 @@ function AdCardHolderHome(props) {
 
         history.push({
             pathname: '/search',
-            state: {phase: props.more}
+            state: {phase: props.more},
         })
     }
 
     return (
         <Grid
             container
-            alignItems="center"
-            justify="space-between"
+            alignItems='center'
+            justify='space-between'
             className={classes.holder}
             spacing={2}
         >
@@ -58,7 +58,7 @@ function AdCardHolderHome(props) {
                 </Button>
             </Grid>
             {
-                props.lastestAds.map((item) => {
+                props.ads.map((item) => {
                     return (
                         <Grid
                             key={item.id}

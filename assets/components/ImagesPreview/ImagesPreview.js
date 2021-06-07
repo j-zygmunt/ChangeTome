@@ -1,7 +1,7 @@
-import React, { useRef } from "react";
-import { makeStyles, Grid, IconButton } from '@material-ui/core';
+import React, {useRef} from 'react';
+import {makeStyles, Grid, IconButton} from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { useDrag, useDrop } from "react-dnd";
+import {useDrag, useDrop} from 'react-dnd';
 
 const useStyles = makeStyles((theme) => ({
     image: {
@@ -19,8 +19,7 @@ const useStyles = makeStyles((theme) => ({
     },
     delete: {
         margin: '-200px 0 0 -50px',
-
-    }
+    },
 }));
 
 function Image({ image, index, moveImage, deleteImage }) {
@@ -28,7 +27,7 @@ function Image({ image, index, moveImage, deleteImage }) {
     const ref = useRef(null);
 
     const [, drop] = useDrop({
-        accept: "Image",
+        accept: 'Image',
         hover(item) {
             if (!ref.current) {
                 return;
@@ -43,9 +42,9 @@ function Image({ image, index, moveImage, deleteImage }) {
         }
     });
 
-    const [{ isDragging }, drag] = useDrag({
-        type: "Image",
-        item: { id: image.id, index },
+    const [{isDragging}, drag] = useDrag({
+        type: 'Image',
+        item: {id: image.id, index},
         collect: monitor => ({
             isDragging: monitor.isDragging()
         })
@@ -83,8 +82,8 @@ function ImagesPreview({ images, moveImage, deleteImage }) {
             container item
             spacing={2}
             className={classes.imageList}
-            alignItems="flex-start"
-            justify="flex-start"
+            alignItems='flex-start'
+            justify='flex-start'
         >
             {images.map(renderImage)}
         </Grid>

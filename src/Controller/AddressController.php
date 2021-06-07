@@ -34,7 +34,7 @@ class AddressController extends AbstractController
         
         $errors = $validator->validate($address);
         if (count($errors) > 0) {
-            return JsonResponseFactory::PrepareJsonResponse($errors);
+            return JsonResponseFactory::PrepareJsonResponse($errors[0]->getMessage().'.');
         }
 
         try {

@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
         textDecoration: 'none',
         color: theme.palette.secondary.light,
         fontSize: '1.2em',
-    }
+    },
 }));
 
 function SignIn() {
@@ -48,28 +48,32 @@ function SignIn() {
     const history = useHistory();
 
     if(localStorage.getItem('token')) {
-        history.push("/");
+        history.push('/');
     }
 
     const handleSubmit = event => {
         event.preventDefault();
-        axios.post("/api/login_check", {username: email, password: password})
-            .then(response => {
-                if(response.status === 200) {
-                    localStorage.setItem('token', response.data.token);
-                    history.push("/");
-                }
-            }).catch(error => {
-                //todo
-            });
+        axios.post('/api/login_check', 
+        {
+            username: email, 
+            password: password
+        })
+        .then(response => {
+            if(response.status === 200) {
+                localStorage.setItem('token', response.data.token);
+                history.push('/');
+            }
+        }).catch(error => {
+            //todo
+        });
     }
 
     return (
         <Grid
             container
-            component="main"
+            component='main'
             className={classes.root}
-            alignItems="center"
+            alignItems='center'
         >
             <Grid 
                 item
@@ -81,18 +85,18 @@ function SignIn() {
                 component={Paper}
                 elevation={2}
                 className={classes.loginForm}
-                alignItems="center"
-                justify="center"
+                alignItems='center'
+                justify='center'
                 xl={4} lg={5} md={5} sm={7} xs={11}
             > 
-                <Typography component="h1" variant="h5" paragraph>
+                <Typography component='h1' variant='h5' paragraph>
                     Sign in
                 </Typography>
                 <Grid
                     container
-                    component="form"
-                    alignItems="center"
-                    justify="center"
+                    component='form'
+                    alignItems='center'
+                    justify='center'
                     spacing={mobile ? 2 : 4}
                     onSubmit={handleSubmit}
                 >
@@ -100,24 +104,24 @@ function SignIn() {
                         <TextField
                             required
                             fullWidth
-                            id="email"
-                            name="email"
-                            label="Email"
+                            id='email'
+                            name='email'
+                            label='Email'
                             value={email}
                             onChange={event => setEmail(event.target.value)}
-                            variant="outlined"
-                            color="secondary"
+                            variant='outlined'
+                            color='secondary'
                             size={mobile ? 'small' : 'medium'}
                         /> 
                     </Grid>
                     <Grid item xs={12}>
                         <PasswordInput 
-                            id="password"
-                            name="password"
+                            id='password'
+                            name='password'
                             value={password}
                             onChange={event => setPassword(event.target.value)}
-                            label="Password"
-                            color="secondary"
+                            label='Password'
+                            color='secondary'
                             size={mobile ? 'small' : 'medium'}
                         />
                     </Grid>
@@ -134,12 +138,12 @@ function SignIn() {
                     </Grid>
                     <Grid container item xs={12} justify='space-between'>
                         <Grid item xs={12}>
-                            <NavLink to="/404" className={classes.link}>
+                            <NavLink to='/404' className={classes.link}>
                                 Forgot password?
                             </NavLink>
                         </Grid>
                         <Grid item xs={12}>
-                            <NavLink to="/signup" className={classes.link}>
+                            <NavLink to='/signup' className={classes.link}>
                                 Don't have an account? Sign Up
                             </NavLink>
                         </Grid>

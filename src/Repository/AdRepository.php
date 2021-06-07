@@ -32,7 +32,7 @@ class AdRepository extends ServiceEntityRepository
         ;
     }
 
-    public function findBysearchPhase(string $phase, int $offset): Paginator
+    public function findOffersBysearchPhase(string $phase, int $offset): Paginator
     {
         $query = $this->createQueryBuilder('ad')
             ->andWhere('ad.title LIKE :phase OR ad.author LIKE :phase')
@@ -53,17 +53,5 @@ class AdRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult()
         ;
-    }
-
-    public function getOffersPaginator(int $offset): Paginator
-    {
-        $query = $this->createQueryBuilder('ad')
-            ->orderBy('ad.createdAt', 'DESC')
-            ->setMaxResults(self::PAGINATOR_PER_PAGE)
-            ->setFirstResult($offset)
-            ->getQuery()
-        ;
-
-        return new Paginator($query);
     }
 }

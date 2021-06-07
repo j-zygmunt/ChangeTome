@@ -7,12 +7,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use JsonSerializable;
 
 /**
  * @ORM\Entity(repositoryClass=AddressRepository::class)
  */
-class Address implements JsonSerializable
+class Address
 {
     /**
      * @ORM\Id
@@ -98,10 +97,5 @@ class Address implements JsonSerializable
         }
         
         return $this;
-    }
-
-    public function jsonSerialize()
-    {
-        return (object) get_object_vars($this);
     }
 }

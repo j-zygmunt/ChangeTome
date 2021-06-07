@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { 
     IconButton,
     Drawer,
@@ -14,7 +14,7 @@ import CloseIcon from '@material-ui/icons/Close';
 const useStyles = makeStyles((theme) => ({
     mobileButtons: {
         '& > *': {
-            margin: "0 3em",
+            margin: '0 3em',
         },
         width: '280px',
     },
@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 
 function MobileHeaderItems(props) {
     const classes = useStyles();
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
 
     const toggleDrawer = (open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -40,21 +40,21 @@ function MobileHeaderItems(props) {
         <div>
             <IconButton
                 onClick={toggleDrawer(true)}
-                color="secondary"
+                color='secondary'
                 style={{ paddingLeft: '0'}}    
             >
-                <MenuOpenIcon style={{ fontSize: "1.5em" }}/>
+                <MenuOpenIcon style={{fontSize: '1.5em'}}/>
             </IconButton>
             <Drawer
                 open={open}
-                anchor="left"
+                anchor='left'
                 onClose={toggleDrawer(false)}
             >
                 <IconButton
-                    color="secondary"
+                    color='secondary'
                     onClick={toggleDrawer(false)}
                 >
-                    <CloseIcon style={{fontSize: "1.5em"}}/>
+                    <CloseIcon style={{fontSize: '1.5em'}}/>
                 </IconButton>
                 <MenuList className={classes.mobileButtons}>
                     {
@@ -88,10 +88,10 @@ function MobileHeaderItems(props) {
                                         onClick={toggleDrawer(false)}
                                         startIcon={item.icon}
                                         color='secondary'
-                                        size="large"
+                                        size='large'
                                         fullWidth
-                                        variant={item.itemName === "Exchange" ? 'contained' : 'text'}
-                                        style={item.itemName === "Exchange" ? {justifyContent: 'center'} : {justifyContent: 'flex-start'}}
+                                        variant={item.itemName === 'Exchange' ? 'contained' : 'text'}
+                                        style={item.itemName === 'Exchange' ? {justifyContent: 'center'} : {justifyContent: 'flex-start'}}
                                     >
                                         {item.itemName}
                                     </Button>

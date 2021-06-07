@@ -1,11 +1,13 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     Paper,
     Grid,
     Typography,
     makeStyles,
 } from '@material-ui/core';
-import MyAdCard from '../../components/MyAdCard/MyAdCard';
+import axios from 'axios';
+import jwtDecode from 'jwt-decode';
+import AdCard from '../../components/AdCard/AdCard';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -21,6 +23,19 @@ const useStyles = makeStyles((theme) => ({
 
 function YourAds() {
     const classes = useStyles();
+    const [myAds, setMyAds] = useState([]);
+
+    useEffect(() => {
+        axios.get('/api/getUsersAds', 
+        {
+            params: {
+                email: jwtDecode(localStorage.getItem('token')).email
+            }
+        })
+        .then(response => setMyAds(response.data))
+    }, []);
+
+    console.log(myAds);
 
     return (
         <Grid
@@ -35,54 +50,32 @@ function YourAds() {
                     Your ads
                 </Typography>
             </Grid>
-            <Grid
-                container item
-                className={classes.paper}
-                component={Paper}
-                alignItems="center"
-                justify="flex-start"
-                spacing={3}
-                xl={8} lg={8} md={9} sm={10} xs={10}
-            >
+            {
+                myAds.length !== 0 &&
                 <Grid
-                    item xl={3} lg={4} md={4} sm={6} xs={12}
+                    container item
+                    className={classes.paper}
+                    component={Paper}
+                    alignItems="center"
+                    justify="flex-start"
+                    spacing={3}
+                    xl={8} lg={8} md={9} sm={10} xs={10}
                 >
-                    <MyAdCard/>
+                    {
+                        myAds.map((item) => {
+                            return(
+                                <Grid
+                                    item
+                                    key={item.id} 
+                                    xl={3} lg={4} md={4} sm={6} xs={12}
+                                >
+                                    <AdCard item={item} isOwner={true}/>
+                                </Grid>
+                            )
+                        })
+                    }
                 </Grid>
-                <Grid
-                    item xl={3} lg={4} md={4} sm={6} xs={12}
-                >
-                    <MyAdCard/>
-                </Grid>
-                <Grid
-                    item xl={3} lg={4} md={4} sm={6} xs={12}
-                >
-                    <MyAdCard/>
-                </Grid>
-                <Grid
-                    item xl={3} lg={4} md={4} sm={6} xs={12}
-                >
-                    <MyAdCard/>
-                </Grid>
-                <Grid
-                    item xl={3} lg={4} md={4} sm={6} xs={12}
-                >
-                    <MyAdCard/>
-                </Grid>
-                <Grid
-                    item xl={3} lg={4} md={4} sm={6} xs={12}
-                >
-                    <MyAdCard/>
-                </Grid>
-            </Grid>
-            <Grid 
-                container item
-                justify="center" 
-                xl={4} lg={5} md={5} sm={7} xs={10}
-                style={{marginBottom: '1.5rem'}}
-            >
-                <Pagination count={4} color='secondary'/>
-            </Grid>
+            }
         </Grid>
     )
 }

@@ -5,14 +5,13 @@ namespace App\Entity;
 use App\Repository\PhotoRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use JsonSerializable;
 
 /**
  * @ORM\Entity(repositoryClass=PhotoRepository::class)
  * @UniqueEntity(fields="name", message="Photo with this name already exists")
  * @ORM\HasLifecycleCallbacks
  */
-class Photo implements JsonSerializable
+class Photo
 {
 
     /**
@@ -85,10 +84,5 @@ class Photo implements JsonSerializable
     public function setUploadedAtValue()
     {
         $this->uploaded_at = new \DateTime();
-    }
-
-    public function jsonSerialize()
-    {
-        return (object) get_object_vars($this);
     }
 }

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { Visibility, VisibilityOff } from '@material-ui/icons';
-import { InputAdornment, IconButton, TextField } from '@material-ui/core';
+import React, {useState} from 'react';
+import {Visibility, VisibilityOff} from '@material-ui/icons';
+import {InputAdornment, IconButton, TextField} from '@material-ui/core';
 
 
 function PasswordInput(props) {
@@ -14,20 +14,20 @@ function PasswordInput(props) {
             fullWidth
             id={props.id}
             name={props.name}
-            type={showPassword ? "text" : "password"}
+            type={showPassword ? 'text' : 'password'}
             onChange={props.onChange}
             value={props.value}
-            variant="outlined"
+            variant='outlined'
             color={props.color}
             InputProps={{
                 endAdornment: (
-                    <InputAdornment position="end">
+                    <InputAdornment position='end'>
                         <IconButton
-                            aria-label="toggle password visibility"
+                            aria-label='toggle password visibility'
                             onClick={handleClickShowPassword}
                             onMouseDown={handleMouseDownPassword}
                         >
-                            {showPassword ? <Visibility /> : <VisibilityOff />}
+                            {showPassword ? <Visibility/> : <VisibilityOff/>}
                         </IconButton>
                     </InputAdornment>
                 )
