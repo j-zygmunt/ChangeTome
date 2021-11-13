@@ -63,6 +63,9 @@ public class Ad {
     @JoinColumn(name = "id_review", referencedColumnName = "id")
     private Review review;
 
+    @OneToMany(mappedBy = "ad")
+    private Set<StarredAd> stars = new HashSet<>();
+
     public Ad() {
         //
     }
@@ -70,6 +73,7 @@ public class Ad {
     @PrePersist
     public void prePersist() {
         createdAt = new Timestamp(System.currentTimeMillis());
+        viewsAmount = 0L;
     }
 
     public Long getId() {
@@ -162,5 +166,32 @@ public class Ad {
 
     public void setReview(Review review) {
         this.review = review;
+    }
+
+    public Set<StarredAd> getStars() {
+        return stars;
+    }
+
+    public void setStars(Set<StarredAd> stars) {
+        this.stars = stars;
+    }
+
+    @Override
+    public String toString() {
+        return "Ad{" +
+                "id=" + id +
+                ", author='" + author + '\'' +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", condition=" + condition +
+                ", createdAt=" + createdAt +
+                ", viewsAmount=" + viewsAmount +
+                ", user=" + user +
+                ", photos=" + photos +
+                ", messages=" + messages +
+                ", review=" + review +
+                ", stars=" + stars +
+                '}';
     }
 }

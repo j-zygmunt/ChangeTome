@@ -48,6 +48,19 @@ public class Review {
         //
     }
 
+    public Review(
+            String message,
+            Float rating,
+            User reviewer,
+            User reviewee,
+            Ad ad) {
+        this.message = message;
+        this.rating = rating;
+        this.reviewer = reviewer;
+        this.reviewee = reviewee;
+        this.ad = ad;
+    }
+
     @PrePersist
     public void prePersist() {
         reviewedAt = new Timestamp(System.currentTimeMillis());
@@ -103,5 +116,18 @@ public class Review {
 
     public void setAd(Ad ad) {
         this.ad = ad;
+    }
+
+    @Override
+    public String toString() {
+        return "Review{" +
+                "id=" + id +
+                ", message='" + message + '\'' +
+                ", rating=" + rating +
+                ", reviewedAt=" + reviewedAt +
+                ", reviewer=" + reviewer +
+                ", reviewee=" + reviewee +
+                ", ad=" + ad +
+                '}';
     }
 }

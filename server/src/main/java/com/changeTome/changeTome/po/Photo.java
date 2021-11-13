@@ -33,6 +33,12 @@ public class Photo {
         //
     }
 
+    public Photo(String name,
+                 Ad ad) {
+        this.name = name;
+        this.ad = ad;
+    }
+
     @PrePersist
     public void prePersist() {
         uploadedAt = new Timestamp(System.currentTimeMillis());
@@ -64,5 +70,15 @@ public class Photo {
 
     public void setAd(Ad ad) {
         this.ad = ad;
+    }
+
+    @Override
+    public String toString() {
+        return "Photo{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", uploadedAt=" + uploadedAt +
+                ", ad=" + ad +
+                '}';
     }
 }

@@ -6,7 +6,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
@@ -75,6 +74,9 @@ public class User {
 
     @OneToMany(mappedBy = "reviewer")
     private Set<Review> givenReviews = new HashSet<>();
+
+    @OneToMany(mappedBy = "user")
+    private Set<StarredAd> starredAds = new HashSet<>();
 
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -179,14 +181,6 @@ public class User {
         this.address = address;
     }
 
-    public UserRole getRole() {
-        return role;
-    }
-
-    public void setRole(UserRole role) {
-        this.role = role;
-    }
-
     public Set<Ad> getAds() {
         return ads;
     }
@@ -225,5 +219,43 @@ public class User {
 
     public void setGivenReviews(Set<Review> givenReviews) {
         this.givenReviews = givenReviews;
+    }
+
+    public Set<StarredAd> getStarredAds() {
+        return starredAds;
+    }
+
+    public void setStarredAds(Set<StarredAd> starredAds) {
+        this.starredAds = starredAds;
+    }
+
+    public UserRole getRole() {
+        return role;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", isActive=" + isActive +
+                ", emailAddress='" + emailAddress + '\'' +
+                ", password='" + password + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", createdAt=" + createdAt +
+                ", address=" + address +
+                ", ads=" + ads +
+                ", receivedMessages=" + receivedMessages +
+                ", sentMessages=" + sentMessages +
+                ", receivedReviews=" + receivedReviews +
+                ", givenReviews=" + givenReviews +
+                ", role=" + role +
+                '}';
     }
 }

@@ -47,6 +47,17 @@ public class Message {
         //
     }
 
+    public Message(
+            String message,
+            User sender,
+            User receiver,
+            Ad ad) {
+        this.message = message;
+        this.sender = sender;
+        this.receiver = receiver;
+        this.ad = ad;
+    }
+
     @PrePersist
     public void prePersist() {
         sentAt = new Timestamp(System.currentTimeMillis());
@@ -102,5 +113,18 @@ public class Message {
 
     public void setAd(Ad ad) {
         this.ad = ad;
+    }
+
+    @Override
+    public String toString() {
+        return "Message{" +
+                "id=" + id +
+                ", message='" + message + '\'' +
+                ", sentAt=" + sentAt +
+                ", readAt=" + readAt +
+                ", sender=" + sender +
+                ", receiver=" + receiver +
+                ", ad=" + ad +
+                '}';
     }
 }
