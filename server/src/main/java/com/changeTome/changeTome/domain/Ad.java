@@ -1,10 +1,11 @@
-package com.changeTome.changeTome.po;
+package com.changeTome.changeTome.domain;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -150,6 +151,10 @@ public class Ad {
 
     public void setPhotos(Set<Photo> photos) {
         this.photos = photos;
+    }
+
+    public void addPhotos(Photo ...photos) {
+        this.photos.addAll(Arrays.asList(photos));
     }
 
     public Set<Message> getMessages() {

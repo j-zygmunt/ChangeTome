@@ -1,4 +1,4 @@
-package com.changeTome.changeTome.po;
+package com.changeTome.changeTome.domain;
 
 import com.changeTome.changeTome.utils.UserRole;
 

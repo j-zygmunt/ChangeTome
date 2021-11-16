@@ -1,4 +1,4 @@
-package com.changeTome.changeTome.po;
+package com.changeTome.changeTome.domain;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

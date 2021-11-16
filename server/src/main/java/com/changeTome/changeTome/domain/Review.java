@@ -1,9 +1,8 @@
-package com.changeTome.changeTome.po;
+package com.changeTome.changeTome.domain;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.sql.Date;
 import java.sql.Timestamp;
 
 import static javax.persistence.GenerationType.SEQUENCE;
