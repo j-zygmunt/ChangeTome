@@ -137,12 +137,20 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public Boolean getActive() {
+    public Boolean isActive() {
         return isActive;
     }
 
     public void setActive(Boolean active) {
         isActive = active;
+    }
+
+    public void setAsActive() {
+        isActive = true;
+    }
+
+    public void setAsNotActive() {
+        isActive = false;
     }
 
     public String getEmailAddress() {

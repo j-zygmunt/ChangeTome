@@ -1,13 +1,5 @@
 import React, {useState} from 'react';
-import { 
-    Grid, 
-    makeStyles,
-    Paper,
-    TextField,
-    Typography,
-    Button,
-    useMediaQuery
-} from '@material-ui/core';
+import {Button, Grid, makeStyles, Paper, TextField, Typography, useMediaQuery} from '@material-ui/core';
 import {NavLink, useHistory} from 'react-router-dom';
 import PasswordInput from '../../components/PasswordInput/PasswordInput';
 import axios from 'axios';
@@ -47,39 +39,33 @@ function SignIn() {
     const mobile = useMediaQuery('(max-width:600px)');
     const history = useHistory();
 
-    if(localStorage.getItem('token')) {
+    if (localStorage.getItem('token')) {
         history.push('/');
     }
 
     const handleSubmit = event => {
         event.preventDefault();
-        axios.post('/api/login_check', 
-        {
-            username: email, 
-            password: password
-        })
-        .then(response => {
-            if(response.status === 200) {
-                localStorage.setItem('token', response.data.token);
-                history.push('/');
-            }
-        }).catch(error => {
+        axios.post('http://localhost:8080/api/login',
+            {
+                username: email,
+                password: password
+            },
+            { withCredentials: true}
+            )
+            .then(response => {
+                console.log(response.data)
+                if (response.status === 200) {
+                    localStorage.setItem('token', response.data.access_token);
+                    history.push('/');
+                }
+            }).catch(error => {
             //todo
         });
     }
 
     return (
-        <Grid
-            container
-            component='main'
-            className={classes.root}
-            alignItems='center'
-        >
-            <Grid 
-                item
-                className={classes.image}
-                md={6} sm={4} xs={false}
-            />
+        <Grid container component='main' className={classes.root} alignItems='center'>
+            <Grid item className={classes.image} md={6} sm={4} xs={false}/>
             <Grid
                 container item
                 component={Paper}
@@ -88,7 +74,7 @@ function SignIn() {
                 alignItems='center'
                 justify='center'
                 xl={4} lg={5} md={5} sm={7} xs={11}
-            > 
+            >
                 <Typography component='h1' variant='h5' paragraph>
                     Sign in
                 </Typography>
@@ -112,10 +98,10 @@ function SignIn() {
                             variant='outlined'
                             color='secondary'
                             size={mobile ? 'small' : 'medium'}
-                        /> 
+                        />
                     </Grid>
                     <Grid item xs={12}>
-                        <PasswordInput 
+                        <PasswordInput
                             id='password'
                             name='password'
                             value={password}
@@ -126,13 +112,7 @@ function SignIn() {
                         />
                     </Grid>
                     <Grid item xs={12}>
-                        <Button
-                            fullWidth
-                            type='submit'
-                            variant='contained'
-                            color='secondary'
-                            size='large'
-                        >
+                        <Button fullWidth type='submit' variant='contained' color='secondary' size='large'>
                             Sign in
                         </Button>
                     </Grid>
