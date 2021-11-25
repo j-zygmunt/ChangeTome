@@ -33,8 +33,10 @@ public class Photo {
         //
     }
 
-    public Photo(String name,
-                 Ad ad) {
+    public Photo(
+            String name,
+             Ad ad
+    ) {
         this.name = name;
         this.ad = ad;
     }

@@ -60,22 +60,22 @@ public class User {
     @JoinColumn(name = "id_address", referencedColumnName = "id")
     private Address address;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Ad> ads = new HashSet<>();
 
-    @OneToMany(mappedBy = "receiver")
+    @OneToMany(mappedBy = "receiver", cascade = CascadeType.ALL)
     private Set<Message> receivedMessages = new HashSet<>();
 
-    @OneToMany(mappedBy = "sender")
+    @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL)
     private Set<Message> sentMessages = new HashSet<>();
 
-    @OneToMany(mappedBy = "reviewee")
+    @OneToMany(mappedBy = "reviewee", cascade = CascadeType.ALL)
     private Set<Review> receivedReviews = new HashSet<>();
 
-    @OneToMany(mappedBy = "reviewer")
+    @OneToMany(mappedBy = "reviewer", cascade = CascadeType.ALL)
     private Set<Review> givenReviews = new HashSet<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<StarredAd> starredAds = new HashSet<>();
 
     @NotNull

@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static javax.persistence.GenerationType.SEQUENCE;
@@ -54,21 +55,35 @@ public class Ad {
     @JoinColumn(name = "id_user", referencedColumnName = "id")
     private User user;
 
-    @OneToMany(mappedBy = "ad")
+    @OneToMany(mappedBy = "ad", cascade = CascadeType.ALL)
     private Set<Photo> photos = new HashSet<>();
 
-    @OneToMany(mappedBy = "ad")
+    @OneToMany(mappedBy = "ad", cascade = CascadeType.ALL)
     private Set<Message> messages = new HashSet<>();
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_review", referencedColumnName = "id")
     private Review review;
 
-    @OneToMany(mappedBy = "ad")
+    @OneToMany(mappedBy = "ad", cascade = CascadeType.ALL)
     private Set<StarredAd> stars = new HashSet<>();
 
     public Ad() {
         //
+    }
+
+    public Ad(
+            String author,
+            String title,
+            String description,
+            BigDecimal price,
+            Float condition
+    ) {
+        this.author = author;
+        this.title = title;
+        this.description = description;
+        this.price = price;
+        this.condition = condition;
     }
 
     @PrePersist

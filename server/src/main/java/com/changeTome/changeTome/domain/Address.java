@@ -25,7 +25,7 @@ public class Address {
     @Column(name = "city", columnDefinition = "TEXT")
     private String city;
 
-    @OneToMany(mappedBy = "address")
+    @OneToMany(mappedBy = "address", cascade = CascadeType.ALL)
     private Set<User> users = new HashSet<>();
 
     public Address() {
