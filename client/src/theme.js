@@ -19,6 +19,12 @@ const myTheme = createMuiTheme({
                 fontWeight: '700',
             },
         },
+        a: {
+            root: {
+                underline: "none",
+                textDecoration: "none"
+            }
+        }
     },
 })
 

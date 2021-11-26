@@ -1,10 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {
-    Paper,
-    Grid,
-    Typography,
-    makeStyles,
-} from '@material-ui/core';
+import {Grid, makeStyles, Paper, Typography,} from '@material-ui/core';
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 import AdCard from '../../components/AdCard/AdCard';
@@ -26,27 +21,21 @@ function YourAds() {
     const [myAds, setMyAds] = useState([]);
 
     useEffect(() => {
-        axios.get('/api/getUsersAds', 
-        {
-            params: {
-                email: jwtDecode(localStorage.getItem('token')).email
-            }
-        })
-        .then(response => setMyAds(response.data))
+        axios.get('http://localhost:8080/api/user/getUsersAds',
+            {
+                params: {
+                    email: jwtDecode(localStorage.getItem('token')).email
+                }
+            })
+            .then(response => setMyAds(response.data))
     }, []);
 
     console.log(myAds);
 
     return (
-        <Grid
-            container
-            component="main"
-            className={classes.root}
-            alignItems="flex-start"
-            justify="center"
-        >
-            <Grid item xl={8} lg={8} md={9} sm={10} xs={10}>
-                <Typography variant="h4" style={{ fontWeight: 'bold', margin: '2rem 0 1rem 0' }}>
+        <Grid container component="main" className={classes.root} alignItems="flex-start" justify="center" >
+            <Grid item xl={8} lg={8} md={9} sm={10} xs={10} >
+                <Typography variant="h4" style={{fontWeight: 'bold', margin: '2rem 0 1rem 0'}} >
                     Your ads
                 </Typography>
             </Grid>
@@ -63,13 +52,9 @@ function YourAds() {
                 >
                     {
                         myAds.map((item) => {
-                            return(
-                                <Grid
-                                    item
-                                    key={item.id} 
-                                    xl={3} lg={4} md={4} sm={6} xs={12}
-                                >
-                                    <AdCard item={item} isOwner={true}/>
+                            return (
+                                <Grid item key={item.id} xl={3} lg={4} md={4} sm={6} xs={12} >
+                                    <AdCard item={item} isOwner={true} />
                                 </Grid>
                             )
                         })

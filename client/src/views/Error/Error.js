@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-    Paper,
-    Grid,
-    Typography,
-    Button,
-    makeStyles,
-} from '@material-ui/core';
+import {Paper, Grid, Typography, Button, makeStyles} from '@material-ui/core';
 import {NavLink} from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
@@ -46,13 +40,7 @@ function Error() {
     const classes = useStyles();
 
     return(
-        <Grid
-            container
-            component='main'
-            className={classes.root}
-            alignItems='center'
-            justify='center'
-        >
+        <Grid container component='main' className={classes.root} alignItems='center' justify='center' >
             <Grid
                 container item
                 className={classes.paper}
@@ -62,26 +50,20 @@ function Error() {
                 xl={5} lg={6} md={7} sm={8} xs={10}
             >
                 <Grid item xs={12} >
-                    <Typography align='center' className={classes.error}>
+                    <Typography align='center' className={classes.error} >
                         4
-                        <Typography component={'span'} color='secondary' className={classes.error}>
+                        <Typography component={'span'} color='secondary' className={classes.error} >
                             0
                         </Typography>
                         4
                     </Typography>
-                    <Typography align='center' className={classes.message}>
+                    <Typography align='center' className={classes.message} >
                         THE PAGE YOU REQUESTED COULD NOT BE FOUND
                     </Typography>
                 </Grid>
-                <Grid item xs={12}>
-                    <NavLink to='/home'>
-                        <Button
-                            fullWidth
-                            type='submit'
-                            variant='contained'
-                            color='secondary'
-                            size='large'
-                        >
+                <Grid item xs={12} >
+                    <NavLink to='/home' >
+                        <Button fullWidth type='submit' variant='contained' color='secondary' size='large' >
                             GO TO HOMEPAGE
                         </Button>
                     </NavLink>

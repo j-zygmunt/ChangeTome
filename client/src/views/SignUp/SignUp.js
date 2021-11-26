@@ -1,15 +1,6 @@
 import React, {useState} from 'react';
-import { 
-    Grid, 
-    makeStyles,
-    Paper,
-    TextField,
-    Typography,
-    Button,
-    Checkbox,
-    useMediaQuery
-} from '@material-ui/core';
-import {NavLink,  useHistory} from 'react-router-dom';
+import {Grid, makeStyles, Paper, TextField, Typography, Button, Checkbox, useMediaQuery} from '@material-ui/core';
+import {NavLink, useHistory} from 'react-router-dom';
 import PasswordInput from '../../components/PasswordInput/PasswordInput';
 import axios from 'axios';
 import NumberFormatCustom from '../../utils/NumberFormatCustom';
@@ -86,10 +77,9 @@ function SignUp() {
             {
                 name: name,
                 surname: surname,
-                email: email,
-                phone: phone,
-                password: password,
-                password2: password2
+                phoneNumber: phone,
+                emailAddress: email,
+                password: password
             })
             .then(response => {
                 console.log(response.data);
@@ -103,17 +93,8 @@ function SignUp() {
     }
 
     return(
-        <Grid
-            container
-            component='div'
-            className={classes.root}
-            alignItems='center'
-        >
-            <Grid 
-                item
-                className={classes.image}
-                md={6} sm={4} xs={false}
-            />
+        <Grid container component='div' className={classes.root} alignItems='center' >
+            <Grid item className={classes.image} md={6} sm={4} xs={false} />
             <Grid
                 container item
                 component={Paper}
@@ -217,35 +198,25 @@ function SignUp() {
                         />
                     </Grid>
                     <Grid item xs={12} className={classes.wrap}>
-                        <Checkbox 
-                            color='secondary'
-                            value={accepted}
-                            onClick={() => setAccepted(!accepted)}
-                        />
+                        <Checkbox color='secondary' value={accepted} onClick={() => setAccepted(!accepted)} />
                         <NavLink to='/terms-and-conditions' className={classes.link}>
                                 I accept terms and conditions
                         </NavLink>
                     </Grid>
-                    <Grid item xs={12}>
-                        <Button
-                            fullWidth
-                            type='submit'
-                            variant='contained'
-                            color='secondary'
-                            size='large'
-                        >
+                    <Grid item xs={12} >
+                        <Button fullWidth type='submit' variant='contained' color='secondary' size='large' >
                             Sign up
                         </Button>
                     </Grid>
-                    <NavLink to='/signin' className={classes.link}>
+                    <NavLink to='/signin' className={classes.link} >
                         Sign in
                     </NavLink>
                 </Grid>
             </Grid>
-            <AlertDialog 
-                title={dialogTitle} 
-                content={dialogContent} 
-                isOpened={isDialogOpened} 
+            <AlertDialog
+                title={dialogTitle}
+                content={dialogContent}
+                isOpened={isDialogOpened}
                 setIsOpened={setIsDialogOpened}
             />
         </Grid>

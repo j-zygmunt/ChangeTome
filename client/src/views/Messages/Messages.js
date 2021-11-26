@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-    Paper,
-    Grid,
-    Typography,
-    makeStyles,
-} from '@material-ui/core';
+import {Grid, makeStyles, Paper, Typography} from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -38,19 +33,13 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function YourAds() {
+function Messages() {
     const classes = useStyles();
 
     return (
-        <Grid
-            container
-            component="main"
-            className={classes.root}
-            alignItems="flex-start"
-            justify="center"
-        >
-            <Grid item xl={8} lg={8} md={9} sm={10} xs={10}>
-                <Typography variant="h4" style={{ fontWeight: 'bold', margin: '2rem 0 1rem 0' }}>
+        <Grid container component="main" className={classes.root} alignItems="flex-start" justify="center" >
+            <Grid item xl={8} lg={8} md={9} sm={10} xs={10} >
+                <Typography variant="h4" style={{fontWeight: 'bold', margin: '2rem 0 1rem 0'}} >
                     Messages
                 </Typography>
             </Grid>
@@ -62,11 +51,9 @@ function YourAds() {
                 justify="flex-start"
                 spacing={3}
                 xl={8} lg={8} md={9} sm={10} xs={10}
-            >
-            </Grid>
-
+            />
         </Grid>
     )
 }
 
-export default YourAds;
+export default Messages;

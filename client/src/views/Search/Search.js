@@ -1,10 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {
-    Paper,
-    Grid,
-    Typography,
-    makeStyles,
-} from '@material-ui/core';
+import {Paper, Grid, Typography, makeStyles} from '@material-ui/core';
 import {useLocation} from "react-router-dom";
 import Pagination from '@material-ui/lab/Pagination';
 import SearchBar from '../../components/SearchBar/SearchBar';
@@ -93,18 +88,12 @@ function Search() {
     console.log(searchResult)
 
     return (
-        <Grid
-            container
-            component='main'
-            className={classes.root}
-            alignItems='flex-start'
-            justify='center'
-        >
-            <Grid item xl={8} lg={8} md={9} sm={10} xs={10}>
-            <SearchBar searchPhase={searchPhase} setSearchPhase={setSearchPhase} handleSearch={handleSearch}/>
+        <Grid container component='main' className={classes.root} alignItems='flex-start' justify='center' >
+            <Grid item xl={8} lg={8} md={9} sm={10} xs={10} >
+                <SearchBar searchPhase={searchPhase} setSearchPhase={setSearchPhase} handleSearch={handleSearch} />
             </Grid>
-            <Grid item xl={8} lg={8} md={9} sm={10} xs={10}>
-                <Typography variant='h4' style={{fontWeight: 'bold', margin: '2rem 0 1rem 0'}}>
+            <Grid item xl={8} lg={8} md={9} sm={10} xs={10} >
+                <Typography variant='h4' style={{fontWeight: 'bold', margin: '2rem 0 1rem 0'}} >
                     Search results
                 </Typography>
             </Grid>
@@ -122,12 +111,8 @@ function Search() {
                     {
                         searchResult.map((item) => {
                             return (
-                                <Grid
-                                    key={item.id}
-                                    item 
-                                    xl={3} lg={4} md={4} sm={6} xs={12}
-                                >
-                                    <AdCard item={item}/>
+                                <Grid key={item.id} item xl={3} lg={4} md={4} sm={6} xs={12} >
+                                    <AdCard item={item} />
                                 </Grid>
                             )
                         })
@@ -136,7 +121,7 @@ function Search() {
             }
             {
                 searchResult.length !==0 &&
-                <Grid 
+                <Grid
                     container item
                     justify='center'
                     xl={8} lg={8} md={9} sm={10} xs={10}

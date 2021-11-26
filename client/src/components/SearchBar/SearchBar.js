@@ -79,7 +79,7 @@ function SearchBar(props) {
                     <CloseIcon style={{fontSize: '1.5em'}}/>
                 </IconButton>
                 <MenuList >
-                    <NavLink to='/404' style={{display: 'block'}}>
+                    <NavLink to='/404' style={{display: 'block', textDecoration: "none"}}>
                         <Button
                             onClick={toggleDrawer(false)}
                             color='secondary'

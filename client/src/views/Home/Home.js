@@ -1,15 +1,10 @@
 import React, {useState, useEffect} from 'react';
-import {
-    makeStyles,
-    Grid,
-    Paper,
-    Button,
-    Typography,
-} from '@material-ui/core';
+import {makeStyles, Grid, Paper, Button, Typography} from '@material-ui/core';
 import {Link, useHistory} from 'react-router-dom';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import AdCardHolderHome from '../../components/AdCardHolderHome/AdCardHolderHome';
 import axios from 'axios';
+import AuthorizationCheckService from "../../services/AuthorizationCheckService";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -44,13 +39,13 @@ const useStyles = makeStyles((theme) => ({
 function Home() {
     const classes = useStyles();
     const [isLoading, setIsLoading] = useState(true);
-    const [lastestAds, setLastestAds] = useState([]);
+    const [latestAds, setLatestAds] = useState([]);
     const [searchPhase, setSearchPhase] = useState('');
     const history = useHistory();
 
     useEffect(() => {
-        axios.get('/api/getLastestAds')
-            .then(response => setLastestAds(response.data))
+        axios.get('http://localhost:8080/api/ads/getLatestAds')
+            .then(response => setLatestAds(response.data))
             .finally(
                 setTimeout(() => {
                     setIsLoading(false);
@@ -66,23 +61,11 @@ function Home() {
     }
 
     return (
-        <Grid
-            container
-            component='main'
-            className={classes.root}
-            alignItems='flex-start'
-            justify='center'
-        >
+        <Grid container component='main' className={classes.root} alignItems='flex-start' justify='center'>
             <Grid item xl={4} lg={5} md={5} sm={7} xs={10}>
                 <SearchBar searchPhase={searchPhase} setSearchPhase={setSearchPhase} handleSearch={handleSearch}/>
             </Grid>
-            <Grid
-                container item
-                className={classes.image}
-                alignItems='center'
-                justify='center'
-                xs={12}
-            >
+            <Grid container item className={classes.image} alignItems='center' justify='center' xs={12}>
                 <Grid
                     container item
                     elevation={2}
@@ -118,7 +101,7 @@ function Home() {
             </Grid>
             {
                 !isLoading &&
-                <AdCardHolderHome name='Lastest' ads={lastestAds} more={''}/>
+                <AdCardHolderHome name='Latest' ads={latestAds} more={''}/>
             }
         </Grid>
     );
