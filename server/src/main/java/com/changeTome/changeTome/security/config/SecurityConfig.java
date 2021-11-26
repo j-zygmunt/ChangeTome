@@ -45,7 +45,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeRequests()
-                .antMatchers("api/**/private").authenticated()
+                .antMatchers("api/**/private/**").authenticated()
+                .antMatchers("api/private/**").authenticated()
 //                .antMatchers("/swagger-ui.html").permitAll()
 //                .antMatchers("/v2/api-docs").permitAll()
 //                .antMatchers("/swagger-resources/**").permitAll()
@@ -64,7 +65,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         configuration.setAllowedOrigins(List.of("http://localhost:3000"));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
-        configuration.setMaxAge(1000L);
+//        configuration.setMaxAge(1000L);
         var source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;

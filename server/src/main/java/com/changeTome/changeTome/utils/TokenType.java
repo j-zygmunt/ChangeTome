@@ -2,7 +2,7 @@ package com.changeTome.changeTome.utils;
 
 public enum TokenType {
     ACCESS_TOKEN("access_token", 600000),
-    REFRESH_TOKEN("refresh_token", 1800000);
+    REFRESH_TOKEN("refresh_token", 365 * 24 * 60 * 60);
 
     private final String tokenName;
     private final int expirationTime;

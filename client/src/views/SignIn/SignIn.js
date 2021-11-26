@@ -32,14 +32,14 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function SignIn() {
+function SignIn(props) {
     const classes = useStyles();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const mobile = useMediaQuery('(max-width:600px)');
     const history = useHistory();
 
-    if (localStorage.getItem('token')) {
+    if (props.isLogged) {
         history.push('/');
     }
 
@@ -53,10 +53,10 @@ function SignIn() {
             { withCredentials: true}
             )
             .then(response => {
-                console.log(response.data)
                 if (response.status === 200) {
-                    localStorage.setItem('token', response.data.access_token);
+                    props.setLogged(true);
                     history.push('/');
+                    localStorage.setItem('token', response.data.access_token);
                 }
             }).catch(error => {
             //todo

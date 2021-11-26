@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.WebUtils;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -20,6 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
+import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -49,9 +49,7 @@ public class SecurityController {
             try {
                 var refreshToken = cookie.getValue();
                 var algorithm = Algorithm.HMAC256("secret".getBytes(UTF_8));
-                var tokenVerifier = JWT.require(algorithm).build();
-                var decodedJWT = tokenVerifier.verify(refreshToken);
-                var emailAddress = decodedJWT.getSubject();
+                var emailAddress = JWT.require(algorithm).build().verify(refreshToken).getSubject();
                 var user = userService.getUserByEmailAddress(emailAddress);
                 var accessToken = tokenProvider.createToken(user, String.valueOf(request.getRequestURL()), TokenType.ACCESS_TOKEN);
                 response.setContentType(APPLICATION_JSON_VALUE);
@@ -68,4 +66,25 @@ public class SecurityController {
             throw new RuntimeException("Refresh token is missing");
         }
     }
+
+    @GetMapping(path = "/private/logout")
+    public void logout(
+            HttpServletRequest request,
+            HttpServletResponse response
+    ) {
+        var cookie = WebUtils.getCookie(request, TokenType.REFRESH_TOKEN.tokenName());
+        var authorizationHeader = request.getHeader(AUTHORIZATION);
+        if (cookie != null) {
+            cookie.setMaxAge(0);
+            response.addCookie(cookie);
+        } else if (authorizationHeader != null) {
+            var token = authorizationHeader.substring("Bearer ".length());
+            var algorithm = Algorithm.HMAC256("secret".getBytes(UTF_8));
+            var emailAddress = JWT.require(algorithm).build().verify(token).getSubject();
+            userService.setUserActivenessByEmail(emailAddress,true);
+        } else {
+            //TODO
+        }
+    }
+
 }

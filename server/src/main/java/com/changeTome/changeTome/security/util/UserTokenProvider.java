@@ -26,7 +26,7 @@ public final class UserTokenProvider implements ITokenProvider<User> {
                 .withExpiresAt(new Date(System.currentTimeMillis() + tokenType.expirationTime()))
                 .withIssuer(issuer);
         if (tokenType == TokenType.ACCESS_TOKEN) {
-            tokenBuilder.withClaim("roles", List.of(user.getRole()));
+            tokenBuilder.withClaim("roles", List.of(user.getRole().name()));
         }
 
         return tokenBuilder.sign(algorithm);

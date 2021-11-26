@@ -23,12 +23,13 @@ import java.util.Map;
 import static java.util.Arrays.stream;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
+import static org.springframework.http.HttpHeaders.CONTENT_TYPE;
 import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 public class CustomAuthorizationFilter extends OncePerRequestFilter {
 
-    private static final Logger LOG = LoggerFactory.getLogger(CustomAuthenticationFilter.class);
+    private static final Logger LOG = LoggerFactory.getLogger(CustomAuthorizationFilter.class);
 
     @Override
     protected void doFilterInternal(
@@ -36,7 +37,6 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
             HttpServletResponse response,
             FilterChain filterChain
     ) throws ServletException, IOException {
-
         if (!List.of("/api/login", "api/refreshToken").contains(request.getServletPath())) {
             var authorizationHeader = request.getHeader(AUTHORIZATION);
             if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {

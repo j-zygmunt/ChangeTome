@@ -3,8 +3,8 @@ import {Redirect, Route} from 'react-router-dom';
 import AuthorizationCheckService from '../../services/AuthorizationCheckService';
 
 function PrivateRoute(props) {
-    useEffect(() => {
-        AuthorizationCheckService.isAuthorized();
+    useEffect(async () => {
+        await AuthorizationCheckService.isAuthorized();
     }, [])
 
     return localStorage.getItem('token')

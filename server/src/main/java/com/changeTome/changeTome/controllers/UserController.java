@@ -2,7 +2,6 @@ package com.changeTome.changeTome.controllers;
 
 import com.changeTome.changeTome.domain.User;
 import com.changeTome.changeTome.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -17,7 +16,6 @@ public class UserController {
 
     private final UserService userService;
 
-    @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
@@ -27,9 +25,9 @@ public class UserController {
         return ResponseEntity.ok().body(userService.getUsers());
     }
 
-    @PostMapping("/add")
+    @PostMapping("/register")
     public ResponseEntity<User> registerNewUser(@RequestBody @Valid User user) {
-        var uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("api/users/add").toUriString());
+        var uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("api/users/register").toUriString());
         return ResponseEntity.created(uri).body(userService.addNewUser(user));
     }
 
@@ -37,5 +35,12 @@ public class UserController {
     public ResponseEntity<?> deleteUser(@PathVariable("userId") Long userId) {
         userService.deleteUser(userId);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping(path = "/getUsersAds")
+    public ResponseEntity<?> getUSersAds(@RequestParam String emailAddress) {
+        var user = userService.getUserByEmailAddress(emailAddress);
+        var uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("api/users/register").toUriString());
+        return ResponseEntity.ok().body(user.getAds());
     }
 }

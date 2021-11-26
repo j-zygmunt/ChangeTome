@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react';
-import {Switch, Route, Redirect, BrowserRouter} from 'react-router-dom';
+import {Switch, Route, Redirect, BrowserRouter, useHistory, withRouter, Router} from 'react-router-dom';
+import { createBrowserHistory } from 'history'
 import Error from './views/Error/Error';
 import Home from './views/Home/Home';
 import PostAd from './views/PostAd/PostAd';
@@ -14,13 +15,19 @@ import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import AuthorizationCheckService from './services/AuthorizationCheckService';
 
 function App() {
-    useEffect(() => {
-        AuthorizationCheckService.isAuthorized()
-    });
+    const [isLogged, setLogged] = React.useState(false);
+
+    useEffect(async () => {
+        setLogged(await AuthorizationCheckService.isAuthorized());
+        window.addEventListener('storage', async () => {
+            setLogged(await AuthorizationCheckService.isAuthorized());
+            console.log(isLogged)
+        });
+    }, []);
 
     return (
         <BrowserRouter>
-            <Header/>
+            <Header isLogged={isLogged} setLogged={setLogged}/>
             <Switch>
                 <Route path='/login'>
                     <Redirect to='/signin'/>
@@ -34,14 +41,16 @@ function App() {
                 <PrivateRoute path='/your-ads' component={YourAds}/>
                 <PrivateRoute path='/messages' component={Error}/>
                 <PrivateRoute path='/favourites' component={Error}/>
-                <Route path='/signin' component={SignIn}/>
+                <Route path='/signin' render={(props) => (
+                    <SignIn {...props} isLogged={isLogged} setLogged={setLogged}/>
+                )}/>
                 <Route path='/ad/:id' component={Ad}/>
                 <Route path='/signup' component={SignUp}/>
                 <Route path='/search' component={Search}/>
                 <Route path='/404' component={Error}/>
                 <Route exact path='/'>
                     <Redirect to='/home'/>
-                </Route>   
+                </Route>
                 <Redirect to='/404'/>
             </Switch>
         </BrowserRouter>

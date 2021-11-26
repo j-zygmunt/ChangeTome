@@ -62,7 +62,7 @@ function MobileHeaderItems(props) {
                             return item.itemName === 'Logout'
                             ? (
                                 <a
-                                    style={{display: 'block'}}
+                                    style={{display: 'block', textDecoration: "none"}}
                                     key={item.itemName}
                                 >
                                     <Button
@@ -82,7 +82,7 @@ function MobileHeaderItems(props) {
                                 <NavLink
                                     to={item.link}
                                     key={item.itemName}
-                                    style={{display: 'block'}}
+                                    style={{display: 'block', textDecoration: "none"}}
                                 >
                                     <Button
                                         onClick={toggleDrawer(false)}

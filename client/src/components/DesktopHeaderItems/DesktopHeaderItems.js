@@ -11,7 +11,6 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-
 const useStyles = makeStyles((theme) => ({
     desktopButtons: {
         '& > *': {
@@ -48,8 +47,7 @@ function DesktopHeaderItems(props) {
         prevOpen.current = open;
     }, [open]);
 
-
-    if (!localStorage.getItem('token'))
+    if (!props.isLogged)
         return (
             <div className={classes.desktopButtons}>
                 {

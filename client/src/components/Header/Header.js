@@ -1,14 +1,8 @@
 import React from 'react';
 import {AppBar, Toolbar, Typography, useMediaQuery} from '@material-ui/core';
-import {withRouter, useHistory, Link} from 'react-router-dom';
+import {Link, useHistory, withRouter} from 'react-router-dom';
 import {makeStyles} from '@material-ui/core/styles';
-import {
-    FolderOpen,
-    MailOutline,
-    FavoriteBorder,
-    PermIdentity,
-    ExitToApp,
-} from '@material-ui/icons';
+import {ExitToApp, FavoriteBorder, FolderOpen, MailOutline, PermIdentity} from '@material-ui/icons';
 import LoginHeader from '../LoginHeader/LoginHeader';
 import DesktopHeaderItems from '../DesktopHeaderItems/DesktopHeaderItems';
 import MobileHeaderItems from '../MobileHeaderItems/MobileHeaderItems';
@@ -44,62 +38,62 @@ function Header(props) {
     const mobile = useMediaQuery('(max-width:960px)');
     const history = useHistory();
 
-    const menuForUser = [
-        {
-            itemName: 'Exchange',
-            link: '/post-ad',
-        },
-        {
-            itemName: 'Manage my Ads',
-            link: '/your-ads',
-            icon: <FolderOpen/>
-        },
-        {
-            itemName: 'Messages',
-            link: '/messages',
-            icon: <MailOutline/>
-        },
-        {
-            itemName: 'Favourites',
-            link: '/favourites',
-            icon: <FavoriteBorder/>
-        },
-        {
-            itemName: 'My Details',
-            link: '/manage-account',
-            icon: <PermIdentity/>
-        },
-        {
-            itemName: 'Logout',
-            link: '/logout',
-            icon: <ExitToApp/>
-        },
-    ]
+    const menuItems = props.isLogged ?
+            [
+                {
+                    itemName: 'Exchange',
+                    link: '/post-ad',
+                },
+                {
+                    itemName: 'Manage my Ads',
+                    link: '/your-ads',
+                    icon: <FolderOpen/>
+                },
+                {
+                    itemName: 'Messages',
+                    link: '/messages',
+                    icon: <MailOutline/>
+                },
+                {
+                    itemName: 'Favourites',
+                    link: '/favourites',
+                    icon: <FavoriteBorder/>
+                },
+                {
+                    itemName: 'My Details',
+                    link: '/manage-account',
+                    icon: <PermIdentity/>
+                },
+                {
+                    itemName: 'Logout',
+                    link: '/logout',
+                    icon: <ExitToApp/>
+                },
+            ]
+            : [
+                {
+                    itemName: 'Sign in',
+                    link: '/signin'
+                },
+                {
+                    itemName: 'Sign up',
+                    link: '/signup'
+                },
+                {
+                    itemName: 'Exchange',
+                    link: '/signin'
+                },
+            ]
 
-    const menuForGuest = [
-        {
-            itemName: 'Sign in',
-            link: '/signin'
-        },
-        {
-            itemName: 'Sign up',
-            link: '/signup'
-        },
-        {
-            itemName: 'Exchange',
-            link: '/signin'
-        },
-    ]
-
-    if (props.location.pathname.toUpperCase() == '/SIGNUP' || props.location.pathname.toUpperCase() == '/SIGNIN')
+    if (props.location.pathname.toUpperCase() === '/SIGNUP' || props.location.pathname.toUpperCase() === '/SIGNIN')
         return (
             <LoginHeader/>
         );
 
     const logout = () => {
-        axios.post('api/private/logout', 
+        axios.get('http://localhost:8080/api/private/logout',
             {
-                header: {
+                headers: {
                     Authorization: 'Bearer ' + localStorage.getItem('token')
                 }
             })
@@ -107,6 +101,7 @@ function Header(props) {
                 localStorage.removeItem('token');
                 history.push("/");
             })
+            //TODO
             .catch();
     }
 
@@ -115,10 +110,13 @@ function Header(props) {
             <Toolbar className={classes.default}>
                 {
                     mobile &&
-                        <MobileHeaderItems
-                            headerItems={localStorage.getItem('token') ? menuForUser : menuForGuest}
-                            logout={logout}
-                        />
+                    <MobileHeaderItems
+                        headerItems={menuItems}
+                        isLogged={props.isLogged}
+                        setLogged={props.setLogged}
+                        logout={logout}
+                        key={props.isLogged}
+                    />
                 }
                 <Typography variant='h6' className={classes.title}>
                     <Link to='/home' className={classes.link}>
@@ -127,10 +125,13 @@ function Header(props) {
                 </Typography>
                 {
                     !mobile &&
-                        <DesktopHeaderItems 
-                            headerItems={localStorage.getItem('token') ? menuForUser : menuForGuest}
-                            logout={logout}
-                        />
+                    <DesktopHeaderItems
+                        headerItems={menuItems}
+                        isLogged={props.isLogged}
+                        setLogged={props.setLogged}
+                        logout={logout}
+                        key={props.isLogged}
+                    />
                 }
             </Toolbar>
         </AppBar>
