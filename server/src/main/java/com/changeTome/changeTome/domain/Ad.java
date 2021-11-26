@@ -22,10 +22,12 @@ public class Ad {
     @Column(name = "id", updatable = false)
     private Long id;
 
+    //TODO remove
     @NotBlank
     @Column(name = "author", columnDefinition = "TEXT")
     private String author;
 
+    //TODO remove
     @NotBlank
     @Column(name = "title", columnDefinition = "TEXT")
     private String title;
@@ -67,6 +69,10 @@ public class Ad {
 
     @OneToMany(mappedBy = "ad", cascade = CascadeType.ALL)
     private Set<StarredAd> stars = new HashSet<>();
+
+    @ManyToOne
+    @JoinColumn(name = "id_book", referencedColumnName = "id")
+    private Book book;
 
     public Ad() {
         //
