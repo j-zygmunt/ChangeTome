@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Grid, makeStyles, Paper, TextField, Typography, Button, Checkbox, useMediaQuery} from '@material-ui/core';
+import {Button, Checkbox, Grid, makeStyles, Paper, TextField, Typography, useMediaQuery} from '@material-ui/core';
 import {NavLink, useHistory} from 'react-router-dom';
 import PasswordInput from '../../components/PasswordInput/PasswordInput';
 import axios from 'axios';
@@ -57,7 +57,7 @@ function SignUp() {
     const [dialogTitle, setDialogTitle] = useState('');
     const [dialogContent, setDialogContent] = useState('');
 
-    if(localStorage.getItem('token')) {
+    if (localStorage.getItem('token')) {
         history.push('/');
     }
 
@@ -67,34 +67,33 @@ function SignUp() {
         if (password !== password2) {
             setDialogContent("Passwords don't match");
             setIsDialogOpened(true);
-        }
-        else if (!accepted) {
+        } else if (!accepted) {
             setDialogContent('You have to accept the terms and conditions');
             setIsDialogOpened(true);
-        }
-        else {
-            axios.post('/api/register', 
-            {
-                name: name,
-                surname: surname,
-                phoneNumber: phone,
-                emailAddress: email,
-                password: password
-            })
-            .then(response => {
-                console.log(response.data);
-                if(response.data === 'success') {
-                    history.push('/')
-                }
-                setDialogContent(response.data);
-                setIsDialogOpened(true);
-            })
+        } else {
+            axios.post('http://localhost:8080/api/user/register',
+                {
+                    name: name,
+                    surname: surname,
+                    phoneNumber: phone,
+                    emailAddress: email,
+                    password: password
+                })
+                .then(response => {
+                    console.log(response.data);
+                    if (response.status === 201) {
+                        history.push('/')
+                    } else {
+                        setDialogContent(response.data);
+                        setIsDialogOpened(true);
+                    }
+                })
         }
     }
 
-    return(
-        <Grid container component='div' className={classes.root} alignItems='center' >
-            <Grid item className={classes.image} md={6} sm={4} xs={false} />
+    return (
+        <Grid container component='div' className={classes.root} alignItems='center'>
+            <Grid item className={classes.image} md={6} sm={4} xs={false}/>
             <Grid
                 container item
                 component={Paper}
@@ -103,7 +102,7 @@ function SignUp() {
                 alignItems='center'
                 justify='center'
                 xl={4} lg={5} md={5} sm={7} xs={11}
-            > 
+            >
                 <Typography variant='h5' paragraph>
                     Sign up
                 </Typography>
@@ -127,7 +126,7 @@ function SignUp() {
                             variant='outlined'
                             color='secondary'
                             size={mobile ? 'small' : 'medium'}
-                        /> 
+                        />
                     </Grid>
                     <Grid item xs={12}>
                         <TextField
@@ -141,7 +140,7 @@ function SignUp() {
                             variant='outlined'
                             color='secondary'
                             size={mobile ? 'small' : 'medium'}
-                        /> 
+                        />
                     </Grid>
                     <Grid item xs={12}>
                         <TextField
@@ -155,7 +154,7 @@ function SignUp() {
                             variant='outlined'
                             color='secondary'
                             size={mobile ? 'small' : 'medium'}
-                        /> 
+                        />
                     </Grid>
                     <Grid item xs={12}>
                         <TextField
@@ -170,10 +169,10 @@ function SignUp() {
                             color='secondary'
                             size={mobile ? 'small' : 'medium'}
                             InputProps={{inputComponent: NumberFormatCustom}}
-                        /> 
+                        />
                     </Grid>
                     <Grid item xs={12}>
-                        <PasswordInput 
+                        <PasswordInput
                             id='password'
                             name='password'
                             value={password}
@@ -183,11 +182,11 @@ function SignUp() {
                             size={mobile ? 'small' : 'medium'}
                         />
                     </Grid>
-                        <Typography className={classes.wrap} variant={mobile ? 'caption' : 'subtitle2'}>
-                            {'At least 8 characters, 1 uppercase, 1 number'}
-                        </Typography>
+                    <Typography className={classes.wrap} variant={mobile ? 'caption' : 'subtitle2'}>
+                        {'At least 8 characters, 1 uppercase, 1 number'}
+                    </Typography>
                     <Grid item xs={12}>
-                        <PasswordInput 
+                        <PasswordInput
                             id='password2'
                             name='password2'
                             value={password2}
@@ -198,17 +197,17 @@ function SignUp() {
                         />
                     </Grid>
                     <Grid item xs={12} className={classes.wrap}>
-                        <Checkbox color='secondary' value={accepted} onClick={() => setAccepted(!accepted)} />
+                        <Checkbox color='secondary' value={accepted} onClick={() => setAccepted(!accepted)}/>
                         <NavLink to='/terms-and-conditions' className={classes.link}>
-                                I accept terms and conditions
+                            I accept terms and conditions
                         </NavLink>
                     </Grid>
-                    <Grid item xs={12} >
-                        <Button fullWidth type='submit' variant='contained' color='secondary' size='large' >
+                    <Grid item xs={12}>
+                        <Button fullWidth type='submit' variant='contained' color='secondary' size='large'>
                             Sign up
                         </Button>
                     </Grid>
-                    <NavLink to='/signin' className={classes.link} >
+                    <NavLink to='/signin' className={classes.link}>
                         Sign in
                     </NavLink>
                 </Grid>

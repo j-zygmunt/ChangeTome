@@ -38,7 +38,7 @@ public class UserController {
     }
 
     @GetMapping(path = "/getUsersAds")
-    public ResponseEntity<?> getUSersAds(@RequestParam String emailAddress) {
+    public ResponseEntity<?> getUsersAds(@RequestParam String emailAddress) {
         var user = userService.getUserByEmailAddress(emailAddress);
         var uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("api/users/register").toUriString());
         return ResponseEntity.ok().body(user.getAds());

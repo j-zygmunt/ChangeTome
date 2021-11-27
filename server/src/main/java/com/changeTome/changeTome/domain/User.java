@@ -37,7 +37,6 @@ public class User {
     @Column(name = "phone_number", columnDefinition = "TEXT")
     private String phoneNumber;
 
-    @NotNull
     @Column(name = "is_active")
     private Boolean isActive;
 
@@ -52,7 +51,6 @@ public class User {
     @Column(name = "avatar", columnDefinition = "TEXT")
     private String avatar;
 
-    @NotNull
     @Column(name = "created_at", updatable = false)
     private Timestamp createdAt;
 
@@ -78,7 +76,6 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<StarredAd> starredAds = new HashSet<>();
 
-    @NotNull
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
@@ -86,11 +83,13 @@ public class User {
         //
     }
 
-    public User(String name,
-                String surname,
-                String phoneNumber,
-                String emailAddress,
-                String password) {
+    public User(
+            String name,
+            String surname,
+            String phoneNumber,
+            String emailAddress,
+            String password
+    ) {
         this.name = name;
         this.surname = surname;
         this.phoneNumber = phoneNumber;
